@@ -16,7 +16,8 @@
       "name": "sjg-io-preview",
       "assets": {
         "directory": "./dist"
-      }
+      },
+      "routes": []
     }
   }
 }
