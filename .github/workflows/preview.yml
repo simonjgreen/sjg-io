@@ -31,7 +31,7 @@ jobs:
         apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         wranglerVersion: '4'
-        command: pages project create sjg-io-preview --compatibility-date 2025-01-08
+        command: pages project create sjg-io-preview --production-branch main --compatibility-date 2025-01-08
       continue-on-error: true
 
     - name: Deploy Preview to Cloudflare Pages
