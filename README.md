@@ -56,3 +56,4 @@ Target Lighthouse scores ≥ 95 across all categories. The site is optimised for
 - Dark mode and accessibility support
 
 See [ARCHITECTURE.md](./ARCHITECTURE.md) for technical details.
+# Static site deployment fix
