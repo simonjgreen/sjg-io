@@ -2,18 +2,14 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "sjg-io",
   "compatibility_date": "2025-01-08",
-  "main": "./src/worker/index.js",
   "assets": {
-    "directory": "./dist",
-    "binding": "ASSETS"
+    "directory": "./dist"
   },
   "env": {
     "preview": {
       "name": "sjg-io-preview",
-      "main": "./src/worker/index.js",
       "assets": {
-        "directory": "./dist",
-        "binding": "ASSETS"
+        "directory": "./dist"
       },
       "routes": [
         {
@@ -24,10 +20,8 @@
     },
     "production": {
       "name": "sjg-io",
-      "main": "./src/worker/index.js",
       "assets": {
-        "directory": "./dist",
-        "binding": "ASSETS"
+        "directory": "./dist"
       },
       "routes": [
         {
