@@ -1,4 +1,4 @@
-name: Deploy
+name: Production Deploy
 
 on:
   push:
@@ -23,12 +23,13 @@ jobs:
       run: npm ci
 
     - name: Build
-      run: npm run build
+      run: npx astro build
 
-    - name: Deploy to Cloudflare Workers
-      uses: cloudflare/wrangler-action@v3
+    - name: Deploy to Cloudflare Pages
+      uses: cloudflare/pages-action@v1
       with:
         apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-        wranglerVersion: '4'
-        command: deploy --compatibility-date 2025-01-08
+        projectName: sjg-io
+        directory: dist
+        gitHubToken: ${{ secrets.GITHUB_TOKEN }}

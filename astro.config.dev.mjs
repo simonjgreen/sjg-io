@@ -5,7 +5,7 @@ import tailwind from '@astrojs/tailwind';
 export default defineConfig({
   site: 'https://sjg.io',
   base: '/',
-  output: 'static', // Use static output for development
+  output: 'static',
   integrations: [mdx(), tailwind()],
   markdown: {
     shikiConfig: {
