@@ -13,8 +13,8 @@
       },
       "routes": [
         {
-          "pattern": "preview.sjg.io/*",
-          "zone_name": "sjg.io"
+          "pattern": "preview.sjg.io",
+          "custom_domain": true
         }
       ]
     },
@@ -25,8 +25,8 @@
       },
       "routes": [
         {
-          "pattern": "sjg.io/*",
-          "zone_name": "sjg.io"
+          "pattern": "sjg.io",
+          "custom_domain": true
         }
       ]
     }
