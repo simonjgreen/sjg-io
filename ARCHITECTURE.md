@@ -7,8 +7,8 @@ This document describes the technical architecture and conventions of the site.
 ## Overview
 - **Framework:** Astro + MDX
 - **Styling:** Tailwind CSS
-- **Hosting:** Cloudflare Pages (static site hosting)
-- **CI/CD:** GitHub Actions (CI + deploy via Pages)
+- **Hosting:** Cloudflare Workers (static assets)
+- **CI/CD:** GitHub Actions (CI + deploy via Wrangler)
 - **Analytics:** Plausible (EU-hosted, cookie-less)
 - **Domain:** sjg.io (delegated to Cloudflare DNS)
 - **Preview:** preview.sjg.io (for PR previews)
@@ -32,13 +32,13 @@ Collections:
    - Lint, type-check, build, link-check, Lighthouse CI.
 3. **Preview (`preview.yml`):**  
    - Build Astro project with preview config.
-   - Deploy `dist/` to Cloudflare Pages.
-   - Map to `preview.sjg.io` via Cloudflare custom domain.
+   - Deploy `dist/` to Cloudflare Workers using Wrangler.
+   - Map to `preview.sjg.io` via Cloudflare routes.
 4. Merge PR → `main`.
 5. **Deploy (`deploy.yml`):**  
    - Build Astro project.  
-   - Deploy `dist/` to Cloudflare Pages.  
-   - Map to `sjg.io` via Cloudflare custom domain.
+   - Deploy `dist/` to Cloudflare Workers using Wrangler.  
+   - Map to `sjg.io` via Cloudflare routes.
 
 Secrets required in repo settings:
 - `CLOUDFLARE_API_TOKEN`
@@ -48,8 +48,8 @@ Secrets required in repo settings:
 
 ## DNS
 - Zone hosted on Cloudflare.
-- Apex and `www` both routed to the Pages deployment.
-- `preview.sjg.io` routed to preview Pages deployment.
+- Apex and `www` both routed to the Worker.
+- `preview.sjg.io` routed to preview Worker.
 
 ---
 
@@ -63,7 +63,7 @@ Secrets required in repo settings:
 ## Future growth
 - Can migrate from static to server output with the `@astrojs/cloudflare` adapter
   if dynamic endpoints are needed (forms, APIs, etc.).
-- Cloudflare KV, R2, or D1 can be bound into Pages Functions for persistence.
+- Cloudflare KV, R2, or D1 can be bound into the Worker for persistence.
 
 ---
 
