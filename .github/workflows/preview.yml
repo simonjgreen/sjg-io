@@ -23,7 +23,7 @@ jobs:
       run: npm ci
 
     - name: Build
-      run: npm run build
+      run: npm run build -- --config astro.config.preview.mjs
 
     - name: Deploy Preview to Cloudflare Workers
       uses: cloudflare/wrangler-action@v3
