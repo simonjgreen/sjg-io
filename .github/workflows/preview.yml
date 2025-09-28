@@ -1,13 +1,13 @@
-name: Deploy
+name: Preview Deploy
 
 on:
-  push:
+  pull_request:
     branches: [ main ]
 
 jobs:
-  deploy:
+  preview:
     runs-on: ubuntu-latest
-    environment: production
+    environment: preview
 
     steps:
     - name: Checkout
@@ -25,9 +25,9 @@ jobs:
     - name: Build
       run: npm run build
 
-    - name: Deploy to Cloudflare Pages
+    - name: Deploy Preview to Cloudflare Pages
       uses: cloudflare/wrangler-action@v3
       with:
         apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-        command: pages deploy ./dist --project-name=sjg-io --branch=main --commit-dirty=true
+        command: pages deploy ./dist --project-name=sjg-io --branch=${{ github.head_ref }} --commit-dirty=true 
