@@ -1,16 +1,5 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "sjg-io",
-  "compatibility_date": "2025-01-08",
-  "pages_build_output_dir": "./dist",
-  "env": {
-    "preview": {
-      "name": "sjg-io-preview",
-      "pages_build_output_dir": "./dist"
-    },
-    "production": {
-      "name": "sjg-io",
-      "pages_build_output_dir": "./dist"
-    }
-  }
+  "compatibility_date": "2025-01-08"
 }
