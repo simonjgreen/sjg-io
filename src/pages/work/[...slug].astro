@@ -1,0 +1,64 @@
+---
+import Post from '../../layouts/Post.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await project.render();
+---
+
+<Post
+  title={project.data.title}
+  description={project.data.summary}
+  date={new Date()}
+  tags={[]}
+>
+  <div class="mb-8 p-6 bg-gray-50 dark:bg-gray-800 rounded-lg">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {project.data.period && (
+        <div>
+          <h3 class="font-semibold text-gray-900 dark:text-white">Period</h3>
+          <p class="text-gray-600 dark:text-gray-300">{project.data.period}</p>
+        </div>
+      )}
+      {project.data.role && (
+        <div>
+          <h3 class="font-semibold text-gray-900 dark:text-white">Role</h3>
+          <p class="text-gray-600 dark:text-gray-300">{project.data.role}</p>
+        </div>
+      )}
+    </div>
+    {project.data.outcome && (
+      <div class="mt-4">
+        <h3 class="font-semibold text-gray-900 dark:text-white">Outcome</h3>
+        <p class="text-gray-600 dark:text-gray-300">{project.data.outcome}</p>
+      </div>
+    )}
+    {project.data.links.length > 0 && (
+      <div class="mt-4">
+        <h3 class="font-semibold text-gray-900 dark:text-white">Links</h3>
+        <div class="flex flex-wrap gap-2 mt-2">
+          {project.data.links.map((link) => (
+            <a 
+              href={link.url} 
+              class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800 hover:bg-blue-200 dark:bg-blue-900 dark:text-blue-200 dark:hover:bg-blue-800"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {link.label}
+            </a>
+          ))}
+        </div>
+      </div>
+    )}
+  </div>
+  
+  <Content />
+</Post>

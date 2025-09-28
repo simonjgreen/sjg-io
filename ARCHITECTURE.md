@@ -20,9 +20,9 @@ are used to type and validate frontmatter.
 
 Collections:
 - `posts` — essays and notes
-- `talks` — talks, abstracts, media kit
-- `projects` — work and ventures
-- `pages` — about, now, uses, contact, privacy, colophon
+
+- `projects` — work case studies
+- `pages` — about, now, contact, colophon
 
 ---
 

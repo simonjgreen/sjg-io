@@ -1,0 +1,20 @@
+---
+import Page from '../../layouts/Page.astro';
+import { getCollection } from 'astro:content';
+
+const wirehivePage = await getCollection('pages', ({ slug }) => slug === 'work/wirehive');
+const wirehiveContent = wirehivePage[0];
+
+if (!wirehiveContent) {
+  throw new Error('Wirehive page content not found');
+}
+
+const { Content } = await wirehiveContent.render();
+---
+
+<Page 
+  title={wirehiveContent.data.title} 
+  description={wirehiveContent.data.description}
+>
+  <Content />
+</Page>

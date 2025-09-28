@@ -1,0 +1,65 @@
+---
+title: Operational AI that actually ships
+description: The routing layer that makes agentic systems safe and measurable in enterprise operations
+date: 2024-01-15
+tags: ["operational AI", "enterprise", "automation"]
+draft: false
+---
+
+# Operational AI that actually ships
+
+Most AI implementations in enterprise are theatre. They look impressive in demos but fail when you need them to do real work under pressure.
+
+The difference between AI that works and AI that doesn't is the routing layer. Not the models, not the prompts, but how you decide what gets routed where and how you measure what actually happens.
+
+## The routing problem
+
+When you have multiple AI systems - Copilot Studio, Power Platform, custom agents - you need clear rules about what goes where. Without this, you get:
+
+- Duplicate work across systems
+- Inconsistent outcomes
+- No way to measure what's actually working
+- Teams building their own solutions in isolation
+
+## What we built at Pax8
+
+We created a simple routing layer that decides:
+- Which system handles which type of request
+- How to measure success for each type
+- When to escalate to humans
+- How to track adoption and outcomes
+
+The key insight: measure adoption first, then outcomes. If people aren't using it, it doesn't matter how good the AI is.
+
+## The measurement trap
+
+Most AI projects measure the wrong things. They track model accuracy, response time, or user satisfaction. These are vanity metrics.
+
+What matters:
+- How many requests are being handled automatically
+- How often humans need to intervene
+- Whether the right requests are being routed to the right systems
+- Whether adoption is growing or shrinking
+
+## The routing rules
+
+Our routing layer uses simple rules:
+
+1. **Simple requests** → Copilot Studio (low risk, high volume)
+2. **Complex workflows** → Power Platform (structured processes)
+3. **Custom logic** → Custom agents (unique business rules)
+4. **High risk decisions** → Always human review
+
+The rules are simple, documented, and everyone knows them.
+
+## What we learned
+
+The routing layer is more important than the AI itself. Get the routing right, and you can swap out models, prompts, or entire systems without breaking the workflow.
+
+Most importantly: start simple. You don't need complex orchestration. You need clear rules that people can understand and follow.
+
+## The bottom line
+
+Operational AI that actually ships isn't about the latest models or the cleverest prompts. It's about building systems that people trust, use, and can measure.
+
+Get the routing right, measure what matters, and keep it simple. The AI will follow.

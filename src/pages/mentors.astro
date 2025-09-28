@@ -1,0 +1,20 @@
+---
+import Page from '../layouts/Page.astro';
+import { getCollection } from 'astro:content';
+
+const mentorsPage = await getCollection('pages', ({ slug }) => slug === 'mentors');
+const mentorsContent = mentorsPage[0];
+
+if (!mentorsContent) {
+  throw new Error('Mentors page content not found');
+}
+
+const { Content } = await mentorsContent.render();
+---
+
+<Page 
+  title={mentorsContent.data.title} 
+  description={mentorsContent.data.description}
+>
+  <Content />
+</Page>
