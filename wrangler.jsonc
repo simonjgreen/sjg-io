@@ -13,7 +13,10 @@
   ],
   "env": {
     "preview": {
-      "name": "sjg-io-preview"
+      "name": "sjg-io-preview",
+      "assets": {
+        "directory": "./dist"
+      }
     }
   }
 }
