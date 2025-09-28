@@ -1,5 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "sjg-io",
-  "compatibility_date": "2025-01-08"
+  "compatibility_date": "2025-01-08",
+  "pages_build_output_dir": "./dist"
 }

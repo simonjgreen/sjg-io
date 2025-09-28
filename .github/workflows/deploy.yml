@@ -25,10 +25,19 @@ jobs:
     - name: Build
       run: npx astro build
 
+    - name: Create Pages Project (if not exists)
+      uses: cloudflare/wrangler-action@v3
+      with:
+        apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        wranglerVersion: '4'
+        command: pages project create sjg-io --compatibility-date 2025-01-08
+      continue-on-error: true
+
     - name: Deploy to Cloudflare Pages
       uses: cloudflare/wrangler-action@v3
       with:
         apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         wranglerVersion: '4'
-        command: pages deploy dist --project-name sjg-io
+        command: pages deploy dist --project-name sjg-io --commit-dirty=true
