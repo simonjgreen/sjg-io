@@ -17,9 +17,6 @@ const recentPosts = allPosts
 
 // Get recent projects for the work section
 const allProjects = await getCollection('projects');
-const recentProjects = allProjects
-  .sort((a, b) => (b.data.period || '').localeCompare(a.data.period || ''))
-  .slice(0, 3);
 
 const logos = [
   { name: 'Pax8', url: '#', logo: '/logos/pax8.svg' },
@@ -38,12 +35,6 @@ const logos = [
   { name: 'NFL', url: '#', logo: '/logos/nfl.svg' },
 ];
 
-const formatDate = (date: Date) => {
-  return date.toLocaleDateString('en-GB', { 
-    year: 'numeric', 
-    month: 'long', 
-    day: 'numeric' 
-  });
 };
 ---
 
@@ -114,7 +105,7 @@ const formatDate = (date: Date) => {
             What I'm focused on now
           </h2>
           <div class="mt-6 prose prose-lg max-w-none text-gray-600 dark:text-gray-300">
-            <p>{nowContent.summary || "Figuring out what's next..."}</p>
+            <p>{nowContent.description || "Figuring out what's next..."}</p>
           </div>
           <div class="mt-6">
             <Button href="/now" variant="outline">

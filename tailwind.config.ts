@@ -1,4 +1,5 @@
 import type { Config } from 'tailwindcss';
+import typography from '@tailwindcss/typography';
 
 export default {
   content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
@@ -19,7 +20,6 @@ export default {
             },
             strong: {
               color: 'inherit',
-              fontWeight: '600',
             },
             'ol[type="A"]': {
               '--list-counter-style': 'upper-alpha',
@@ -75,90 +75,123 @@ export default {
             },
             h1: {
               color: 'inherit',
-              fontWeight: '800',
             },
             h2: {
               color: 'inherit',
-              fontWeight: '700',
             },
             h3: {
               color: 'inherit',
-              fontWeight: '600',
             },
             h4: {
               color: 'inherit',
-              fontWeight: '600',
             },
             'figure figcaption': {
               color: 'inherit',
             },
             code: {
               color: 'inherit',
-              fontWeight: '600',
             },
             'a code': {
               color: 'inherit',
             },
             pre: {
               color: 'inherit',
-              backgroundColor: 'rgba(55, 65, 81, 1)',
-            },
-            'pre code': {
-              backgroundColor: 'transparent',
-              borderWidth: '0',
-              borderRadius: '0',
-              padding: '0',
-              fontWeight: 'inherit',
-              color: 'inherit',
-              fontSize: 'inherit',
-              fontFamily: 'inherit',
-              lineHeight: 'inherit',
-            },
-            'pre code::before': {
-              content: 'none',
-            },
-            'pre code::after': {
-              content: 'none',
-            },
-            table: {
-              width: '100%',
-              tableLayout: 'auto',
-              textAlign: 'left',
-              marginTop: '2em',
-              marginBottom: '2em',
-              fontSize: '0.875em',
-              lineHeight: '1.7142857',
+              backgroundColor: 'inherit',
             },
             thead: {
-              borderBottomWidth: '1px',
-              borderBottomColor: 'inherit',
-            },
-            'thead th': {
               color: 'inherit',
-              fontWeight: '600',
-              verticalAlign: 'bottom',
-              paddingRight: '0.5714286em',
-              paddingBottom: '0.5714286em',
-              paddingLeft: '0.5714286em',
+              borderBottomColor: 'inherit',
             },
             'tbody tr': {
-              borderBottomWidth: '1px',
               borderBottomColor: 'inherit',
             },
-            'tbody tr:last-child': {
-              borderBottomWidth: '0',
+          },
+        },
+        invert: {
+          css: {
+            a: {
+              color: 'inherit',
             },
-            'tbody td': {
-              verticalAlign: 'top',
-              paddingTop: '0.5714286em',
-              paddingRight: '0.5714286em',
-              paddingBottom: '0.5714286em',
-              paddingLeft: '0.5714286em',
+            strong: {
+              color: 'inherit',
+            },
+            'ol[type="A"]': {
+              '--list-counter-style': 'upper-alpha',
+            },
+            'ol[type="a"]': {
+              '--list-counter-style': 'lower-alpha',
+            },
+            'ol[type="A" s]': {
+              '--list-counter-style': 'upper-alpha',
+            },
+            'ol[type="a" s]': {
+              '--list-counter-style': 'lower-alpha',
+            },
+            'ol[type="I"]': {
+              '--list-counter-style': 'upper-roman',
+            },
+            'ol[type="i"]': {
+              '--list-counter-style': 'lower-roman',
+            },
+            'ol[type="I" s]': {
+              '--list-counter-style': 'upper-roman',
+            },
+            'ol[type="i" s]': {
+              '--list-counter-style': 'lower-roman',
+            },
+            'ol[type="1"]': {
+              '--list-counter-style': 'decimal',
+            },
+            'ol > li::marker': {
+              fontWeight: '400',
+              color: 'inherit',
+            },
+            'ul > li::marker': {
+              color: 'inherit',
+            },
+            hr: {
+              borderColor: 'inherit',
+            },
+            blockquote: {
+              color: 'inherit',
+              borderLeftColor: 'inherit',
+            },
+            h1: {
+              color: 'inherit',
+            },
+            h2: {
+              color: 'inherit',
+            },
+            h3: {
+              color: 'inherit',
+            },
+            h4: {
+              color: 'inherit',
+            },
+            'figure figcaption': {
+              color: 'inherit',
+            },
+            code: {
+              color: 'inherit',
+            },
+            'a code': {
+              color: 'inherit',
+            },
+            pre: {
+              color: 'inherit',
+              backgroundColor: 'inherit',
+            },
+            thead: {
+              color: 'inherit',
+              borderBottomColor: 'inherit',
+            },
+            'tbody tr': {
+              borderBottomColor: 'inherit',
             },
           },
         },
       },
     },
   },
-  plugins: [require('@tailwindcss/typography')],
+  plugins: [typography],
 } satisfies Config;
