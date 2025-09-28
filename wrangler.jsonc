@@ -5,18 +5,24 @@
   "assets": {
     "directory": "./dist"
   },
-  "routes": [
-    {
-      "pattern": "sjg.io/*",
-      "zone_name": "sjg.io"
-    }
-  ],
   "env": {
     "preview": {
       "name": "sjg-io-preview",
       "assets": {
         "directory": "./dist"
       }
+    },
+    "production": {
+      "name": "sjg-io",
+      "assets": {
+        "directory": "./dist"
+      },
+      "routes": [
+        {
+          "pattern": "sjg.io/*",
+          "zone_name": "sjg.io"
+        }
+      ]
     }
   }
 }
