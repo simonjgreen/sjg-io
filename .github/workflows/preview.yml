@@ -25,11 +25,10 @@ jobs:
     - name: Build
       run: npx astro build --config astro.config.preview.mjs
 
-    - name: Deploy to Cloudflare Pages
-      uses: cloudflare/pages-action@v1
+    - name: Deploy Preview to Cloudflare Workers
+      uses: cloudflare/wrangler-action@v3
       with:
         apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-        projectName: sjg-io-preview
-        directory: dist
-        gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+        wranglerVersion: '4'
+        command: deploy --env preview --compatibility-date 2025-01-08
