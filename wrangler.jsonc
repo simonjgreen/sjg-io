@@ -1,25 +1,5 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "sjg-io",
-  "compatibility_date": "2025-01-08",
-  "env": {
-    "preview": {
-      "name": "sjg-io-preview",
-      "routes": [
-        {
-          "pattern": "preview.sjg.io",
-          "custom_domain": true
-        }
-      ]
-    },
-    "production": {
-      "name": "sjg-io",
-      "routes": [
-        {
-          "pattern": "sjg.io",
-          "custom_domain": true
-        }
-      ]
-    }
-  }
+  "compatibility_date": "2025-01-08"
 }
