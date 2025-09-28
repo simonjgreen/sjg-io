@@ -10,13 +10,7 @@
       "name": "sjg-io-preview",
       "assets": {
         "directory": "./dist"
-      },
-      "routes": [
-        {
-          "pattern": "preview.sjg.io/*",
-          "zone_name": "sjg.io"
-        }
-      ]
+      }
     },
     "production": {
       "name": "sjg-io",
