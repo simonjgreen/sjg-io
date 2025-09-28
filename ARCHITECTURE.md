@@ -11,6 +11,7 @@ This document describes the technical architecture and conventions of the site.
 - **CI/CD:** GitHub Actions (CI + deploy via Wrangler)
 - **Analytics:** Plausible (EU-hosted, cookie-less)
 - **Domain:** sjg.io (delegated to Cloudflare DNS)
+- **Preview:** preview.sjg.io (for PR previews)
 
 ---
 
@@ -20,7 +21,6 @@ are used to type and validate frontmatter.
 
 Collections:
 - `posts` — essays and notes
-
 - `projects` — work case studies
 - `pages` — about, now, contact, colophon
 
@@ -30,8 +30,12 @@ Collections:
 1. Developer pushes to a branch → Pull request.
 2. **CI (`ci.yml`):**  
    - Lint, type-check, build, link-check, Lighthouse CI.
-3. Merge PR → `main`.
-4. **Deploy (`deploy.yml`):**  
+3. **Preview (`preview.yml`):**  
+   - Build Astro project with preview config.
+   - Deploy `dist/` to Cloudflare Workers using Wrangler.
+   - Map to `preview.sjg.io` via Cloudflare routes.
+4. Merge PR → `main`.
+5. **Deploy (`deploy.yml`):**  
    - Build Astro project.  
    - Deploy `dist/` to Cloudflare Workers using Wrangler.  
    - Map to `sjg.io` via Cloudflare routes.
@@ -45,6 +49,7 @@ Secrets required in repo settings:
 ## DNS
 - Zone hosted on Cloudflare.
 - Apex and `www` both routed to the Worker.
+- `preview.sjg.io` routed to preview Worker.
 
 ---
 
