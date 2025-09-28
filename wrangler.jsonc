@@ -11,8 +11,11 @@
       "assets": {
         "directory": "./dist"
       },
-      "custom_domains": [
-        "preview.sjg.io"
+      "routes": [
+        {
+          "pattern": "preview.sjg.io",
+          "custom_domain": true
+        }
       ]
     },
     "production": {
@@ -20,8 +23,11 @@
       "assets": {
         "directory": "./dist"
       },
-      "custom_domains": [
-        "sjg.io"
+      "routes": [
+        {
+          "pattern": "sjg.io",
+          "custom_domain": true
+        }
       ]
     }
   }
