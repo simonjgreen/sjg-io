@@ -2,5 +2,18 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "sjg-io",
   "compatibility_date": "2025-01-08",
-  "assets": { "directory": "./dist" }
+  "assets": {
+    "directory": "./dist"
+  },
+  "routes": [
+    {
+      "pattern": "sjg.io/*",
+      "zone_name": "sjg.io"
+    }
+  ],
+  "env": {
+    "preview": {
+      "name": "sjg-io-preview"
+    }
+  }
 }
