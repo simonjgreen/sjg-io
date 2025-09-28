@@ -4,18 +4,33 @@ import Button from '../components/Button.astro';
 import Card from '../components/Card.astro';
 import LogoRow from '../components/LogoRow.astro';
 import { getCollection } from 'astro:content';
+import { marked } from 'marked';
 
 // Get the "now" page content for the focus section
 const nowPage = await getCollection('pages', ({ slug }) => slug === 'now');
-const nowContent = nowPage[0]?.data;
+const nowContent = nowPage[0];
+
+// Extract a short summary from the now page content
+let nowSummary = "Figuring out what's next...";
+if (nowContent) {
+  // Get the first paragraph from the "Current work" section
+  const content = nowContent.body;
+  const currentWorkMatch = content.match(/## Current work\s*\n\n(.*?)(?=\n##|\n\*\*|$)/s);
+  if (currentWorkMatch) {
+    const currentWorkText = currentWorkMatch[1];
+    // Extract the first sentence or two, but keep markdown formatting
+    const sentences = currentWorkText.split(/[.!?]+/).filter(s => s.trim().length > 0);
+    const markdownText = sentences.slice(0, 2).join('. ').trim() + '.';
+    // Convert markdown to HTML
+    nowSummary = marked(markdownText);
+  }
+}
 
 // Get recent posts for the writing section
 const allPosts = await getCollection('posts', ({ data }) => !data.draft);
 const recentPosts = allPosts
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 3);
-
-// Get recent projects for the work section
 
 const logos = [
   { name: 'Pax8', url: '#', logo: '/logos/pax8.svg' },
@@ -95,25 +110,23 @@ const logos = [
   </section>
 
   <!-- What I'm focused on now -->
-  {nowContent && (
-    <section class="bg-white dark:bg-gray-900">
-      <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-16">
-        <div class="text-center">
-          <h2 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
-            What I'm focused on now
-          </h2>
-          <div class="mt-6 prose prose-lg max-w-none text-gray-600 dark:text-gray-300">
-            <p>{nowContent.description || "Figuring out what's next..."}</p>
-          </div>
-          <div class="mt-6">
-            <Button href="/now" variant="outline">
-              Read more
-            </Button>
-          </div>
+  <section class="bg-white dark:bg-gray-900">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-16">
+      <div class="text-center">
+        <h2 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
+          What I'm focused on now
+        </h2>
+        <div class="mt-6 prose prose-lg max-w-none text-gray-600 dark:text-gray-300 prose-headings:text-gray-900 dark:prose-headings:text-white prose-strong:text-gray-900 dark:prose-strong:text-white">
+          <div set:html={nowSummary} />
+        </div>
+        <div class="mt-6">
+          <Button href="/now" variant="outline">
+            Read more
+          </Button>
         </div>
       </div>
-    </section>
-  )}
+    </div>
+  </section>
 
   <!-- Writing Teaser -->
   <section class="bg-gray-50 dark:bg-gray-800 py-16">
@@ -138,6 +151,7 @@ const logos = [
         <Button href="/writing" variant="outline">
           View all writing
         </Button>
+        </div>
       </div>
     </div>
   </section>
