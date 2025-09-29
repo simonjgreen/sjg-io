@@ -1,0 +1,197 @@
+import type { Config } from 'tailwindcss';
+import typography from '@tailwindcss/typography';
+
+export default {
+  content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
+  theme: {
+    extend: {
+      typography: {
+        DEFAULT: {
+          css: {
+            maxWidth: 'none',
+            color: 'inherit',
+            a: {
+              color: 'inherit',
+              textDecoration: 'underline',
+              fontWeight: '500',
+            },
+            '[class~="lead"]': {
+              color: 'inherit',
+            },
+            strong: {
+              color: 'inherit',
+            },
+            'ol[type="A"]': {
+              '--list-counter-style': 'upper-alpha',
+            },
+            'ol[type="a"]': {
+              '--list-counter-style': 'lower-alpha',
+            },
+            'ol[type="A" s]': {
+              '--list-counter-style': 'upper-alpha',
+            },
+            'ol[type="a" s]': {
+              '--list-counter-style': 'lower-alpha',
+            },
+            'ol[type="I"]': {
+              '--list-counter-style': 'upper-roman',
+            },
+            'ol[type="i"]': {
+              '--list-counter-style': 'lower-roman',
+            },
+            'ol[type="I" s]': {
+              '--list-counter-style': 'upper-roman',
+            },
+            'ol[type="i" s]': {
+              '--list-counter-style': 'lower-roman',
+            },
+            'ol[type="1"]': {
+              '--list-counter-style': 'decimal',
+            },
+            'ol > li': {
+              position: 'relative',
+            },
+            'ol > li::marker': {
+              fontWeight: '400',
+              color: 'inherit',
+            },
+            'ul > li': {
+              position: 'relative',
+            },
+            'ul > li::marker': {
+              color: 'inherit',
+            },
+            hr: {
+              borderColor: 'inherit',
+              borderTopWidth: 1,
+            },
+            blockquote: {
+              fontWeight: '500',
+              fontStyle: 'italic',
+              color: 'inherit',
+              borderLeftWidth: '0.25rem',
+              borderLeftColor: 'inherit',
+              quotes: '"\\201C""\\201D""\\2018""\\2019"',
+            },
+            h1: {
+              color: 'inherit',
+            },
+            h2: {
+              color: 'inherit',
+            },
+            h3: {
+              color: 'inherit',
+            },
+            h4: {
+              color: 'inherit',
+            },
+            'figure figcaption': {
+              color: 'inherit',
+            },
+            code: {
+              color: 'inherit',
+            },
+            'a code': {
+              color: 'inherit',
+            },
+            pre: {
+              color: 'inherit',
+              backgroundColor: 'inherit',
+            },
+            thead: {
+              color: 'inherit',
+              borderBottomColor: 'inherit',
+            },
+            'tbody tr': {
+              borderBottomColor: 'inherit',
+            },
+          },
+        },
+        invert: {
+          css: {
+            a: {
+              color: 'inherit',
+            },
+            strong: {
+              color: 'inherit',
+            },
+            'ol[type="A"]': {
+              '--list-counter-style': 'upper-alpha',
+            },
+            'ol[type="a"]': {
+              '--list-counter-style': 'lower-alpha',
+            },
+            'ol[type="A" s]': {
+              '--list-counter-style': 'upper-alpha',
+            },
+            'ol[type="a" s]': {
+              '--list-counter-style': 'lower-alpha',
+            },
+            'ol[type="I"]': {
+              '--list-counter-style': 'upper-roman',
+            },
+            'ol[type="i"]': {
+              '--list-counter-style': 'lower-roman',
+            },
+            'ol[type="I" s]': {
+              '--list-counter-style': 'upper-roman',
+            },
+            'ol[type="i" s]': {
+              '--list-counter-style': 'lower-roman',
+            },
+            'ol[type="1"]': {
+              '--list-counter-style': 'decimal',
+            },
+            'ol > li::marker': {
+              fontWeight: '400',
+              color: 'inherit',
+            },
+            'ul > li::marker': {
+              color: 'inherit',
+            },
+            hr: {
+              borderColor: 'inherit',
+            },
+            blockquote: {
+              color: 'inherit',
+              borderLeftColor: 'inherit',
+            },
+            h1: {
+              color: 'inherit',
+            },
+            h2: {
+              color: 'inherit',
+            },
+            h3: {
+              color: 'inherit',
+            },
+            h4: {
+              color: 'inherit',
+            },
+            'figure figcaption': {
+              color: 'inherit',
+            },
+            code: {
+              color: 'inherit',
+            },
+            'a code': {
+              color: 'inherit',
+            },
+            pre: {
+              color: 'inherit',
+              backgroundColor: 'inherit',
+            },
+            thead: {
+              color: 'inherit',
+              borderBottomColor: 'inherit',
+            },
+            'tbody tr': {
+              borderBottomColor: 'inherit',
+            },
+          },
+        },
+      },
+    },
+  },
+  plugins: [typography],
+} satisfies Config;

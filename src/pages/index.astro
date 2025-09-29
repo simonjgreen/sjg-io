@@ -1,0 +1,160 @@
+---
+import Base from '../layouts/Base.astro';
+import Button from '../components/Button.astro';
+import Card from '../components/Card.astro';
+import LogoRow from '../components/LogoRow.astro';
+import { getCollection } from 'astro:content';
+import { marked } from 'marked';
+
+// Get the "now" page content for the focus section
+const nowPage = await getCollection('pages', ({ slug }) => slug === 'now');
+const nowContent = nowPage[0];
+
+// Extract a short summary from the now page content
+let nowSummary = "Figuring out what's next...";
+if (nowContent) {
+  // Get the first paragraph from the "Current work" section
+  const content = nowContent.body;
+  const currentWorkMatch = content.match(/## Current work\s*\n\n(.*?)(?=\n##|\n\*\*|$)/s);
+  if (currentWorkMatch) {
+    const currentWorkText = currentWorkMatch[1];
+    // Extract the first sentence or two, but keep markdown formatting
+    const sentences = currentWorkText.split(/[.!?]+/).filter(s => s.trim().length > 0);
+    const markdownText = sentences.slice(0, 2).join('. ').trim() + '.';
+    // Convert markdown to HTML
+    nowSummary = await marked(markdownText);
+  }
+}
+
+// Get recent posts for the writing section
+const allPosts = await getCollection('posts', ({ data }) => !data.draft);
+const recentPosts = allPosts
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3);
+
+const logos = [
+  { name: 'Pax8', url: '#', logo: '/logos/pax8.svg' },
+  { name: '1310', url: '#', logo: '/logos/1310.svg' },
+  { name: 'Bluhalo', url: '#', logo: '/logos/bluhalo.svg' },
+  { name: 'Lowland Rescue', url: '#', logo: '/logos/lrsar.png' },
+  { name: 'Surrey Search & Rescue', url: '#', logo: '/logos/sursar.png' },
+  { name: 'Surrey Police', url: '#', logo: '/logos/surpol.png' },
+  { name: 'NPAS', url: '#', logo: '/logos/npas.png' },
+  { name: 'RLab/Reading Makerspace', url: '#', logo: '/logos/rlab.png' },
+  { name: 'Bishopswood Schools', url: '#', logo: '/logos/bishopswoodSchools.png' },
+  { name: 'Cancer Research UK', url: '#', logo: '/logos/cancerResearchUK.webp' },
+  { name: 'Tottenham Hotspur', url: '#', logo: '/logos/spurs.svg' },
+  { name: 'Liverpool FC', url: '#', logo: '/logos/liverpoolfc_crest.svg' },
+  { name: 'Farnborough Airport', url: '#', logo: '/logos/farnboroughAirport.svg' },
+  { name: 'NFL', url: '#', logo: '/logos/nfl.svg' },
+];
+
+---
+
+<Base title="Home" description="Simon Green: Builder CIO. I bring AI out of the lab and into operations.">
+  <!-- Hero Section -->
+  <section class="bg-white dark:bg-gray-900">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-24">
+      <div class="text-center">
+        <h1 class="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-6xl">
+          Simon Green
+        </h1>
+        <p class="mt-6 text-xl leading-8 text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+          Builder CIO. I bring AI out of the lab and into operations.
+        </p>
+        <p class="mt-2 text-lg leading-7 text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
+          Global CIO at Pax8. Founder at 1310. Technology leader with Linux and networking roots.
+        </p>
+        <div class="mt-10 flex items-center justify-center gap-x-6">
+          <Button href="https://linkedin.com/in/simonjgreen" size="lg">
+            Connect on LinkedIn
+          </Button>
+          <Button href="/work" variant="outline" size="lg">
+            View my work
+          </Button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Three Proof Points -->
+  <section class="bg-gray-50 dark:bg-gray-800 py-16">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
+        <Card href="/work/pax8">
+          <div class="p-6">
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Pax8, global product pods</h3>
+            <p class="mt-3 text-base text-gray-600 dark:text-gray-300">
+              Rebuilt internal IT from a single region service to a worldwide, pod based, product oriented organisation. Focus on adoption, measurable outcomes, and speed.
+            </p>
+          </div>
+        </Card>
+        <Card href="/work/1310">
+          <div class="p-6">
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">1310, profitable and self funded</h3>
+            <p class="mt-3 text-base text-gray-600 dark:text-gray-300">
+              Built an ISP organically to self sustaining profitability. Engineering discipline, sensible capital, steady execution.
+            </p>
+          </div>
+        </Card>
+        <Card href="/writing/operational-ai-that-actually-ships">
+          <div class="p-6">
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Automation and AI that ships</h3>
+            <p class="mt-3 text-base text-gray-600 dark:text-gray-300">
+              Operational AI and automation that reduces toil and improves service quality. Focus on routing, adoption, and measurable outcomes.
+            </p>
+          </div>
+        </Card>
+      </div>
+    </div>
+  </section>
+
+  <!-- What I'm focused on now -->
+  <section class="bg-white dark:bg-gray-900">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-16">
+      <div class="text-center">
+        <h2 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
+          What I'm focused on now
+        </h2>
+        <div class="mt-6 prose prose-lg max-w-none text-gray-600 dark:text-gray-300 prose-headings:text-gray-900 dark:prose-headings:text-white prose-strong:text-gray-900 dark:prose-strong:text-white">
+          <div set:html={nowSummary} />
+        </div>
+        <div class="mt-6">
+          <Button href="/now" variant="outline">
+            Read more
+          </Button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Writing Teaser -->
+  <section class="bg-gray-50 dark:bg-gray-800 py-16">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <h2 class="text-center text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
+        Writing
+      </h2>
+      <div class="mt-10 grid grid-cols-1 gap-8 md:grid-cols-3">
+        {recentPosts.map((post) => (
+          <Card href={`/writing/${post.slug}`}>
+            <div class="p-6">
+              <h3 class="text-xl font-semibold text-gray-900 dark:text-white">{post.data.title}</h3>
+              <p class="mt-3 text-base text-gray-600 dark:text-gray-300">{post.data.description}</p>
+              <p class="mt-3 text-sm text-gray-500 dark:text-gray-400">
+                {post.data.date.toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' })}
+              </p>
+            </div>
+          </Card>
+        ))}
+      </div>
+      <div class="mt-10 text-center">
+        <Button href="/writing" variant="outline">
+          View all writing
+        </Button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <LogoRow logos={logos} title="Companies I've worked with" />
+</Base>

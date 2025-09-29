@@ -1,0 +1,15 @@
+---
+export interface Props {
+  href?: string;
+  class?: string;
+}
+
+const { href, class: className } = Astro.props;
+const Component = href ? 'a' : 'div';
+const baseClasses = 'block p-6 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm hover:shadow-md transition-shadow';
+const linkClasses = href ? 'hover:border-gray-300 dark:hover:border-gray-600' : '';
+---
+
+<Component href={href} class={`${baseClasses} ${linkClasses} ${className || ''}`}>
+  <slot />
+</Component>

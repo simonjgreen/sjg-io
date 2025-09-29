@@ -1,0 +1,60 @@
+---
+export interface Props {
+  logos: Array<{
+    name: string;
+    url: string;
+    logo: string;
+  }>;
+  title?: string;
+}
+
+const { logos, title = "Trusted by" } = Astro.props;
+---
+
+<section class="py-12 bg-gray-50 dark:bg-gray-800">
+  <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+    {title && (
+      <h2 class="text-center text-sm font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-8">
+        {title}
+      </h2>
+    )}
+    <div class="flex flex-wrap items-center justify-center gap-8 opacity-60">
+      {logos.map((logo) => (
+        <div class="flex items-center logo-container">
+          <img 
+            src={logo.logo} 
+            alt={logo.name}
+            class={`h-8 w-auto logo-img transition-all duration-200 ${logo.logo.endsWith('.svg') ? 'logo-svg' : 'logo-png'}`}
+          />
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Logo visibility using media queries - different for SVG vs PNG */
+  
+  /* SVG logos - can be made very dark in light mode */
+  .logo-svg {
+    filter: grayscale(1) brightness(0.2) contrast(1.2);
+    transition: filter 0.2s ease;
+  }
+  
+  /* PNG logos - need to be less dark to preserve white backgrounds */
+  .logo-png {
+    filter: grayscale(0) brightness(1) contrast(1);
+    transition: filter 0.2s ease;
+  }
+  
+  /* Dark mode: both SVG and PNG get brighter */
+  @media (prefers-color-scheme: dark) {
+    .logo-svg {
+      filter: grayscale(0) brightness(1) contrast(1);
+    }
+    
+    .logo-png {
+      filter: grayscale(0) brightness(1) contrast(1);
+    }
+  }
+</style>

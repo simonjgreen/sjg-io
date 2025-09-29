@@ -1,0 +1,20 @@
+---
+import Page from '../../layouts/Page.astro';
+import { getCollection } from 'astro:content';
+
+const bluhaloPage = await getCollection('pages', ({ slug }) => slug === 'work/bluhalo');
+const bluhaloContent = bluhaloPage[0];
+
+if (!bluhaloContent) {
+  throw new Error('Bluhalo page content not found');
+}
+
+const { Content } = await bluhaloContent.render();
+---
+
+<Page 
+  title={bluhaloContent.data.title} 
+  description={bluhaloContent.data.description}
+>
+  <Content />
+</Page>

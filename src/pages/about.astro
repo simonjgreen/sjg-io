@@ -1,0 +1,20 @@
+---
+import Page from '../layouts/Page.astro';
+import { getCollection } from 'astro:content';
+
+const aboutPage = await getCollection('pages', ({ slug }) => slug === 'about');
+const aboutContent = aboutPage[0];
+
+if (!aboutContent) {
+  throw new Error('About page content not found');
+}
+
+const { Content } = await aboutContent.render();
+---
+
+<Page 
+  title={aboutContent.data.title} 
+  description={aboutContent.data.description}
+>
+  <Content />
+</Page>

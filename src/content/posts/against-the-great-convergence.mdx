@@ -1,0 +1,75 @@
+---
+title: "Against the Great Convergence"
+description: "Why I am fighting the consolidation of the internet and how you can too"
+date: 2025-09-29
+tags: ["infrastructure", "self-hosting", "internet", "consolidation", "cloud", "skills"]
+draft: false
+---
+
+Before I used email from any provider, I ran my own mail server. A noisy little box humming under my bed kept my teenage online world alive. By the time I was out of school, I was already hosting email and websites for other people. Even today, one of the quiet joys of running my own network is stepping outside the consolidated internet and knowing, with certainty, where my data lives, where it travels, and why. There is a piece of glass that runs from my house to the exchange, into my router, then onward to my other routers until it meets other ASNs. That physicality and control matter.
+
+Over the past decade we have drifted toward the hyperscalers, outsourcing not just compute but judgment. Hosting is treated as an anachronism. Platform as a Service has become muscle memory. Suggest self hosting to some engineers and you will get a look as if you have asked them to solder a NIC. The longer this goes on, the rarer the skills become. The rarer the skills, the pricier they get. Ironically, it is now larger companies, not smaller ones, that are opting back into their own infrastructure.
+
+---
+
+## What consolidation costs us
+
+**1) Fewer options, less leverage**
+When a handful of providers mediate most traffic, pricing and architecture follow their incentives. That can be efficient in the short term, but it narrows the frontier for experimentation. The frontier is where new skills and better systems are born.
+
+**2) A skills drought**
+You cannot troubleshoot what you have never touched. The layers below the framework - networking, storage, mail hygiene, routing, observability - are where systems thinking is forged. Abstracted stacks and AI coding tools are wonderful, but they risk turning diagnosis into guesswork. You only learn the rhythms of systems by handling them directly.
+
+**3) Misread economics**
+You have seen the posts: "We saved millions moving off the cloud." Those are not myths. 37signals publicly documented seven figure annual savings during its cloud exit, and Dropbox's earlier repatriation was measured in decades of engineer hours and tens of millions saved. The comments often say, "Great for them, out of reach for us." That reaction proves my point. When we stop practising these skills, of course it feels out of reach.
+
+---
+
+## No, I am not anti cloud
+
+The cloud is an incredible tool. If you are bursty, global on day one, or you truly need dozens of managed services, it might be the right call. But for steady state workloads, predictable growth, and teams hungry to own their reliability story, self hosting can be saner and cheaper than it looks from the outside. The big case studies are reminders that the economics are not one size fits all.
+
+---
+
+## The self fulfilling prophecy
+
+Here is the trap. As fewer teams self host, fewer engineers learn to. As the talent thins, the work gets more expensive. As it gets pricier, managers call it "not our core competency" and outsource more. Round and round we go until the skills live only inside the largest organisations that can still afford them.
+
+Let us break that loop.
+
+---
+
+## Three experiments to re open the frontier
+
+**1) Run a home lab**
+Spin up a small Proxmox or KVM box. Learn to observe and debug across the stack: logs, metrics, packet captures, BGP routes, DNS, TLS, block storage, backups. It is not pointless tinkering. It is context you will cash in during a 2am incident.
+
+**2) Choose an ISP that is not one of the mega ones**
+Support smaller providers. They deserve your business, and they will work hard for you. In the UK, Andrews & Arnold and WiFi Scotland are excellent examples. They give you technical flexibility, better transparency, and in many cases, the chance to do things like bring your own IP and run BGP.
+
+**3) Sort out your email**
+If you do not want to self host, at least use a provider like Fastmail or Protonmail rather than GMail. And for the love of freedom, use your own domain name. Nothing pains me more than seeing a plumber's van drive by with a Hotmail address painted on the side. What an error. Domains are cheap, and they give you long term control. Switch providers and your identity travels with you.
+
+If you do want to try running your own email, projects like Mail in a Box or Docker Mailserver make it straightforward. They teach you about DNS, SPF, DKIM, and DMARC in the best way possible - by actually doing it.
+
+---
+
+## What I want
+
+I do not want a monoculture where infrastructure means whatever a platform exposes this quarter. I want an internet where teams still know how things work, where more people can trace a packet, tune a database, read a mail header, and make routing decisions with intent. The future of the internet will be stronger if more of us experiment again. Run a home lab. Use a smaller ISP. Get your own domain. Host something end to end. Teach a colleague what SPF actually does. The point is not to reject the cloud. It is to keep our options and our skills alive.
+
+---
+
+## A note on this site
+
+Yes, I know. This site itself is running on Cloudflare. I am aware of the hypocrisy, so let me explain why.
+
+I had never done it before. For me, self hosting is trivial. I wanted to push myself to try something totally different, so I chose the serverless route. It has been a way to learn where the edges are, to understand what life looks like when you put all your trust in a platform, and to see how it feels to build without the safety net of your own metal.
+
+This is me deliberately making life harder for myself. I do not want to be the person who dismisses new approaches without touching them. Experimentation matters, and if I am going to ask others to try things that are unfamiliar, I should hold myself to the same standard.
+
+---
+
+## Disclaimer
+
+I am personally involved in an ISP, so I have avoided mentioning it directly here to avoid a conflict of interest. The views above come from a broader concern with the health of the internet, not from any commercial motive.

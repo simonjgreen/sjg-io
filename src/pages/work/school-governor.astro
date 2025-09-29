@@ -1,0 +1,20 @@
+---
+import Page from '../../layouts/Page.astro';
+import { getCollection } from 'astro:content';
+
+const pageSchoolGovernor = await getCollection('pages', ({ slug }) => slug === 'work/school-governor');
+const pageContent = pageSchoolGovernor[0];
+
+if (!pageContent) {
+  throw new Error('School Governor page content not found');
+}
+
+const { Content } = await pageContent.render();
+---
+
+<Page 
+  title={pageContent.data.title} 
+  description={pageContent.data.description}
+>
+  <Content />
+</Page>
