@@ -14,18 +14,67 @@ and [Tailwind CSS](https://tailwindcss.com).
 
 ## Development
 
+### Initial Setup
+
+This project uses sandboxed environments for development:
+
+1. **Install system dependencies:**
+   ```bash
+   sudo apt update && sudo apt install -y curl wget git build-essential python3-venv python3-pip python3-dev python3-setuptools python3-wheel vim nano tree htop
+   ```
+
+2. **Install Node.js via nvm (Node Version Manager):**
+   ```bash
+   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+   export NVM_DIR="$HOME/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+   nvm install --lts
+   ```
+
+3. **Set up Python virtual environment:**
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate
+   ```
+
+4. **Install project dependencies:**
+   ```bash
+   npm install
+   ```
+
+### Daily Development
+
+**Option 1: Use the setup script (recommended):**
 ```bash
-# Install dependencies
-npm install
-
-# Start development server
+./setup-dev.sh
 npm run dev
+```
 
-# Build for production
-npm run build
+**Option 2: Manual activation:**
+```bash
+# Load Node.js via nvm
+export NVM_DIR="$HOME/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
-# Preview production build
-npm run preview
+# Activate Python virtual environment
+source venv/bin/activate
+
+# Start development
+npm run dev
+```
+
+**Option 3: Use direnv (if installed):**
+```bash
+direnv allow
+npm run dev
+```
+
+### Available Commands
+
+```bash
+npm run dev        # Start development server
+npm run build      # Build for production
+npm run preview    # Preview production build
+npm run lint       # Run ESLint
+npm run typecheck  # Run TypeScript checks
 ```
 
 ## Content

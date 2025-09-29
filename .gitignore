@@ -35,3 +35,15 @@ yarn.lock
 
 # TypeScript
 *.tsbuildinfo
+
+# Python virtual environment
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Development setup files (optional - uncomment if you don't want to track these)
+# setup-dev.sh
+# .envrc

@@ -22,7 +22,7 @@ if (nowContent) {
     const sentences = currentWorkText.split(/[.!?]+/).filter(s => s.trim().length > 0);
     const markdownText = sentences.slice(0, 2).join('. ').trim() + '.';
     // Convert markdown to HTML
-    nowSummary = marked(markdownText);
+    nowSummary = await marked(markdownText);
   }
 }
 
