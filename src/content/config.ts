@@ -16,21 +16,6 @@ const posts = defineCollection({
   }),
 });
 
-const projects = defineCollection({
-  type: 'content',
-  schema: z.object({
-    title: z.string(),
-    summary: z.string(),
-    period: z.string().optional(),
-    role: z.string().optional(),
-    outcome: z.string().optional(),
-    links: z.array(z.object({
-      label: z.string(),
-      url: z.string().url(),
-    })).default([]),
-  }),
-});
-
 const pages = defineCollection({
   type: 'content',
   schema: z.object({
@@ -42,6 +27,5 @@ const pages = defineCollection({
 
 export const collections = {
   posts,
-  projects,
   pages,
 };
