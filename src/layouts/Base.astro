@@ -47,10 +47,6 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, Astro.site);
     
     <title>{siteTitle}</title>
     
-    <!-- Plausible Analytics (optional) -->
-    {import.meta.env.PLAUSIBLE_DOMAIN && (
-      <script is:inline defer data-domain={import.meta.env.PLAUSIBLE_DOMAIN} src="https://plausible.io/js/script.js"></script>
-    )}
   </head>
   <body class="h-full bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
     <div class="min-h-full">

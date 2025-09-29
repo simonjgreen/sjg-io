@@ -9,7 +9,7 @@ This document describes the technical architecture and conventions of the site.
 - **Styling:** Tailwind CSS
 - **Hosting:** Cloudflare Workers (static assets)
 - **CI/CD:** GitHub Actions (CI + deploy via Wrangler)
-- **Analytics:** Plausible (EU-hosted, cookie-less)
+- **Analytics:** Cloudflare Web Analytics (privacy-focused, auto-injected)
 - **Domain:** sjg.io (delegated to Cloudflare DNS)
 - **Preview:** preview.sjg.io (for PR previews)
 
