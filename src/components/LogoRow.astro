@@ -20,14 +20,41 @@ const { logos, title = "Trusted by" } = Astro.props;
     )}
     <div class="flex flex-wrap items-center justify-center gap-8 opacity-60">
       {logos.map((logo) => (
-        <div class="flex items-center">
+        <div class="flex items-center logo-container">
           <img 
             src={logo.logo} 
             alt={logo.name}
-            class="h-8 w-auto grayscale hover:grayscale-0 transition-all duration-200"
+            class={`h-8 w-auto logo-img transition-all duration-200 ${logo.logo.endsWith('.svg') ? 'logo-svg' : 'logo-png'}`}
           />
         </div>
       ))}
     </div>
   </div>
 </section>
+
+<style>
+  /* Logo visibility using media queries - different for SVG vs PNG */
+  
+  /* SVG logos - can be made very dark in light mode */
+  .logo-svg {
+    filter: grayscale(1) brightness(0.2) contrast(1.2);
+    transition: filter 0.2s ease;
+  }
+  
+  /* PNG logos - need to be less dark to preserve white backgrounds */
+  .logo-png {
+    filter: grayscale(0) brightness(1) contrast(1);
+    transition: filter 0.2s ease;
+  }
+  
+  /* Dark mode: both SVG and PNG get brighter */
+  @media (prefers-color-scheme: dark) {
+    .logo-svg {
+      filter: grayscale(0) brightness(1) contrast(1);
+    }
+    
+    .logo-png {
+      filter: grayscale(0) brightness(1) contrast(1);
+    }
+  }
+</style>
