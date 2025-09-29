@@ -8,7 +8,7 @@ const allWorkPages = await getCollection('pages', ({ slug }) => {
 });
 
 const workPages = allWorkPages.sort((a, b) => {
-  const order = ['work/wirehive', 'work/1310', 'work/pax8', 'work/bluhalo', 'work/forest-school', 'work/school-governor'];
+  const order = ['work/wirehive', 'work/1310', 'work/pax8', 'work/bluhalo', 'work/search-rescue', 'work/forest-school', 'work/school-governor'];
   return order.indexOf(a.slug) - order.indexOf(b.slug);
 });
 ---
