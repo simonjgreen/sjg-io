@@ -10,7 +10,59 @@ const currentPath = Astro.url.pathname;
           Simon Green
         </a>
       </div>
-      <div class="ml-10 flex items-center space-x-8">
+      <!-- Mobile navigation - hidden on larger screens -->
+      <div class="flex items-center space-x-2 sm:hidden">
+        <a 
+          href="/about" 
+          class={`text-sm font-medium transition-colors hover:text-gray-600 dark:hover:text-gray-300 ${
+            currentPath === '/about' ? 'text-gray-900 dark:text-white' : 'text-gray-500 dark:text-gray-400'
+          }`}
+        >
+          About
+        </a>
+        <a 
+          href="/work" 
+          class={`text-sm font-medium transition-colors hover:text-gray-600 dark:hover:text-gray-300 ${
+            currentPath.startsWith('/work') ? 'text-gray-900 dark:text-white' : 'text-gray-500 dark:text-gray-400'
+          }`}
+        >
+          Work
+        </a>
+        <a 
+          href="/writing" 
+          class={`text-sm font-medium transition-colors hover:text-gray-600 dark:hover:text-gray-300 ${
+            currentPath.startsWith('/writing') ? 'text-gray-900 dark:text-white' : 'text-gray-500 dark:text-gray-400'
+          }`}
+        >
+          Writing
+        </a>
+        <a 
+          href="/now" 
+          class={`text-sm font-medium transition-colors hover:text-gray-600 dark:hover:text-gray-300 ${
+            currentPath === '/now' ? 'text-gray-900 dark:text-white' : 'text-gray-500 dark:text-gray-400'
+          }`}
+        >
+          Now
+        </a>
+        <a 
+          href="/mentors" 
+          class={`text-sm font-medium transition-colors hover:text-gray-600 dark:hover:text-gray-300 ${
+            currentPath === '/mentors' ? 'text-gray-900 dark:text-white' : 'text-gray-500 dark:text-gray-400'
+          }`}
+        >
+          Mentors
+        </a>
+        <a 
+          href="/contact" 
+          class={`text-sm font-medium transition-colors hover:text-gray-600 dark:hover:text-gray-300 ${
+            currentPath === '/contact' ? 'text-gray-900 dark:text-white' : 'text-gray-500 dark:text-gray-400'
+          }`}
+        >
+          Contact
+        </a>
+      </div>
+      <!-- Desktop navigation - hidden on mobile -->
+      <div class="hidden sm:flex items-center space-x-8">
         <a 
           href="/about" 
           class={`text-sm font-medium transition-colors hover:text-gray-600 dark:hover:text-gray-300 ${
