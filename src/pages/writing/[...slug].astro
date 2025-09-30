@@ -1,6 +1,7 @@
 ---
 import Post from '../../layouts/Post.astro';
 import { getCollection } from 'astro:content';
+import readingTime from 'reading-time';
 
 export async function getStaticPaths() {
   const posts = await getCollection('posts', ({ data }) => !data.draft);
@@ -12,6 +13,11 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await post.render();
+
+// Calculate reading time from the post body
+const readingStats = readingTime(post.body);
+const readingTimeMinutes = Math.ceil(readingStats.minutes);
+
 ---
 
 <Post
@@ -23,6 +29,7 @@ const { Content } = await post.render();
   ogTitle={post.data.ogTitle}
   ogDescription={post.data.ogDescription}
   canonical={post.data.canonical}
+  readingTime={readingTimeMinutes}
 >
   <Content />
 </Post>

@@ -10,6 +10,7 @@ export interface Props {
   ogTitle?: string;
   ogDescription?: string;
   canonical?: string;
+  readingTime?: number;
 }
 
 const { 
@@ -20,8 +21,10 @@ const {
   tags = [], 
   ogTitle, 
   ogDescription, 
-  canonical 
+  canonical,
+  readingTime
 } = Astro.props;
+
 
 const formatDate = (date: Date) => {
   return new Intl.DateTimeFormat('en-GB', {
@@ -48,6 +51,11 @@ const formatDate = (date: Date) => {
         {description && (
           <p class="mt-6 text-xl leading-8 text-gray-600 dark:text-gray-300">
             {description}
+          </p>
+        )}
+        {readingTime && (
+          <p class="mt-4 text-sm text-gray-500 dark:text-gray-400">
+            {readingTime} min read
           </p>
         )}
         <div class="mt-6 flex items-center space-x-4 text-sm text-gray-500 dark:text-gray-400">
