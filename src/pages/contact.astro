@@ -1,55 +1,20 @@
 ---
 import Page from '../layouts/Page.astro';
+import { getCollection } from 'astro:content';
+
+const contactPage = await getCollection('pages', ({ slug }) => slug === 'contact');
+const contactContent = contactPage[0];
+
+if (!contactContent) {
+  throw new Error('Contact page content not found');
+}
+
+const { Content } = await contactContent.render();
 ---
 
 <Page 
-  title="Contact" 
-  description="Get in touch with Simon"
+  title={contactContent.data.title} 
+  description={contactContent.data.description}
 >
-  <div class="prose prose-lg max-w-none">
-    <h2>Get in Touch</h2>
-    <p>
-      I'm always interested in connecting with fellow engineers, entrepreneurs, and anyone passionate about technology. 
-      Feel free to reach out via any of the channels below.
-    </p>
-    
-    <h3>Email</h3>
-    <p>
-      <a href="mailto:hello@sjg.io" class="text-blue-600 dark:text-blue-400 hover:underline">
-        hello@sjg.io
-      </a>
-    </p>
-    
-    <h3>Social Media</h3>
-    <ul>
-      <li>
-        <a href="https://twitter.com/SimonJGreen" class="text-blue-600 dark:text-blue-400 hover:underline">
-          Twitter
-        </a>
-      </li>
-      <li>
-        <a href="https://linkedin.com/in/simonjgreen" class="text-blue-600 dark:text-blue-400 hover:underline">
-          LinkedIn
-        </a>
-      </li>
-      <li>
-        <a href="https://github.com/simonjg" class="text-blue-600 dark:text-blue-400 hover:underline">
-          GitHub
-        </a>
-      </li>
-    </ul>
-    
-    <h3>Speaking Inquiries</h3>
-    <p>
-      I'm available for speaking engagements on topics including engineering leadership, 
-      development workflows, and team building. Please include details about your event 
-      and audience when reaching out.
-    </p>
-    
-    <h3>Response Time</h3>
-    <p>
-      I typically respond to emails within 24-48 hours. If you don't hear back within 
-      a week, please feel free to follow up.
-    </p>
-  </div>
+  <Content />
 </Page>
