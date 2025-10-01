@@ -3,11 +3,16 @@ name: Preview Deploy
 on:
   pull_request:
     branches: [ main ]
+    types: [opened, synchronize, reopened]
+  pull_request_target:
+    branches: [ main ]
+    types: [closed]
 
 jobs:
-  preview:
+  deploy-preview:
     runs-on: ubuntu-latest
     environment: preview
+    if: github.event_name == 'pull_request'
 
     steps:
     - name: Checkout
@@ -24,6 +29,26 @@ jobs:
 
     - name: Build
       run: npx astro build --config astro.config.preview.mjs
+      env:
+        PREVIEW_DOMAIN: preview${{ github.event.number }}.sjg.io
+
+    - name: Create dynamic wrangler config
+      run: |
+        cat > wrangler.preview.json << EOF
+        {
+          "name": "sjg-io-preview-${{ github.event.number }}",
+          "compatibility_date": "2025-01-08",
+          "assets": {
+            "directory": "./dist"
+          },
+          "routes": [
+            {
+              "pattern": "preview${{ github.event.number }}.sjg.io",
+              "custom_domain": true
+            }
+          ]
+        }
+        EOF
 
     - name: Deploy Preview to Cloudflare Workers
       uses: cloudflare/wrangler-action@v3
@@ -31,4 +56,43 @@ jobs:
         apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         wranglerVersion: '4'
-        command: deploy --env preview --compatibility-date 2025-01-08
+        command: deploy --config wrangler.preview.json
+      env:
+        PREVIEW_DOMAIN: preview${{ github.event.number }}.sjg.io
+
+  cleanup-preview:
+    runs-on: ubuntu-latest
+    environment: preview
+    if: github.event_name == 'pull_request_target' && (github.event.pull_request.merged == true || github.event.pull_request.state == 'closed')
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Create dynamic wrangler config for cleanup
+      run: |
+        cat > wrangler.preview.json << EOF
+        {
+          "name": "sjg-io-preview-${{ github.event.number }}",
+          "compatibility_date": "2025-01-08",
+          "assets": {
+            "directory": "./dist"
+          },
+          "routes": [
+            {
+              "pattern": "preview${{ github.event.number }}.sjg.io",
+              "custom_domain": true
+            }
+          ]
+        }
+        EOF
+
+    - name: Delete Preview Deployment
+      uses: cloudflare/wrangler-action@v3
+      with:
+        apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        wranglerVersion: '4'
+        command: delete --config wrangler.preview.json --force
+      env:
+        PREVIEW_DOMAIN: preview${{ github.event.number }}.sjg.io

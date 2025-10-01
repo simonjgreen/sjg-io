@@ -6,18 +6,6 @@
     "directory": "./dist"
   },
   "env": {
-    "preview": {
-      "name": "sjg-io-preview",
-      "assets": {
-        "directory": "./dist"
-      },
-      "routes": [
-        {
-          "pattern": "preview.sjg.io",
-          "custom_domain": true
-        }
-      ]
-    },
     "production": {
       "name": "sjg-io",
       "assets": {
