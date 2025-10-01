@@ -1,0 +1,138 @@
+---
+title: "Open Source, Open Home: A Practical Approach to Home Automation"
+description: "Building a house that's polite, not flashy - using Home Assistant, open source tools, and automation-first thinking to create a transparent, adoptable home system."
+date: 2025-10-02
+tags: ["home automation", "open source", "home assistant", "privacy", "automation"]
+draft: false
+---
+
+# Open Source, Open Home: A Practical Approach to Home Automation
+
+I don’t want a “smart home.” I want a house that’s polite. Lights that don’t glare at three in the morning, heating that doesn’t play roulette, and an EV that quietly charges when the price or the sun says “now.”  
+
+Home automation has become a quiet passion of mine - not for the gadgets themselves, but for the way they can be stitched together to make the house behave in a way that suits us. Most people’s experience of “smart” is a tangle of apps, hubs, and unpredictable behaviour. What I’ve been building is something more grounded: an open-source, automation-first home where switches behave as you’d expect, routines quietly fill in the gaps, and the voice assistant is something the whole family can use without thinking.  
+
+The complexity is there, but it’s hidden. Guests, family, grandparents - everyone should find the house intuitive. The technology should add a layer of calm, not confusion. It should augment normal life, not replace it.  
+
+---
+
+## Why Open Source at Home?
+
+Most vendor “smart” products are islands. They lock you into their cloud, push firmware on their timetable, and often stop working when the company loses interest. What is sold as a solution often ages into a liability.  
+
+Open source flips that on its head. With Home Assistant at the centre, I’m free to combine the best of many ecosystems, both old and new.  
+
+- **Z-Wave JS** connects to reliable niche devices with excellent range.  
+- **Zigbee2MQTT** brings in a huge ecosystem of affordable devices - I’ve got more than 200 lights, buttons, and sensors running on it.  
+- **ESPHome** lets me create my own controllers for one-off tasks, and also acts as distributed Bluetooth LE proxies.  
+- Bridges to **Sonoff, Tuya, SwitchBot, Govee, Samsung, Daikin** mean I can still use devices that were never meant to work together.  
+
+That mix is deliberate. It avoids dead ends. If a vendor disappears, the rest of the house keeps working. If a device fails, I can swap it for something better, not whatever fits a closed hub. More importantly, it means I can tune each device to suit how our family actually lives, rather than how a product manager thought we ought to.  
+
+This posture - local-first, vendor-agnostic, open by design - is an insurance policy for a house I expect to run for decades. It also links back to my earlier argument in *[Against the Great Convergence](https://sjg.io/writing/against-the-great-convergence/)*: resist centralisation, and keep control of the things you rely on.  
+
+---
+
+## The Architecture in Human Terms
+
+### People and Places  
+The system’s deepest model isn’t of devices - it’s of *us*. It knows who’s at home, who’s at school, who’s on the way to parents’ house. That context shapes routines without fuss.  
+
+When a car leaves for school at the usual time, the house trims heating and lighting a notch. When both adults are out, it shifts into a lower-energy posture. If we’re returning in the evening, the living areas are already lit. Nobody announces these changes - they simply happen.  
+
+### Lighting That Adapts to People  
+Light is where “smart” can most easily misfire. Too dim for cooking, too harsh for relaxing, too blinding at night.  
+
+I use **Adaptive Lighting** to track colour temperature across the day: cooler in the morning, warmer in the evening, low and gentle at night. Scenes like *Morning*, *Sleeping*, *TV Time*, *Party*, and even seasonal ones like *Halloween* give predictable moods with a single press.  
+
+The important thing isn’t the cleverness - it’s the predictability. Flick a switch and you get the light you expect. If you want something else, a scene or a voice command does it. If a grandparent visits, they use the switches exactly as they would in any other house. The sophistication stays behind the curtain.  
+
+### Energy Awareness by Design  
+Energy isn’t just displayed on a dashboard; it drives decisions. My house knows the solar forecast, the current grid CO₂ intensity, and tomorrow’s tariff. That knowledge translates into action:  
+
+- EV charging moves to the cheapest or cleanest slots.  
+- Hot water runs when solar is abundant.  
+- An *Energy Saving Lights* switch trims waste across the board.  
+
+The philosophy is simple: nobody should have to think about it. The house makes the sensible choice by default. If someone overrides it, that choice is respected.  
+
+### Voice as a First-Class Citizen  
+The voice assistant isn’t a gimmick - it’s one of the main ways the house is used. Lights, heating, entertainment, energy modes, coffee machine, curtains, the gate, even the grill - all of it is accessible.  
+
+With **Wyoming, Whisper, and Piper** I get local wake word, speech-to-text, and text-to-speech. That means privacy, reliability, and no “sorry, I’m offline” moments. If something needs more horsepower, I can dip into cloud AI, but day-to-day the system is entirely local.  
+
+It’s invisible technology at its best: you ask, the house responds, without fuss.  
+
+### Operational Discipline, at Home  
+My background is in IT operations, and that discipline carries through. The system:  
+- Takes **nightly backups** without my intervention.  
+- Monitors itself with self remediations if an addon fails**.  
+- Keeps core updates pinned to avoid nasty surprises.  
+- Flags low-battery devices before they quietly fail.  
+- Automatically updates Zigbee devices.
+
+It’s the same mindset I’d use to run production systems at work. At home, the result is trust. Nobody wants a flaky house. Reliability isn’t a bonus - it’s the foundation.  
+
+---
+
+## Patterns That Work in Real Life
+
+### 1. Context Scenes + Soft Overrides  
+The house flows between scenes: *Morning* brightness, *Evening* warmth, *TV Time* cosiness, *Sleeping* calm. Adaptive Lighting provides the rhythm, but people can always override. If someone dims a lamp for reading, that preference is remembered. Automations don’t fight back. The pattern is “helpful default, respectful override.”  
+
+### 2. Energy Gates  
+Rather than fiddling with each load, I use a single switch like *Energy Saving Lights* to set the household stance. Behind the scenes, that switch guides decisions: wait for solar, prefer cheap slots, avoid waste.  
+
+### 3. Geofence Nudges  
+Zones for parents’ house, schools, shops, and offices let the house prepare quietly. Heating can ramp before we arrive, reminders can surface at the right time. It feels thoughtful, not bossy.  
+
+### 4. Ops Buttons for People  
+Some things need to be obvious. The gate has a toggle with a safety timer. The coffee machine warms up on command. Extractor fans can be kicked in. Curtains open and close with a button.  
+
+These simple, one-purpose controls are what make the system “grandparent-friendly.” You don’t need to know anything about the underlying system. You just press a button, and it does the right thing.  
+
+---
+
+## The Philosophy Underneath
+
+The result of all this is a house that is **transparent to its inhabitants**.  
+
+- **Family adoption factor**: everyone uses it, because it behaves as expected. A teenager can call up the TV scene with voice. A child can hit a light switch and get predictable behaviour. Nobody has to think about configuration or integrations.  
+- **Grandparent adoption factor**: visitors encounter no friction. Switches still work. Buttons are clearly labelled. The house feels comfortable, not futuristic.  
+
+Automations are used with restraint. They appear only where they add obvious value - saving energy, smoothing routines, avoiding repetition. They never surprise.  
+
+That restraint is the real challenge. It’s easy to automate for the sake of it. The art lies in knowing when to stop.  
+
+---
+
+## Lessons Learned
+
+After more than a decade of tinkering and refining, a few principles have stood out:  
+
+- Automate the *decision*, not just the device.  
+- Make defaults gentle. Harsh light or abrupt heating is what makes people resent automation.  
+- Respect overrides. People will always want control.  
+- Prefer a single global mode switch to a cluster of fiddly rules.  
+- Reliability is invisible, but essential.  
+- The real joy is in the tailoring: each automation is shaped to our actual life, not to a manufacturer’s imagined use case.  
+
+---
+
+## Results
+
+The outcome isn’t a science project. It’s a house that feels calm, predictable, and efficient.  
+
+Evenings run more smoothly. Energy bills are lower. Solar is used intelligently. The EV is always ready when it needs to be. Family members naturally reach for scenes and buttons. Guests often don’t even realise they’re in an automated home - which is exactly the point.  
+
+The real win is that the house itself has become invisible. There are no “why didn’t this work?” moments, no “how do I turn on the light?” queries. The house just works.  
+
+---
+
+## The Takeaway
+
+Don’t copy my YAML. Take the patterns instead: context scenes, energy gates, geofence nudges, ops buttons. Mix them into your own set-up.  
+
+And if you benefit from projects like Adaptive Lighting, Zigbee2MQTT, or the Octopus Energy integration, send thanks or a donation to the people who maintain them.  
+
+Open source is what makes this possible. But the real lesson isn’t about code. It’s about philosophy. Smart homes should be polite, transparent, and adoptable by anyone. That’s when the technology disappears, and life gets better.  
