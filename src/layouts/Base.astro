@@ -33,6 +33,40 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, Astro.site);
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="canonical" href={canonicalUrl} />
     
+    <!-- Theme initialization and toggle script -->
+    <script is:inline>
+      // Initialize theme before page renders to prevent flash
+      (function() {
+        const theme = localStorage.getItem('theme') || 'light';
+        if (theme === 'dark') {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      })();
+      
+      // Theme toggle functionality
+      document.addEventListener('DOMContentLoaded', function() {
+        const html = document.documentElement;
+        
+        // Use event delegation to handle all theme toggle buttons
+        document.addEventListener('click', function(e) {
+          if (e.target && e.target.closest('.theme-toggle')) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            if (html.classList.contains('dark')) {
+              html.classList.remove('dark');
+              localStorage.setItem('theme', 'light');
+            } else {
+              html.classList.add('dark');
+              localStorage.setItem('theme', 'dark');
+            }
+          }
+        });
+      });
+    </script>
+    
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content={ogTitleFinal} />
