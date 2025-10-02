@@ -53,16 +53,16 @@ const logos = [
 
 <Base title="Home" description="Simon Green: Builder CIO. I bring AI out of the lab and into operations.">
   <!-- Hero Section -->
-  <section class="bg-white dark:bg-gray-900">
-    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-24">
+      <section class="bg-gray-50 dark:bg-gray-900 bg-texture-particles relative overflow-hidden">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-24 relative z-10">
       <div class="text-center">
-        <h1 class="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-6xl">
+        <h1 class="text-5xl font-black tracking-tight sm:text-6xl md:text-7xl text-gradient-animated" style="background: linear-gradient(-45deg, #00d4ff, #ff0080, #ff6b35, #00d4ff); background-size: 400% 400%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: gradient-shift 20s ease infinite;">
           Simon Green
         </h1>
-        <p class="mt-6 text-xl leading-8 text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+        <p class="mt-8 text-2xl font-light leading-relaxed text-gray-700 dark:text-gray-200 max-w-3xl mx-auto">
           Builder CIO. I bring AI out of the lab and into operations.
         </p>
-        <p class="mt-2 text-lg leading-7 text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
+        <p class="mt-4 text-lg font-normal leading-relaxed text-gray-500 dark:text-gray-400 max-w-2xl mx-auto italic">
           Global CIO at Pax8. Founder at 1310. Technology leader with Linux and networking roots.
         </p>
         <div class="mt-10 flex items-center justify-center gap-x-6">
@@ -78,12 +78,12 @@ const logos = [
   </section>
 
   <!-- Three Proof Points -->
-  <section class="bg-gray-50 dark:bg-gray-800 py-16">
+  <section class="bg-gray-50 dark:bg-gray-800 bg-texture-dots py-16" style="background-image: radial-gradient(circle, rgba(0, 212, 255, 0.08) 1px, transparent 1px); background-size: 20px 20px;">
     <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
         <Card href="/work/pax8">
           <div class="p-6">
-            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Pax8, global product pods</h3>
+            <h3 class="text-xl font-black text-gray-900 dark:text-white">Pax8, global product pods</h3>
             <p class="mt-3 text-base text-gray-600 dark:text-gray-300">
               Rebuilt internal IT from a single region service to a worldwide, pod based, product oriented organisation. Focus on adoption, measurable outcomes, and speed.
             </p>
@@ -91,7 +91,7 @@ const logos = [
         </Card>
         <Card href="/work/1310">
           <div class="p-6">
-            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">1310, profitable and self funded</h3>
+            <h3 class="text-xl font-black text-gray-900 dark:text-white">1310, profitable and self funded</h3>
             <p class="mt-3 text-base text-gray-600 dark:text-gray-300">
               Built an ISP organically to self sustaining profitability. Engineering discipline, sensible capital, steady execution.
             </p>
@@ -99,7 +99,7 @@ const logos = [
         </Card>
         <Card href="/writing/operational-ai-that-actually-ships">
           <div class="p-6">
-            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Automation and AI that ships</h3>
+            <h3 class="text-xl font-black text-gray-900 dark:text-white">Automation and AI that ships</h3>
             <p class="mt-3 text-base text-gray-600 dark:text-gray-300">
               Operational AI and automation that reduces toil and improves service quality. Focus on routing, adoption, and measurable outcomes.
             </p>
@@ -110,10 +110,10 @@ const logos = [
   </section>
 
   <!-- What I'm focused on now -->
-  <section class="bg-white dark:bg-gray-900">
+      <section class="bg-gray-50 dark:bg-gray-900 bg-texture-glow" style="background: radial-gradient(ellipse at top, rgba(0, 212, 255, 0.12) 0%, transparent 60%), radial-gradient(ellipse at bottom, rgba(255, 0, 128, 0.06) 0%, transparent 60%);">
     <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-16">
       <div class="text-center">
-        <h2 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
+        <h2 class="text-4xl font-black tracking-tight text-neon-blue dark:text-neon-blue">
           What I'm focused on now
         </h2>
         <div class="mt-6 prose prose-lg max-w-none text-gray-600 dark:text-gray-300 prose-headings:text-gray-900 dark:prose-headings:text-white prose-strong:text-gray-900 dark:prose-strong:text-white">
@@ -129,16 +129,16 @@ const logos = [
   </section>
 
   <!-- Writing Teaser -->
-  <section class="bg-gray-50 dark:bg-gray-800 py-16">
+  <section class="bg-gray-50 dark:bg-gray-800 bg-texture-dots py-16" style="background-image: radial-gradient(circle, rgba(0, 212, 255, 0.08) 1px, transparent 1px); background-size: 20px 20px;">
     <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-      <h2 class="text-center text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
+      <h2 class="text-center text-4xl font-black tracking-tight text-neon-magenta dark:text-neon-magenta">
         Writing
       </h2>
       <div class="mt-10 grid grid-cols-1 gap-8 md:grid-cols-3">
         {recentPosts.map((post) => (
           <Card href={`/writing/${post.slug}`}>
             <div class="p-6">
-              <h3 class="text-xl font-semibold text-gray-900 dark:text-white">{post.data.title}</h3>
+              <h3 class="text-xl font-black text-gray-900 dark:text-white">{post.data.title}</h3>
               <p class="mt-3 text-base text-gray-600 dark:text-gray-300">{post.data.description}</p>
               <p class="mt-3 text-sm text-gray-500 dark:text-gray-400">
                 {post.data.date.toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' })}
@@ -158,3 +158,17 @@ const logos = [
 
   <LogoRow logos={logos} title="Companies I've worked with" />
 </Base>
+
+<style>
+  @keyframes gradient-shift {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+</style>

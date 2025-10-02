@@ -1,5 +1,7 @@
 ---
-import Page from '../layouts/Page.astro';
+import Base from '../layouts/Base.astro';
+import Prose from '../components/Prose.astro';
+import Timeline from '../components/Timeline.astro';
 import { getCollection } from 'astro:content';
 
 const aboutPage = await getCollection('pages', ({ slug }) => slug === 'about');
@@ -12,9 +14,35 @@ if (!aboutContent) {
 const { Content } = await aboutContent.render();
 ---
 
-<Page 
+<Base 
   title={aboutContent.data.title} 
   description={aboutContent.data.description}
 >
-  <Content />
-</Page>
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+      <!-- Main Content -->
+      <div class="lg:col-span-2">
+        <h1 class="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl">
+          {aboutContent.data.title}
+        </h1>
+        {aboutContent.data.description && (
+          <p class="mt-6 text-xl leading-8 text-gray-600 dark:text-gray-300">
+            {aboutContent.data.description}
+          </p>
+        )}
+        <div class="mt-8">
+          <Prose>
+            <Content />
+          </Prose>
+        </div>
+      </div>
+      
+      <!-- Timeline Sidebar -->
+      <div class="lg:col-span-1">
+        <div class="sticky top-8">
+          <Timeline />
+        </div>
+      </div>
+    </div>
+  </div>
+</Base>

@@ -1,0 +1,134 @@
+[
+  {
+    "year": 2025,
+    "title": "SVP Workflow Engineering",
+    "description": "Building AI Core and automation-first operations",
+    "company": "Pax8",
+    "type": "current"
+  },
+  {
+    "year": 2025,
+    "title": "Forest School Project",
+    "description": "Purchased 10 acres woodland, planning SEN-focused forest school opening 2026",
+    "type": "founding"
+  },
+  {
+    "year": 2022,
+    "title": "CIO",
+    "description": "Global CIO at Pax8, transforming single office IT into a product-oriented organisation with worldwide coverage",
+    "company": "Pax8",
+    "type": "career"
+  },
+  {
+    "year": 2021,
+    "title": "Wirehive acquired by Pax8",
+    "description": "Transitioned into global leadership",
+    "company": "Pax8",
+    "type": "career"
+  },
+  {
+    "year": 2020,
+    "title": "School Governance",
+    "description": "Governor at Bishopswood, later Chair of Synergy Schools Partnership collaboration committee",
+    "type": "community"
+  },
+  {
+    "year": 2018,
+    "title": "Founded 1310",
+    "description": "Built independent ISP, organically grown and profitable",
+    "company": "1310",
+    "type": "founding"
+  },
+  {
+    "year": 2017,
+    "title": "Second Daughter Born",
+    "description": "Lily arrives",
+    "type": "personal"
+  },
+  {
+    "year": 2016,
+    "title": "Drone Qualification",
+    "description": "Developed first accredited national drone course for SAR and Fire services",
+    "type": "community"
+  },
+  {
+    "year": 2015,
+    "title": "Surrey Search & Rescue",
+    "description": "Head of SARRPAS & Director of Air Operations; pioneered drone use in SAR",
+    "type": "community"
+  },
+  {
+    "year": 2013,
+    "title": "rLab (Reading Hackspace)",
+    "description": "Active member; helped bring structure, stability, and growth",
+    "type": "community"
+  },
+  {
+    "year": 2012,
+    "title": "First Daughter Born",
+    "description": "Willow arrives",
+    "type": "personal"
+  },
+  {
+    "year": 2010,
+    "title": "Married Rachel",
+    "description": "Wedding year",
+    "type": "personal"
+  },
+  {
+    "year": 2010,
+    "title": "Founded Wirehive",
+    "description": "Created digital infrastructure company",
+    "company": "Wirehive",
+    "type": "founding"
+  },
+  {
+    "year": 2005,
+    "title": "Bluhalo",
+    "description": "Digital agency, technical leadership",
+    "company": "Bluhalo",
+    "type": "career"
+  },
+  {
+    "year": 2003,
+    "title": "BCOT",
+    "description": "Higher National Diploma in Computing",
+    "type": "education"
+  },
+  {
+    "year": 2002,
+    "title": "First Business Experiments",
+    "description": "Various early eCommerce experiments",
+    "type": "founding"
+  },
+  {
+    "year": 2001,
+    "title": "Queen Mary's College, Basingstoke",
+    "description": "A Levels",
+    "type": "education"
+  },
+  {
+    "year": 2000,
+    "title": "Met Rachel",
+    "description": "Began long-term relationship",
+    "type": "personal"
+  },
+  {
+    "year": 1995,
+    "title": "The Hurst Community School",
+    "description": "Secondary education",
+    "type": "education"
+  },
+  {
+    "year": 1989,
+    "title": "Silchester C of E Primary",
+    "description": "Early school years",
+    "type": "education"
+  },
+  {
+    "year": 1984,
+    "title": "Born",
+    "description": "Arrival into the world, UK",
+    "type": "personal"
+  }
+]
