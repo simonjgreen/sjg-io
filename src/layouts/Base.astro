@@ -42,7 +42,16 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, Astro.site);
     <script is:inline>
       // Initialize theme before page renders to prevent flash
       (function() {
-        const theme = localStorage.getItem('theme') || 'light';
+        const storedTheme = localStorage.getItem('theme');
+        let theme;
+        
+        if (storedTheme) {
+          theme = storedTheme;
+        } else {
+          // Default to system preference
+          theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        
         if (theme === 'dark') {
           document.documentElement.classList.add('dark');
         } else {
