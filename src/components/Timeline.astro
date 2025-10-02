@@ -52,7 +52,7 @@ const getTypeLabel = (type: string) => {
       
       <!-- Timeline Items -->
       <div class="space-y-4">
-        {timelineData.map((item, index) => (
+        {timelineData.map((item) => (
           <div class="relative flex items-start">
             <!-- Timeline Dot -->
             <div class={`relative z-10 w-12 h-12 rounded-full ${getTypeColor(item.type)} flex items-center justify-center shadow-md`}>
