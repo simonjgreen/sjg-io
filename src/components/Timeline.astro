@@ -1,0 +1,126 @@
+---
+import timelineData from '../data/timeline.json';
+
+export interface TimelineItem {
+  year: number;
+  title: string;
+  description: string;
+  company?: string;
+  type: 'career' | 'founding' | 'community' | 'current' | 'personal' | 'education';
+}
+
+const getTypeColor = (type: string) => {
+  switch (type) {
+    case 'career': return 'bg-neon-blue';
+    case 'founding': return 'bg-neon-magenta';
+    case 'community': return 'bg-neon-orange';
+    case 'personal': return 'bg-gray-500';
+    case 'education': return 'bg-green-500';
+    case 'current': return 'bg-gradient-to-r from-neon-blue to-neon-magenta';
+    default: return 'bg-gray-400';
+  }
+};
+
+const getTypeLabel = (type: string) => {
+  switch (type) {
+    case 'career': return 'Career';
+    case 'founding': return 'Founding';
+    case 'community': return 'Community';
+    case 'personal': return 'Personal';
+    case 'education': return 'Education';
+    case 'current': return 'Current';
+    default: return 'Other';
+  }
+};
+---
+
+<div class="timeline-container bg-gray-50 dark:bg-gray-900 py-8">
+  <div class="mx-auto max-w-full px-2">
+    <div class="text-center mb-8">
+      <h2 class="text-2xl font-black tracking-tight text-gray-900 dark:text-white mb-3">
+        Timeline
+      </h2>
+      <p class="text-sm text-gray-600 dark:text-gray-300">
+        Life and career milestones
+      </p>
+    </div>
+
+    <!-- Timeline Grid -->
+    <div class="relative">
+      <!-- Timeline Line -->
+      <div class="absolute left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-neon-blue via-neon-magenta to-neon-orange"></div>
+      
+      <!-- Timeline Items -->
+      <div class="space-y-4">
+        {timelineData.map((item, index) => (
+          <div class="relative flex items-start">
+            <!-- Timeline Dot -->
+            <div class={`relative z-10 w-12 h-12 rounded-full ${getTypeColor(item.type)} flex items-center justify-center shadow-md`}>
+              <span class="text-white font-bold text-xs">{item.year}</span>
+            </div>
+            
+            <!-- Content Card -->
+            <div class="ml-6 flex-1">
+              <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 p-4 border border-gray-200 dark:border-gray-700">
+                <div class="flex items-center justify-between mb-2">
+                  <h3 class="text-sm font-black text-gray-900 dark:text-white leading-tight">
+                    {item.title}
+                  </h3>
+                  <span class={`px-2 py-1 rounded-full text-xs font-semibold text-white ${getTypeColor(item.type)}`}>
+                    {getTypeLabel(item.type)}
+                  </span>
+                </div>
+                
+                {item.company && (
+                  <p class="text-neon-blue dark:text-neon-blue font-semibold text-xs mb-1">
+                    {item.company}
+                  </p>
+                )}
+                
+                <p class="text-gray-600 dark:text-gray-300 text-xs leading-relaxed">
+                  {item.description}
+                </p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Legend -->
+    <div class="mt-8 grid grid-cols-2 gap-2 text-xs">
+      <div class="flex items-center">
+        <div class="w-3 h-3 rounded-full bg-neon-blue mr-2"></div>
+        <span class="text-gray-600 dark:text-gray-300">Career</span>
+      </div>
+      <div class="flex items-center">
+        <div class="w-3 h-3 rounded-full bg-neon-magenta mr-2"></div>
+        <span class="text-gray-600 dark:text-gray-300">Founding</span>
+      </div>
+      <div class="flex items-center">
+        <div class="w-3 h-3 rounded-full bg-neon-orange mr-2"></div>
+        <span class="text-gray-600 dark:text-gray-300">Community</span>
+      </div>
+      <div class="flex items-center">
+        <div class="w-3 h-3 rounded-full bg-gray-500 mr-2"></div>
+        <span class="text-gray-600 dark:text-gray-300">Personal</span>
+      </div>
+      <div class="flex items-center">
+        <div class="w-3 h-3 rounded-full bg-green-500 mr-2"></div>
+        <span class="text-gray-600 dark:text-gray-300">Education</span>
+      </div>
+      <div class="flex items-center">
+        <div class="w-3 h-3 rounded-full bg-gradient-to-r from-neon-blue to-neon-magenta mr-2"></div>
+        <span class="text-gray-600 dark:text-gray-300">Current</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .timeline-container {
+    background: 
+      radial-gradient(ellipse at top, rgba(0, 212, 255, 0.05) 0%, transparent 50%),
+      radial-gradient(ellipse at bottom, rgba(255, 0, 128, 0.03) 0%, transparent 50%);
+  }
+</style>

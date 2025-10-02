@@ -5,7 +5,7 @@ const currentPath = Astro.url.pathname;
 const isHomePage = currentPath === '/';
 ---
 
-<header class="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700">
+    <header class="bg-gray-50 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700">
   <nav class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8" aria-label="Top">
     {isHomePage ? (
       <!-- Home page layout: centered navigation -->
@@ -63,7 +63,6 @@ const isHomePage = currentPath === '/';
         </div>
         <!-- Desktop navigation - hidden on mobile -->
         <div class="hidden sm:flex items-center space-x-8">
-          <ThemeToggle />
           <a 
             href="/about" 
             class={`text-sm font-medium transition-colors hover:text-neon-blue dark:hover:text-neon-blue ${
@@ -112,6 +111,7 @@ const isHomePage = currentPath === '/';
           >
             Contact
           </a>
+          <ThemeToggle />
         </div>
       </div>
     ) : (
@@ -124,7 +124,6 @@ const isHomePage = currentPath === '/';
         </div>
         <!-- Mobile navigation - hidden on larger screens -->
         <div class="flex items-center space-x-2 sm:hidden">
-          <ThemeToggle />
           <a 
             href="/about" 
             class={`text-sm font-medium transition-colors hover:text-neon-blue dark:hover:text-neon-blue ${
@@ -173,6 +172,7 @@ const isHomePage = currentPath === '/';
           >
             Contact
           </a>
+          <ThemeToggle />
         </div>
         <!-- Desktop navigation - hidden on mobile -->
         <div class="hidden sm:flex items-center space-x-8">
