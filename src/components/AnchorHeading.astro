@@ -1,0 +1,23 @@
+---
+export interface Props {
+  as: 'h2' | 'h3';
+  id: string;
+}
+
+const { as: Tag, id } = Astro.props;
+---
+
+<div class="group relative">
+  <Tag id={id} class="scroll-mt-20">
+    <slot />
+  </Tag>
+  <a 
+    href={`#${id}`}
+    class="absolute -left-6 top-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-white/40 hover:text-white/60 focus:opacity-100 focus:outline-none focus:ring-2 focus:ring-blue-500/50 rounded"
+    aria-label={`Link to ${id} section`}
+  >
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+    </svg>
+  </a>
+</div>
