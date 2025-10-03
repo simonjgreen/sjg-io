@@ -1,77 +1,157 @@
 ---
-title: Colophon
-description: Technical details about this website
+title: "Colophon"
+description: "How this site is built and why."
+siteVersion: "2025.01.03"
 ---
 
-This site is built with modern tools and practices. Here's the technical stack:
+import TechBadge from '../../components/TechBadge.astro';
+import Accordion from '../../components/Accordion.astro';
+import CopyButton from '../../components/CopyButton.astro';
+import AnchorHeading from '../../components/AnchorHeading.astro';
 
-## Technology
+<div class="space-y-8">
+A colophon is a statement of publication details - traditionally found at the end of books. This one explains how and why this site is built, serving as both technical documentation and a reflection of my approach to web development.
 
-- **Astro** - Static site generator with component islands
-- **TypeScript** - Type safety and better developer experience  
-- **MDX** - Content authoring with React components
-- **Tailwind CSS** - Utility-first CSS framework
-- **Content Collections** - Type-safe content management
+<AnchorHeading as="h2" id="overview">Overview</AnchorHeading>
 
-## Code Quality
+This site prioritizes speed, accessibility, and simplicity. Built with modern static site generation, it delivers content instantly while maintaining excellent performance scores and supporting all users.
 
-- **ESLint** - Code linting with TypeScript and Astro plugins
-- **Prettier** - Code formatting with Astro plugin
-- **Autoprefixer** - CSS vendor prefix automation
-- **Zod** - Schema validation for content frontmatter
+<AnchorHeading as="h2" id="build-deploy">Build & Deploy</AnchorHeading>
 
-## Deployment
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-6">
+  <TechBadge label="Astro" href="https://astro.build/" />
+  <TechBadge label="TypeScript" href="https://www.typescriptlang.org/" />
+  <TechBadge label="MDX" href="https://mdxjs.com/" />
+  <TechBadge label="Tailwind CSS" href="https://tailwindcss.com/" />
+  <TechBadge label="Content Collections" href="https://docs.astro.build/en/guides/content-collections/" />
+  <TechBadge label="ESLint" href="https://eslint.org/" />
+  <TechBadge label="Prettier" href="https://prettier.io/" />
+  <TechBadge label="Autoprefixer" href="https://autoprefixer.github.io/" />
+  <TechBadge label="Zod" href="https://zod.dev/" />
+  <TechBadge label="Cloudflare Workers" href="https://workers.cloudflare.com/" />
+  <TechBadge label="GitHub Actions" href="https://github.com/features/actions" />
+  <TechBadge label="Wrangler" href="https://developers.cloudflare.com/workers/wrangler/" />
+</div>
 
-- **Cloudflare Workers** - Static site hosting
-- **GitHub Actions** - CI/CD pipeline
-- **Wrangler** - Cloudflare Workers CLI
+<AnchorHeading as="h2" id="performance">Performance</AnchorHeading>
 
-## Performance
+<div class="bg-blue-500/10 border border-blue-500/20 rounded-lg p-4 mb-6">
+  <div class="flex items-center gap-2 mb-2">
+    <span class="text-2xl">⚡</span>
+    <h3 class="text-lg font-semibold text-blue-400">Built for speed</h3>
+  </div>
+  <p class="text-sm text-white/80">This site is optimized for instant loading and smooth interactions.</p>
+</div>
 
-Built for speed:
-- Static site generation
-- Minimal JavaScript
-- CDN delivery via Cloudflare
-- Optimised images and assets (AVIF/WebP, responsive sizes, lazy loading)
-- Target Lighthouse scores ≥ 95 across all categories
-- Dark mode and prefers-reduced-motion support
+<Accordion title="What that means">
+  <ul class="space-y-2 text-sm text-white/80">
+    <li>• Static site generation with minimal JavaScript</li>
+    <li>• CDN delivery via Cloudflare's global network</li>
+    <li>• Optimized images (AVIF/WebP, responsive sizes, lazy loading)</li>
+    <li>• Dark mode and prefers-reduced-motion support</li>
+  </ul>
+</Accordion>
 
-## Accessibility
 
-- Semantic HTML structure
-- Proper heading hierarchy
-- Keyboard navigation support
-- Screen reader compatibility
+<AnchorHeading as="h2" id="accessibility">Accessibility</AnchorHeading>
 
-## Content Processing
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+  <div class="rounded-lg border border-white/10 bg-white/5 p-4">
+    <h4 class="font-medium text-white/90 mb-2">Structure</h4>
+    <ul class="text-sm text-white/70 space-y-1">
+      <li>Semantic HTML elements (header, nav, main, footer)</li>
+      <li>Proper heading hierarchy (h1 → h2 → h3)</li>
+      <li>ARIA labels on interactive elements</li>
+    </ul>
+  </div>
+  
+  <div class="rounded-lg border border-white/10 bg-white/5 p-4">
+    <h4 class="font-medium text-white/90 mb-2">Interaction</h4>
+    <ul class="text-sm text-white/70 space-y-1">
+      <li>Focus styles on buttons and links</li>
+      <li>Keyboard-accessible theme toggle</li>
+      <li>Skip links and anchor navigation</li>
+    </ul>
+  </div>
+</div>
 
-- **Marked.js** - Markdown processing and parsing
-- **Shiki** - Syntax highlighting with GitHub Dark theme
-- **RSS Feed** - Automatic RSS feed generation
-- **JSON Feed** - Modern feed format support
+<AnchorHeading as="h2" id="content-pipeline">Content Pipeline</AnchorHeading>
 
-## Analytics
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-6">
+  <TechBadge label="Marked.js" href="https://marked.js.org/" />
+  <TechBadge label="Shiki" href="https://shiki.matsu.io/" />
+  <TechBadge label="RSS Feed" />
+  <TechBadge label="JSON Feed" href="https://jsonfeed.org/" />
+</div>
 
-- **Cloudflare Web Analytics** - Privacy-focused, no cookies
-- No personal data collection
-- GDPR compliant
-- Automatic JavaScript injection
+<AnchorHeading as="h2" id="analytics-privacy">Analytics & Privacy</AnchorHeading>
 
-## Fonts
+<div class="bg-green-500/10 border border-green-500/20 rounded-lg p-4 mb-6">
+  <div class="flex items-center gap-2 mb-2">
+    <span class="text-2xl">🔒</span>
+    <h3 class="text-lg font-semibold text-green-400">Privacy-first analytics</h3>
+  </div>
+  <p class="text-sm text-white/80 mb-3">
+    No cookies, no personal data collection, GDPR compliant. Uses Cloudflare Web Analytics for aggregate insights.
+  </p>
+  <TechBadge label="No cookies" />
+</div>
 
-Uses system fonts for optimal performance and compatibility.
+<AnchorHeading as="h2" id="fonts">Fonts</AnchorHeading>
 
-## Browser Support
+<p class="text-white/80 mb-6">
+  Uses system fonts for optimal performance and compatibility. Includes <code class="bg-white/10 px-1 rounded text-sm">font-feature-settings: 'tnum' 1;</code> for tabular numbers in metrics.
+</p>
 
-Works in all modern browsers. If you're using Internet Explorer, you're on your own.
+<AnchorHeading as="h2" id="for-agents">For Agents</AnchorHeading>
 
-## Hosting
+<div class="bg-purple-500/10 border border-purple-500/20 rounded-lg p-4 mb-6">
+  <div class="flex items-center gap-2 mb-3">
+    <span class="text-2xl">🤖</span>
+    <h3 class="text-lg font-semibold text-purple-400">AI-friendly resources</h3>
+  </div>
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+    <div>
+      <h4 class="font-medium text-white/90 mb-2">Feeds & Maps</h4>
+      <ul class="space-y-1 text-white/70">
+        <li>• <a href="/sitemap-0.xml" class="hover:text-white/90 transition-colors">Sitemap</a></li>
+        <li>• <a href="/rss.xml" class="hover:text-white/90 transition-colors">RSS Feed</a></li>
+        <li>• <a href="/feed.json" class="hover:text-white/90 transition-colors">JSON Feed</a></li>
+        <li>• <a href="/robots.txt" class="hover:text-white/90 transition-colors">Robots</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="font-medium text-white/90 mb-2">Entry Points</h4>
+      <ul class="space-y-1 text-white/70">
+        <li>• <a href="/" class="hover:text-white/90 transition-colors">Home</a></li>
+        <li>• <a href="/writing/" class="hover:text-white/90 transition-colors">Writing</a></li>
+        <li>• <a href="/about" class="hover:text-white/90 transition-colors">About</a></li>
+        <li>• <a href="/contact" class="hover:text-white/90 transition-colors">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+  <p class="text-xs text-white/60 mt-3">
+    Schema types: Article, Person, WebSite
+  </p>
+</div>
 
-- **Provider**: Cloudflare Workers
-- **CDN**: Global edge network
-- **SSL**: Automatic HTTPS
-- **Uptime**: 99.9% SLA
+<AnchorHeading as="h2" id="changelog">Changelog</AnchorHeading>
 
-## Source
+<div class="bg-white/5 border border-white/10 rounded-lg p-4">
+  <p class="text-sm text-white/80 mb-3">
+    View the complete deployment history and changes on GitHub:
+  </p>
+  <a 
+    href="https://github.com/simonjgreen/sjg-io/deployments/production" 
+    class="inline-flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 border border-white/20 rounded-lg text-sm font-medium text-white/90 transition-colors duration-200"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+    </svg>
+    View Deployment History
+  </a>
+</div>
 
-The source code is available on GitHub. Feel free to fork it and make it your own.
+</div>
