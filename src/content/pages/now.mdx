@@ -1,40 +1,52 @@
 ---
-title: Now
-description: What I'm currently focused on
+title: "Now"
+description: "What Simon is focused on right now."
+lastUpdated: "2025-10-03"
 ---
 
+import UpdatedBadge from '../../components/UpdatedBadge.astro';
+import Callout from '../../components/Callout.astro';
 
-*Last updated: October 2025*
+<div class="prose prose-invert max-w-3xl mx-auto mt-12 space-y-8">
 
-## Current work
+<UpdatedBadge date={frontmatter.lastUpdated} />
 
-**Operational AI at Pax8**: Building the layer that makes agentic systems safe and measurable in enterprise operations. Focus on patterns, adoption, and outcomes that matter.
+<Callout variant="neutral" icon="📝">
+  <p>
+    This page is inspired by <a href="https://nownownow.com/about" target="_blank" rel="noopener noreferrer">Derek Sivers' now page movement</a>. 
+    It's a snapshot of what I'm currently working on, learning, and thinking about.
+  </p>
+</Callout>
+
+## 💼 Work
+
+**Operational AI at [Pax8](/work/pax8)**: Building the layer that makes agentic systems safe and measurable in enterprise operations. Focus on patterns, adoption, and outcomes that matter.
+
+**Workflow Engineering**: Leading the transformation of how we build, deploy, and operate software at scale. Creating systems that enable teams to move fast while maintaining reliability.
+
+## 🚀 Side Projects
 
 **1310 ISP**: Supporting [Matt](https://www.linkedin.com/in/matthewiggo/) as he builds our profitable, self-funded fibre ISP. Steady growth, disciplined engineering, sensible capital allocation.
 
-## Learning and exploring
+**sjg.io**: This site - continuously improving, experimenting with new content formats, and maintaining a fast, accessible web presence. Bit of a toy for me right now :)
+
+## 👨‍👩‍👧‍👦 Family & Life
+
+**Bishopswood School Federation**: Continuing as [school governor](/work/school-governor), focusing on SEN support and the [forest school initiative](/work/forest-school). Chairing collaboration across five schools in the Synergy Schools Partnership.
+
+**Property investments**: Building a portfolio to support SEN schooling needs and community initiatives.
+
+## 📚 Learning & Exploring
 
 **Measurement frameworks**: Defining metrics that truly indicate AI is doing real work, not just vanity metrics. Focus on toil reduction, service quality, and business outcomes.
 
 **AI productivity tooling influx**: Closely monitoring the rapid arrival of AI-enabled productivity tools. Looking for opportunities to pilot, integrate, or build on these at Pax8 where they can drive measurable impact.
 
+**Currently reading**: "Agentic Design Patterns" by Antonio Gulli ([read here](https://docs.google.com/document/d/1rsaK53T3Lg5KoGwvf8ukOUvbELRtH-V0LnOIFDxBryE/edit?tab=t.0#heading=h.pxcur8v2qagu)) [Thanks Eric!]
 
-## Reading
+## 🔮 Coming Up Next
 
-Currently working through:
+- Transform Pax8 with AI-driven operational excellence
+- Launch new forest school
 
-- "Agentic Design Patterns" by Antonio Gulli ([read here](https://docs.google.com/document/d/1rsaK53T3Lg5KoGwvf8ukOUvbELRtH-V0LnOIFDxBryE/edit?tab=t.0#heading=h.pxcur8v2qagu)) [Thanks Eric!]
-
-## Community involvement
-
-**Bishopswood School Federation**: Continuing as governor, focusing on SEN support and the forest school initiative. Chairing collaboration across five schools in the Synergy Schools Partnership.
-
-**Property investments**: Building a portfolio to support SEN schooling needs and community initiatives.
-
-## What's next
-
-- Transform Pax8 with AI!
-
----
-
-*This page is inspired by [Derek Sivers' now page movement](https://nownownow.com/about).*
+</div>

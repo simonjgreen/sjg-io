@@ -2,15 +2,19 @@
 title: "Colophon"
 description: "How this site is built and why."
 siteVersion: "2025.01.03"
+lastUpdated: "2025-10-03"
 ---
 
 import TechBadge from '../../components/TechBadge.astro';
 import Accordion from '../../components/Accordion.astro';
 import CopyButton from '../../components/CopyButton.astro';
 import AnchorHeading from '../../components/AnchorHeading.astro';
+import UpdatedBadge from '../../components/UpdatedBadge.astro';
 
 <div class="space-y-8">
 A colophon is a statement of publication details - traditionally found at the end of books. This one explains how and why this site is built, serving as both technical documentation and a reflection of my approach to web development.
+
+<UpdatedBadge date={frontmatter.lastUpdated} />
 
 <AnchorHeading as="h2" id="overview">Overview</AnchorHeading>
 

@@ -1,0 +1,43 @@
+---
+export interface Props {
+  variant?: 'info' | 'warning' | 'success' | 'neutral';
+  icon?: string;
+}
+
+const { variant = 'neutral', icon } = Astro.props;
+
+const getVariantStyles = (variant: string) => {
+  switch (variant) {
+    case 'info':
+      return 'bg-blue-500/10 border-blue-500/20 text-blue-400';
+    case 'warning':
+      return 'bg-yellow-500/10 border-yellow-500/20 text-yellow-400';
+    case 'success':
+      return 'bg-green-500/10 border-green-500/20 text-green-400';
+    default:
+      return 'bg-white/5 border-white/10 text-white/80';
+  }
+};
+
+const getIcon = (variant: string) => {
+  switch (variant) {
+    case 'info':
+      return 'ℹ️';
+    case 'warning':
+      return '⚠️';
+    case 'success':
+      return '✅';
+    default:
+      return '💡';
+  }
+};
+---
+
+<div class={`rounded-lg border p-4 ${getVariantStyles(variant)}`}>
+  <div class="flex items-center gap-3">
+    <span class="text-lg flex-shrink-0">{icon || getIcon(variant)}</span>
+    <div class="prose prose-sm max-w-none">
+      <slot />
+    </div>
+  </div>
+</div>
