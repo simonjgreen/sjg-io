@@ -25,6 +25,11 @@ const { text } = Astro.props;
         const text = button.getAttribute('data-text');
         const copyText = button.querySelector('.copy-text');
         
+        if (!text || !copyText) {
+          console.error('Copy button missing required elements');
+          return;
+        }
+        
         try {
           await navigator.clipboard.writeText(text);
           copyText.textContent = 'Copied!';
