@@ -9,13 +9,13 @@ const { variant = 'neutral', icon } = Astro.props;
 const getVariantStyles = (variant: string) => {
   switch (variant) {
     case 'info':
-      return 'bg-blue-500/10 border-blue-500/20 text-blue-400';
+      return 'bg-blue-50 border-blue-200 text-blue-700 dark:bg-blue-500/10 dark:border-blue-500/20 dark:text-blue-300';
     case 'warning':
-      return 'bg-yellow-500/10 border-yellow-500/20 text-yellow-400';
+      return 'bg-amber-50 border-amber-200 text-amber-700 dark:bg-yellow-500/10 dark:border-yellow-500/20 dark:text-yellow-300';
     case 'success':
-      return 'bg-green-500/10 border-green-500/20 text-green-400';
+      return 'bg-emerald-50 border-emerald-200 text-emerald-700 dark:bg-green-500/10 dark:border-green-500/20 dark:text-green-300';
     default:
-      return 'bg-white/5 border-white/10 text-white/80';
+      return 'bg-gray-100 border-gray-200 text-gray-900 dark:bg-white/5 dark:border-white/10 dark:text-white/80';
   }
 };
 
