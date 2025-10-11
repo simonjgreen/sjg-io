@@ -1,0 +1,171 @@
+---
+title: "The Shape of Agentic Work"
+description: "Why the most useful AI agents live inside your deterministic systems—and how to build them with governance that feels like guidance."
+date: 2025-10-11
+---
+
+> **Thesis:** The most valuable AI agents won't "win" by being the biggest models. They'll win by being **embedded in your context-rich, deterministic systems**—Slack, ServiceNow, GitHub, M365, your CI/CD—where state, permissions, and "done" already mean something.
+
+## TL;DR
+
+- **Context beats size.** Agents that work *inside* Slack / ServiceNow / GitHub inherit threads, tickets, repos, ACLs, and audit trails—*structured memory* the agent doesn't have to guess at. See Slack's primitives ([Block Kit](https://docs.slack.dev/block-kit/), [Modals](https://docs.slack.dev/surfaces/modals/), [Audit Logs](https://slack.com/help/articles/360000394286-Audit-logs-in-Slack)), GitHub's governance ([CODEOWNERS](https://docs.github.com/articles/about-code-owners), [protected branches](https://docs.github.com/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches)), and ServiceNow's state machines ([Change types & states](https://www.servicenow.com/docs/bundle/zurich-it-service-management/page/product/change-management/concept/normal-standard-emergency-states.html), [Ask for Approval](https://www.servicenow.com/docs/bundle/washingtondc-build-workflows/page/administer/flow-designer/reference/ask-approval-flow-designer.html)).
+- **Determinism > vibes.** Let the model *choose tools*; let your **workflows do the work**. ReAct/ToT research shows agentic *path‑finding* (search, plan, act) is the durable gain; unbounded "creativity" is optional ([ReAct](https://arxiv.org/abs/2210.03629), [Tree of Thoughts](https://arxiv.org/abs/2305.10601)).
+- **Governance as guidance.** Borrow "GOVERN–MAP–MEASURE–MANAGE" from the **NIST AI RMF** to make safety feel like *helpful rails* instead of blockers ([NIST AI RMF 1.0](https://nvlpubs.nist.gov/nistpubs/ai/nist.ai.100-1.pdf)).
+- **Modern connective tissue.** Use vendor-native agents (e.g., **Microsoft 365 Copilot Agents**) and open standards like **Model Context Protocol** to bring *tools to the model* safely ([M365 Copilot Agents overview](https://learn.microsoft.com/en-us/microsoft-365-copilot/extensibility/agents-overview), [MCP](https://modelcontextprotocol.io/)).
+
+---
+
+## Why agents belong *inside* deterministic systems
+
+"Standalone" agents must infer who the user is, which records matter, what actions are allowed, and how to close the loop. Agents embedded in platforms **inherit that context**:
+
+- **Slack** gives you canonical threads, identity, and safe action surfaces ([Block Kit interactivity](https://docs.slack.dev/tools/java-slack-sdk/guides/interactive-components/), [Modals](https://docs.slack.dev/tools/java-slack-sdk/guides/modals/), [Audit Logs API](https://docs.slack.dev/admins/audit-logs-api)).
+- **GitHub** exposes ownership, change control, and merge gates by design ([CODEOWNERS](https://docs.github.com/articles/about-code-owners), [required status checks](https://docs.github.com/articles/about-status-checks), [branch protection rules](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/managing-a-branch-protection-rule)).
+- **ServiceNow** encodes state machines that define "done" and who can move a record ([Change states](https://www.servicenow.com/docs/bundle/zurich-it-service-management/page/product/change-management/concept/normal-standard-emergency-states.html), [Flow Designer approvals](https://www.servicenow.com/docs/bundle/washingtondc-build-workflows/page/administer/flow-designer/reference/ask-approval-flow-designer.html)).
+
+This **ambient structure** limits ambiguity (less hallucination), reduces rework, and provides **native action surfaces** (buttons, approvals, merges) so that answers can become outcomes in one click.
+
+### Grounded answers beat clever guesses
+
+A decade of retrieval research shows that **grounding models in external context** reduces fabrication and increases specificity ([RAG, Lewis et al. 2020](https://arxiv.org/abs/2005.11401); review: [2024 survey](https://arxiv.org/pdf/2312.10997); industry write‑ups: [Wired](https://www.wired.com/story/reduce-ai-hallucinations-with-rag), [FT](https://www.ft.com/content/7a4e7eae-f004-486a-987f-4a2e4dbd34fb)). When agents live in platforms that already *are* curated, permissioned corpora, you get a **natural RAG effect** for free.
+
+---
+
+## Path‑finding > "creativity"
+
+In production, most value comes from **planning and tool use**, not novel prose. Research patterns such as **ReAct** and **Tree of Thoughts** formalize this: reason → pick tool → observe → iterate ([ReAct](https://arxiv.org/abs/2210.03629), [Google summary](https://research.google/blog/react-synergizing-reasoning-and-acting-in-language-models/); [ToT](https://arxiv.org/abs/2305.10601)). Modern agent frameworks operationalize it:
+
+- **AutoGen** and Microsoft's **Agent Framework** implement multi‑agent hand‑offs and tool use ([AutoGen paper](https://arxiv.org/abs/2308.08155), [docs](https://microsoft.github.io/autogen/0.2/docs/Use-Cases/agent_chat/), [Agent Framework overview](https://learn.microsoft.com/en-us/agent-framework/overview/agent-framework-overview)).
+- **Model Context Protocol (MCP)** standardizes how agents safely connect to tools and data ([site](https://modelcontextprotocol.io/), [GitHub org](https://github.com/modelcontextprotocol), [Anthropic announcement](https://www.anthropic.com/news/model-context-protocol)).
+
+> **Practical reading:** If your agent often "gets stuck," add **more tools** and **better state**, not a bigger model.
+
+---
+
+## Governance that feels like guidance
+
+If governance is a wall, teams route around it. If it's **rails**, teams go faster. The **NIST AI RMF** framework's GOVERN/MAP/MEASURE/MANAGE is a solid north star for agent programs ([NIST AI RMF 1.0](https://nvlpubs.nist.gov/nistpubs/ai/nist.ai.100-1.pdf)). Turn it into everyday affordances:
+
+- **Least privilege & JIT:** Use **Microsoft Entra PIM** to grant *time‑boxed*, *approval‑gated* elevation for high‑risk actions ([What is PIM?](https://learn.microsoft.com/en-us/entra/id-governance/privileged-identity-management/pim-configure), [PIM approvals](https://learn.microsoft.com/en-us/entra/id-governance/privileged-identity-management/pim-approval-workflow)).
+- **Token hygiene:** Require **fine‑grained PAT approvals** on GitHub to scope agent access and add human checkpoints ([GitHub fine‑grained PATs](https://github.blog/security/application-security/introducing-fine-grained-personal-access-tokens-for-github/); [org policies](https://docs.github.com/en/organizations/managing-programmatic-access-to-your-organization/setting-a-personal-access-token-policy-for-your-organization)).
+- **Policy as code:** Centralize rules using **Open Policy Agent (OPA)** so agents can *ask* for decisions and get deterministic answers ([OPA](https://github.com/open-policy-agent/opa); Gatekeeper example for K8s admission control on GKE: [doc](https://cloud.google.com/kubernetes-engine/docs/how-to/pod-security-policies-with-gatekeeper)).
+
+> Result: "Can I do this now?" becomes a *guided* interaction: the agent asks, policy decides, the platform enforces—and everything is auditable.
+
+---
+
+## Internal vs. customer‑facing (no customer service examples)
+
+### Internal (mission‑critical): **Change with guardrails, speed with Slack**
+
+**Scenario:** An engineer proposes a *standard* change (pre‑approved pattern) from Slack.  
+**Shape of work:**
+
+1. The Slack agent collects the required fields in a **Modal** (category, window, backout) ([Modals](https://docs.slack.dev/surfaces/modals/)) and creates a **ServiceNow** change with the *right* model/state ([Change states](https://www.servicenow.com/docs/bundle/zurich-it-service-management/page/product/change-management/concept/normal-standard-emergency-states.html)).
+2. It attaches KBs referenced in the thread to the change or the resulting incident ([Knowledge creation](https://www.servicenow.com/docs/bundle/zurich-servicenow-platform/page/product/knowledge-management/concept/article-from-incident.html)).
+3. If it's a *normal* change, the agent triggers **Flow Designer**'s **Ask for Approval** step with the CAB group and posts the approval card *back* to the Slack thread ([Flow approvals](https://www.servicenow.com/docs/bundle/washingtondc-build-workflows/page/administer/flow-designer/reference/ask-approval-flow-designer.html)).
+4. All interactions are logged in **Slack Audit Logs** and **ServiceNow** history ([Slack Audit Logs](https://slack.com/help/articles/360000394286-Audit-logs-in-Slack)).
+
+**Why this works:** The agent **doesn't invent** policy; it **navigates** the state machine and **presents** the one‑click actions.
+
+### Internal (non‑mission‑critical): **PR scaffolds with GitHub Copilot**
+
+**Scenario:** A repo's "issue to PR" flow.  
+**Shape of work:**
+
+- The agent turns an issue into a PR scaffold, applies the repo's template, tags **CODEOWNERS**, and requests review; **Copilot** generates a PR summary to brief reviewers ([CODEOWNERS](https://docs.github.com/articles/about-code-owners); [PR summaries](https://docs.github.com/en/enterprise-cloud%40latest/copilot/how-tos/use-copilot-for-common-tasks/create-a-pr-summary); [Copilot review](https://docs.github.com/copilot/using-github-copilot/code-review/using-copilot-code-review)).  
+- Branch protection/required checks gate the merge ([Protected branches](https://docs.github.com/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches), [status checks](https://docs.github.com/articles/about-status-checks)).
+
+**Why this works:** The agent piggybacks on **deterministic repo rules**; humans stay in the loop for the judgment calls.
+
+### Customer‑facing (non‑support): **Secure onboarding orchestration**
+
+**Scenario:** A sales‑to‑delivery handoff triggers provisioning across SaaS.  
+**Shape of work:**
+
+- An M365 **Copilot Agent** reads the opportunity package, kicks off a **Power Automate** or ServiceNow flow for environment setup, and files PRs for required config in GitHub with **CODEOWNER** routing ([M365 Copilot Agents](https://learn.microsoft.com/en-us/microsoft-365-copilot/extensibility/agents-overview), [publish/manage agents](https://learn.microsoft.com/en-us/microsoft-365-copilot/extensibility/manage)).  
+- Where an API is missing, the agent can use **Copilot Studio "computer use"** to drive UI steps deterministically (screen‑bound RPA, with logs) ([coverage](https://www.theverge.com/news/649574/microsoft-copilot-studio-computer-use-ai)).
+
+**Why this works:** The **source of truth stays put** (CRM, repos, identity). The agent is the **path‑finder** across systems.
+
+---
+
+## Design patterns you can ship this quarter
+
+1. **Narrow capability, deep context.** Build small domain agents (e.g., "Change Intake," "Access JIT," "PR Scaffolder") with *strong tools* and a *thin brain*.  
+2. **Answer + Action.** In Slack, every answer includes an interactive component to *file, approve, merge,* or *escalate* ([Block Kit interactivity](https://docs.slack.dev/tools/java-slack-sdk/guides/interactive-components/)).  
+3. **State machines, not essays.** Encode policy in the system of record (ServiceNow states, GitHub rules, OPA policies) and let the model **navigate**.  
+4. **Tool choice > long reasoning.** Use ReAct‑style loops: *think → tool → observe → think* ([ReAct](https://arxiv.org/abs/2210.03629)).  
+5. **One orchestrator, many specialists.** Consider **AutoGen / Agent Framework** patterns to coordinate specialist agents with handoffs ([AutoGen docs](https://microsoft.github.io/autogen/0.2/docs/Use-Cases/agent_chat/), [Agent Framework](https://learn.microsoft.com/en-us/agent-framework/overview/agent-framework-overview)).  
+6. **Open connective tissue.** Where practical, expose internal tools via **MCP** servers so agents can fetch context/actions consistently ([MCP](https://modelcontextprotocol.io/), [architecture](https://modelcontextprotocol.io/docs/concepts/architecture)).
+
+---
+
+## Autonomy ≠ anarchy: pick the right level
+
+Borrow a light‑touch autonomy scale: **suggest → draft → apply‑with‑approval → auto‑apply with rollback**. This mirrors decades of human‑automation guidance and aligns with **NIST**'s view that systems vary by level of autonomy and oversight needs ([NIST AI RMF](https://nvlpubs.nist.gov/nistpubs/ai/nist.ai.100-1.pdf); related autonomy taxonomies: [NIST ALFUS background](https://www.nist.gov/document/alfus-bgpdf)).
+
+> Rule of thumb: Push *suggest* and *draft* everywhere; reserve *apply* for **low‑blast‑radius** changes behind approvals and audit.
+
+---
+
+## What "good" looks like (bring‑it‑to‑life examples)
+
+- **Slack ⇄ ServiceNow:** A "Change Intake" modal pre‑fills from the thread, opens a *normal* change, auto‑adds relevant KBs, pings approvers in‑thread with an approve/deny card, and posts the final state transition ([ServiceNow approvals](https://www.servicenow.com/docs/bundle/washingtondc-build-workflows/page/administer/flow-designer/reference/ask-approval-flow-designer.html), [Slack Audit Logs](https://slack.com/help/articles/360000394286-Audit-logs-in-Slack)).  
+- **Slack ⇄ Entra PIM:** A "JIT Access" command collects scope/justification in a Modal; the agent raises a **PIM** approval; on approval, it time‑boxes elevation and posts start/expiry back to the thread ([PIM overview](https://learn.microsoft.com/en-us/entra/id-governance/privileged-identity-management/pim-configure), [PIM approvals](https://learn.microsoft.com/en-us/entra/id-governance/privileged-identity-management/pim-approval-workflow)).  
+- **GitHub:** An "Issue→PR" agent creates the branch, scaffolds the PR, runs CI, applies labels, requests **CODEOWNER** reviews, and triggers **Copilot** PR summaries for reviewers ([PR summaries](https://docs.github.com/en/enterprise-cloud%40latest/copilot/how-tos/use-copilot-for-common-tasks/create-a-pr-summary), [branch protection](https://docs.github.com/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches)).
+
+Each pattern uses **platform-native governance** (RBAC, approvals, audit trails) so *safety is the default UX*.
+
+---
+
+## Minimal architecture that scales
+
+- **Orchestrator agent** (Slack‑first) coordinates across domain agents.  
+- **Domain agents** live *inside* systems of record (ServiceNow, GitHub, M365).  
+- **Policy layer** via **OPA**; agents query "can/do/how?" and receive a deterministic decision ([OPA](https://github.com/open-policy-agent/opa)).  
+- **Tool catalog** exposed via **MCP** so multiple agents can reuse the same safe tools ([MCP](https://modelcontextprotocol.io/)).  
+- **Fallback to UI automation** when APIs don't exist using **Copilot Studio "computer use"** with approvals and logs ([coverage](https://www.theverge.com/news/649574/microsoft-copilot-studio-computer-use-ai)).
+
+---
+
+## Metrics that matter
+
+- **Cycle time to "done."** E.g., mean time from change proposal to approved state transition (ServiceNow timestamps).  
+- **Rework / intervention rate.** How often did humans have to correct or reject agent drafts?  
+- **Policy conformance.** % of actions decided by policy layer (OPA/PIM) vs. free‑text.  
+- **Audit completeness.** Join Slack audit events with system-of-record logs ([Slack Audit Logs](https://slack.com/help/articles/360000394286-Audit-logs-in-Slack)).
+
+---
+
+## A note on models and vendors
+
+Prefer **platform‑embedded agents** and **open protocols** over any single "best" model. Microsoft now treats agents as **first‑class** in M365 ([Agents overview](https://learn.microsoft.com/en-us/microsoft-365-copilot/extensibility/agents-overview), [manage agents](https://learn.microsoft.com/en-us/microsoft-365-copilot/extensibility/manage)); GitHub ships **Copilot** in the PR workflow ([docs](https://docs.github.com/copilot)); Slack is doubling down on **in‑product AI and workflow surfaces** ([Block Kit](https://docs.slack.dev/block-kit/), [Modals](https://docs.slack.dev/surfaces/modals/)). For cross‑app glue, **MCP** keeps your agent tooling **portable** ([MCP](https://modelcontextprotocol.io/)).
+
+---
+
+## Appendix: starter runbooks
+
+- **Change Intake (Slack → ServiceNow)**
+  - Modal schema (Slack) → Change model/state (ServiceNow) → Approval step → Thread updates.
+  - Links: [Modals](https://docs.slack.dev/surfaces/modals/), [Change states](https://www.servicenow.com/docs/bundle/zurich-it-service-management/page/product/change-management/concept/normal-standard-emergency-states.html), [Ask for Approval](https://www.servicenow.com/docs/bundle/washingtondc-build-workflows/page/administer/flow-designer/reference/ask-approval-flow-designer.html).
+
+- **JIT Access (Slack → Entra PIM)**
+  - Modal capture → PIM approval request → Timed activation → Auto‑revert → Slack notice.
+  - Links: [PIM overview](https://learn.microsoft.com/en-us/entra/id-governance/privileged-identity-management/pim-configure), [Approvals](https://learn.microsoft.com/en-us/entra/id-governance/privileged-identity-management/pim-approval-workflow).
+
+- **Issue→PR Scaffolder (GitHub)**
+  - Template application → Labels → CODEOWNER review → Copilot PR summary → Protected branch merge gates.
+  - Links: [CODEOWNERS](https://docs.github.com/articles/about-code-owners), [PR summaries](https://docs.github.com/en/enterprise-cloud%40latest/copilot/how-tos/use-copilot-for-common-tasks/create-a-pr-summary), [Protected branches](https://docs.github.com/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches).
+
+---
+
+### Sources & further reading
+
+- **Platform primitives:** Slack ([Block Kit](https://docs.slack.dev/block-kit/), [Modals](https://docs.slack.dev/surfaces/modals/), [Audit Logs](https://slack.com/help/articles/360000394286-Audit-logs-in-Slack)); ServiceNow ([Change states](https://www.servicenow.com/docs/bundle/zurich-it-service-management/page/product/change-management/concept/normal-standard-emergency-states.html), [Flow approvals](https://www.servicenow.com/docs/bundle/washingtondc-build-workflows/page/administer/flow-designer/reference/ask-approval-flow-designer.html)); GitHub ([CODEOWNERS](https://docs.github.com/articles/about-code-owners), [status checks](https://docs.github.com/articles/about-status-checks)).  
+- **Agent research:** [ReAct](https://arxiv.org/abs/2210.03629), [Tree of Thoughts](https://arxiv.org/abs/2305.10601), [AutoGen](https://arxiv.org/abs/2308.08155).  
+- **Governance:** [NIST AI RMF 1.0](https://nvlpubs.nist.gov/nistpubs/ai/nist.ai.100-1.pdf), [OPA](https://github.com/open-policy-agent/opa), [Entra PIM](https://learn.microsoft.com/en-us/entra/id-governance/privileged-identity-management/pim-configure).  
+- **Connective tissue:** [M365 Copilot Agents](https://learn.microsoft.com/en-us/microsoft-365-copilot/extensibility/agents-overview), [MCP](https://modelcontextprotocol.io/), [Copilot Studio "computer use"](https://www.theverge.com/news/649574/microsoft-copilot-studio-computer-use-ai).  
+- **Grounding:** [RAG (Lewis et al.)](https://arxiv.org/abs/2005.11401), [survey](https://arxiv.org/pdf/2312.10997), [Wired explainer](https://www.wired.com/story/reduce-ai-hallucinations-with-rag).
+
+---
