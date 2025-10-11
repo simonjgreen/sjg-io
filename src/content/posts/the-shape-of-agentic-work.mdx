@@ -1,0 +1,107 @@
+---
+title: "The Shape of Agentic Work"
+description: "A field guide to agents that actually ship work: embedded in your systems, guided by policy, and obsessed with closing the loop."
+date: 2025-10-11
+---
+
+At 9:12 on a Tuesday, a Slack thread begins the way they always do:
+
+> *"Can someone sort this?"*
+
+By 9:18, the thread has a summary, a proposed change window, and a one-click action. The agent has already opened a **normal** change in ServiceNow, pulled the right template, attached the runbook it found in last month's incident, and pinged the CAB approver - in that same Slack thread - for a quick approve/deny.
+
+No one argued about which form to use. No one hunted for the link. No one copied context between tools.  
+The work just… moved.
+
+This is the shape of agentic work when it's done right: the model doesn't try to be clever; it **finds the path** through systems that already know what "done" means.
+
+---
+
+## The second act of AI
+
+We've all seen the dazzling one-act demos: a model writes, reasons, riffs. Then the curtain drops and a human still has to file a ticket, request access, open a PR, route an approval, or paste the update into the place where it *actually counts*.
+
+The second act is less flashy and far more valuable. It's where agents stop performing and start **shipping**. The trick is simple to say and hard to execute:
+
+> Put the agent **inside** the deterministic systems where your work already lives.
+
+Slack threads carry identity, chronology, and lightweight UI surfaces (buttons, modals, audit). GitHub encodes ownership, review, and merge gates by design. ServiceNow's state machines already define who can move what, when. These aren't just "integrations"; they're **ambient context** your agent can inherit so it guesses less and does more ([Slack Block Kit](https://api.slack.com/block-kit), [Slack Modals](https://api.slack.com/surfaces/modals), [Slack Audit Logs API](https://api.slack.com/admins/audit-logs); [GitHub CODEOWNERS](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners), [branch protection & checks](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches); [ServiceNow change management](https://www.servicenow.com/products/itsm/what-is-change-management.html)).
+
+It turns out that once the model can **see** your rails, it doesn't need to be a genius. In the agent literature, the durable gains come from planning and tool use - **path-finding** - not from wildly original generation ([ReAct](https://arxiv.org/abs/2210.03629), [Tree of Thoughts](https://arxiv.org/abs/2305.10601)). And when you ground the model in your own corpus and state, hallucinations fall and specificity rises ([RAG](https://arxiv.org/abs/2005.11401)).
+
+---
+
+## A tale of two workflows
+
+**Mission-critical, with guardrails.**  
+A senior engineer proposes a standard network change from Slack. The agent turns the thread into a ServiceNow record with the correct **model and state**, links the prior KB, and routes a CAB approval card back into the thread. If it's approved, the window and backout plan are locked; if not, the agent posts why. Identity, approvals, and audit stay native: Slack logs remain in Slack; change history stays in ServiceNow ([Slack Audit Logs API](https://api.slack.com/admins/audit-logs), [ServiceNow change concepts](https://www.servicenow.com/products/itsm/what-is-change-management.html)).
+
+**Non-critical, tuned for flow.**  
+A product engineer writes a one-line issue: "Add telemetry to the new ingestion path." The agent drafts a branch and PR scaffold, applies the repo's template, assigns reviewers via **CODEOWNERS**, and triggers a PR summary so reviewers can skim the diff quickly. Branch protection and required checks gate the merge the same way they do for humans ([CODEOWNERS](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners), [protected branches](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches)).
+
+Two different risk profiles. The same principle: **the model chooses the tool; the tool does the work**.
+
+---
+
+## Governance that feels like guidance
+
+If governance shows up as a PDF, it's already too late. The fastest teams make governance **ambient**: the rules are in the path, not at the end of it.
+
+The **NIST AI Risk Management Framework** is a helpful north star here - not because you should memorize its acronyms, but because it frames a posture: govern, map, measure, manage **continuously** ([NIST AI RMF 1.0](https://nvlpubs.nist.gov/nistpubs/ai/nist.ai.100-1.pdf)). In practice, that looks like:
+
+- **Least-privilege that breathes.** High-risk actions go through time-boxed elevation and approvals using **Microsoft Entra PIM**; the agent asks, policy decides, the platform enforces ([PIM overview](https://learn.microsoft.com/en-us/entra/id-governance/privileged-identity-management/pim-configure)).
+- **Policy as code.** Authorization and "can I do this now?" decisions live in **OPA**, so answers are deterministic and auditable rather than buried in prose ([Open Policy Agent](https://www.openpolicyagent.org/)).
+- **Native gates.** Keep GitHub's branch protection and required checks as the merge governor; keep ServiceNow's approvals as the change governor; keep Slack's identity and audit as the conversation governor.
+
+When you do this, safety stops feeling like a stop sign and starts feeling like **lane markers**.
+
+---
+
+## Why the platform matters more than the model
+
+The industry's first instinct has been to build **bigger brains**. The second act is to build **better bodies**: places where the brain can move with precision.
+
+That's why I'm bullish on **platform-embedded agents** and common connective tissue. Microsoft is making agents first-class citizens inside M365, with a supported way to bind them to your data and tools so the actions land in Exchange, Teams, SharePoint, and the Power Platform where they belong ([Microsoft 365 Copilot Agents](https://learn.microsoft.com/en-us/microsoft-365-copilot/extensibility/agents-overview)). On the open side, the **Model Context Protocol** is maturing into a simple, portable way to expose tools and data to agents without bespoke glue for every app ([Model Context Protocol](https://modelcontextprotocol.io/)).
+
+This is less about vendor religion and more about **reducing friction**. The goal isn't to crown one model; it's to make the shortest safe path from *intent* to *done*.
+
+---
+
+## Three moments that changed how my team builds agents
+
+**1) The Slack escalator.**  
+We watched a "Can someone…" thread transform into an approved ServiceNow change without anyone leaving Slack. What clicked was not the speed; it was the **calm**. The agent didn't improvise policy. It simply traced the rails: collect → file → route → record → close. That was the day we stopped speculating about "general intelligence" and started designing **specific paths**.
+
+**2) The PR that wrote itself (but didn't merge itself).**  
+A repository with decent hygiene - templates, owners, checks - turned out to be the perfect habitat for an agent. It did the boring parts instantly, and then it got out of the way. Humans still reviewed. The merge still hit the same gates. We didn't lower the bar; we made it easier to reach.
+
+**3) The approval that taught us humility.**  
+We let an agent try to push a low-risk change without approval "just this once." It succeeded - and we rolled it back. Not because it broke anything, but because **trust is a system**, not a hunch. We went back and wired the same action through Entra PIM and OPA. The next time, it was boring. That's the point.
+
+---
+
+## How to start on Monday (without boiling the ocean)
+
+Start with one **high-traffic path** where "what good looks like" is already encoded: access requests, standard changes, issue→PR. Keep the agent narrow and the context deep. Let the platform do the heavy lifting:
+
+1. Capture intent where people already are (Slack). Use a modal for the required fields so no one chases a form later.  
+2. Act inside the system of record (ServiceNow, GitHub). Use its native states, approvals, and gates instead of inventing your own.  
+3. Close the loop where the intent started. Post the approval card, the PR link, the state change - right back into the thread.
+
+If you want a north star, use this litmus test:
+
+> Did the agent leave the work **in a better place than it found it**, with fewer tabs and more audit?
+
+If the answer is "yes," ship it. If not, keep tightening the rails.
+
+---
+
+## A last word on "creativity"
+
+There's a romance to creative agents - surprising replies, witty prose, delightful tangents. Keep that for brainstorming. In operations, **creativity is path-finding**. The agent's job is to explore the decision tree you already believe in, faster than a tired human can, and to leave a clean trail behind.
+
+When you embed that mindset in platforms that carry **context by default**, the second act writes itself. The actor stops improvising. The work moves.
+
+**Further reading:** [ReAct: Synergizing Reasoning and Acting in Language Models](https://arxiv.org/abs/2210.03629) · [Tree of Thoughts](https://arxiv.org/abs/2305.10601) · [Retrieval-Augmented Generation](https://arxiv.org/abs/2005.11401) · [NIST AI Risk Management Framework](https://nvlpubs.nist.gov/nistpubs/ai/nist.ai.100-1.pdf) · Platform docs: [Slack](https://api.slack.com/), [GitHub](https://docs.github.com/), [ServiceNow](https://www.servicenow.com/docs.html), [Microsoft 365 Copilot Agents](https://learn.microsoft.com/en-us/microsoft-365-copilot/extensibility/agents-overview), [Model Context Protocol](https://modelcontextprotocol.io/).
+
+---
