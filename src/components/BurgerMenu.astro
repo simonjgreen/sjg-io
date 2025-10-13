@@ -85,6 +85,7 @@
     const closeIcon = document.getElementById('close-icon');
 
     function openMenu() {
+      if (!mobileMenu || !mobileMenuOverlay || !burgerIcon || !closeIcon || !burgerButton) return;
       mobileMenu.classList.remove('translate-x-full');
       mobileMenuOverlay.classList.remove('hidden');
       burgerIcon.classList.add('hidden');
@@ -94,6 +95,7 @@
     }
 
     function closeMenu() {
+      if (!mobileMenu || !mobileMenuOverlay || !burgerIcon || !closeIcon || !burgerButton) return;
       mobileMenu.classList.add('translate-x-full');
       mobileMenuOverlay.classList.add('hidden');
       burgerIcon.classList.remove('hidden');
@@ -111,7 +113,7 @@
 
     // Close menu on escape key
     document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape' && !mobileMenu.classList.contains('translate-x-full')) {
+      if (e.key === 'Escape' && mobileMenu && !mobileMenu.classList.contains('translate-x-full')) {
         closeMenu();
       }
     });
