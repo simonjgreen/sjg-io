@@ -38,12 +38,6 @@ const isHomePage = currentPath === '/';
             Now
           </a>
           <a 
-            href="/mentors" 
-            class="text-sm font-medium transition-colors hover:text-neon-blue dark:hover:text-neon-blue text-gray-500 dark:text-gray-400"
-          >
-            Mentors
-          </a>
-          <a 
             href="/contact" 
             class="text-sm font-medium transition-colors hover:text-neon-blue dark:hover:text-neon-blue text-gray-500 dark:text-gray-400"
           >
@@ -75,12 +69,6 @@ const isHomePage = currentPath === '/';
             class="text-sm font-medium transition-colors hover:text-neon-blue dark:hover:text-neon-blue text-gray-500 dark:text-gray-400"
           >
             Now
-          </a>
-          <a 
-            href="/mentors" 
-            class="text-sm font-medium transition-colors hover:text-neon-blue dark:hover:text-neon-blue text-gray-500 dark:text-gray-400"
-          >
-            Mentors
           </a>
           <a 
             href="/contact" 
@@ -143,16 +131,6 @@ const isHomePage = currentPath === '/';
               Now
             </a>
             <a 
-              href="/mentors" 
-              class={`block px-3 py-2 text-base font-medium rounded-md transition-colors ${
-                currentPath === '/mentors' 
-                  ? 'text-neon-blue dark:text-neon-blue bg-gray-100 dark:bg-gray-800' 
-                  : 'text-gray-700 dark:text-gray-300 hover:text-neon-blue dark:hover:text-neon-blue hover:bg-gray-50 dark:hover:bg-gray-800'
-              }`}
-            >
-              Mentors
-            </a>
-            <a 
               href="/contact" 
               class={`block px-3 py-2 text-base font-medium rounded-md transition-colors ${
                 currentPath === '/contact' 
@@ -198,14 +176,6 @@ const isHomePage = currentPath === '/';
             }`}
           >
             Now
-          </a>
-          <a 
-            href="/mentors" 
-            class={`text-sm font-medium transition-colors hover:text-neon-blue dark:hover:text-neon-blue ${
-              currentPath === '/mentors' ? 'text-neon-blue dark:text-neon-blue' : 'text-gray-500 dark:text-gray-400'
-            }`}
-          >
-            Mentors
           </a>
           <a 
             href="/contact" 
