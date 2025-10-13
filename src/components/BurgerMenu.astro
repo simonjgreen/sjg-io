@@ -1,0 +1,125 @@
+---
+// Burger menu component for mobile navigation
+---
+
+<div class="relative">
+  <!-- Burger button -->
+  <button 
+    id="burger-menu-button"
+    class="md:hidden p-2 rounded-md text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 focus:outline-none focus:ring-2 focus:ring-neon-blue"
+    aria-label="Toggle navigation menu"
+    aria-expanded="false"
+    aria-controls="mobile-menu"
+  >
+    <svg 
+      id="burger-icon"
+      class="w-6 h-6 transition-transform duration-200" 
+      fill="none" 
+      stroke="currentColor" 
+      viewBox="0 0 24 24"
+    >
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+    </svg>
+    <svg 
+      id="close-icon"
+      class="w-6 h-6 transition-transform duration-200 hidden" 
+      fill="none" 
+      stroke="currentColor" 
+      viewBox="0 0 24 24"
+    >
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+    </svg>
+  </button>
+
+  <!-- Mobile menu overlay -->
+  <div 
+    id="mobile-menu-overlay"
+    class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden md:hidden"
+  ></div>
+
+  <!-- Mobile menu -->
+  <div 
+    id="mobile-menu"
+    class="fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-white dark:bg-gray-900 shadow-xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out md:hidden"
+  >
+    <div class="flex flex-col h-full">
+      <!-- Menu header -->
+      <div class="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
+        <h2 class="text-lg font-semibold text-gray-900 dark:text-gray-100">Menu</h2>
+        <button 
+          id="close-menu-button"
+          class="p-2 rounded-md text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 focus:outline-none focus:ring-2 focus:ring-neon-blue"
+          aria-label="Close navigation menu"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Menu items -->
+      <nav class="flex-1 px-6 py-4" aria-label="Mobile navigation">
+        <div class="space-y-1">
+          <slot />
+        </div>
+      </nav>
+
+      <!-- Menu footer with theme toggle -->
+      <div class="p-6 border-t border-gray-200 dark:border-gray-700">
+        <div class="flex items-center justify-between">
+          <span class="text-sm text-gray-500 dark:text-gray-400">Theme</span>
+          <slot name="theme-toggle" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const burgerButton = document.getElementById('burger-menu-button');
+    const closeButton = document.getElementById('close-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+    const burgerIcon = document.getElementById('burger-icon');
+    const closeIcon = document.getElementById('close-icon');
+
+    function openMenu() {
+      mobileMenu.classList.remove('translate-x-full');
+      mobileMenuOverlay.classList.remove('hidden');
+      burgerIcon.classList.add('hidden');
+      closeIcon.classList.remove('hidden');
+      burgerButton.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeMenu() {
+      mobileMenu.classList.add('translate-x-full');
+      mobileMenuOverlay.classList.add('hidden');
+      burgerIcon.classList.remove('hidden');
+      closeIcon.classList.add('hidden');
+      burgerButton.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+
+    // Open menu
+    burgerButton?.addEventListener('click', openMenu);
+    
+    // Close menu
+    closeButton?.addEventListener('click', closeMenu);
+    mobileMenuOverlay?.addEventListener('click', closeMenu);
+
+    // Close menu on escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && !mobileMenu.classList.contains('translate-x-full')) {
+        closeMenu();
+      }
+    });
+
+    // Close menu when clicking on a menu link
+    const menuLinks = mobileMenu?.querySelectorAll('a');
+    menuLinks?.forEach(link => {
+      link.addEventListener('click', closeMenu);
+    });
+  });
+</script>

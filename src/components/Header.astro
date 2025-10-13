@@ -1,5 +1,6 @@
 ---
 import ThemeToggle from './ThemeToggle.astro';
+import BurgerMenu from './BurgerMenu.astro';
 
 const currentPath = Astro.url.pathname;
 const isHomePage = currentPath === '/';
@@ -98,60 +99,74 @@ const isHomePage = currentPath === '/';
             Simon Green
           </a>
         </div>
-        <!-- Mobile navigation - hidden on larger screens -->
-        <div class="flex items-center space-x-2 sm:hidden">
-          <a 
-            href="/about" 
-            class={`text-sm font-medium transition-colors hover:text-neon-blue dark:hover:text-neon-blue ${
-              currentPath === '/about' ? 'text-neon-blue dark:text-neon-blue' : 'text-gray-500 dark:text-gray-400'
-            }`}
-          >
-            About
-          </a>
-          <a 
-            href="/work" 
-            class={`text-sm font-medium transition-colors hover:text-neon-blue dark:hover:text-neon-blue ${
-              currentPath.startsWith('/work') ? 'text-neon-blue dark:text-neon-blue' : 'text-gray-500 dark:text-gray-400'
-            }`}
-          >
-            Work
-          </a>
-          <a 
-            href="/writing" 
-            class={`text-sm font-medium transition-colors hover:text-neon-blue dark:hover:text-neon-blue ${
-              currentPath.startsWith('/writing') ? 'text-neon-blue dark:text-neon-blue' : 'text-gray-500 dark:text-gray-400'
-            }`}
-          >
-            Writing
-          </a>
-          <a 
-            href="/now" 
-            class={`text-sm font-medium transition-colors hover:text-neon-blue dark:hover:text-neon-blue ${
-              currentPath === '/now' ? 'text-neon-blue dark:text-neon-blue' : 'text-gray-500 dark:text-gray-400'
-            }`}
-          >
-            Now
-          </a>
-          <a 
-            href="/mentors" 
-            class={`text-sm font-medium transition-colors hover:text-neon-blue dark:hover:text-neon-blue ${
-              currentPath === '/mentors' ? 'text-neon-blue dark:text-neon-blue' : 'text-gray-500 dark:text-gray-400'
-            }`}
-          >
-            Mentors
-          </a>
-          <a 
-            href="/contact" 
-            class={`text-sm font-medium transition-colors hover:text-neon-blue dark:hover:text-neon-blue ${
-              currentPath === '/contact' ? 'text-neon-blue dark:text-neon-blue' : 'text-gray-500 dark:text-gray-400'
-            }`}
-          >
-            Contact
-          </a>
-          <ThemeToggle />
+        <!-- Mobile burger menu -->
+        <div class="md:hidden">
+          <BurgerMenu>
+            <a 
+              href="/about" 
+              class={`block px-3 py-2 text-base font-medium rounded-md transition-colors ${
+                currentPath === '/about' 
+                  ? 'text-neon-blue dark:text-neon-blue bg-gray-100 dark:bg-gray-800' 
+                  : 'text-gray-700 dark:text-gray-300 hover:text-neon-blue dark:hover:text-neon-blue hover:bg-gray-50 dark:hover:bg-gray-800'
+              }`}
+            >
+              About
+            </a>
+            <a 
+              href="/work" 
+              class={`block px-3 py-2 text-base font-medium rounded-md transition-colors ${
+                currentPath.startsWith('/work') 
+                  ? 'text-neon-blue dark:text-neon-blue bg-gray-100 dark:bg-gray-800' 
+                  : 'text-gray-700 dark:text-gray-300 hover:text-neon-blue dark:hover:text-neon-blue hover:bg-gray-50 dark:hover:bg-gray-800'
+              }`}
+            >
+              Work
+            </a>
+            <a 
+              href="/writing" 
+              class={`block px-3 py-2 text-base font-medium rounded-md transition-colors ${
+                currentPath.startsWith('/writing') 
+                  ? 'text-neon-blue dark:text-neon-blue bg-gray-100 dark:bg-gray-800' 
+                  : 'text-gray-700 dark:text-gray-300 hover:text-neon-blue dark:hover:text-neon-blue hover:bg-gray-50 dark:hover:bg-gray-800'
+              }`}
+            >
+              Writing
+            </a>
+            <a 
+              href="/now" 
+              class={`block px-3 py-2 text-base font-medium rounded-md transition-colors ${
+                currentPath === '/now' 
+                  ? 'text-neon-blue dark:text-neon-blue bg-gray-100 dark:bg-gray-800' 
+                  : 'text-gray-700 dark:text-gray-300 hover:text-neon-blue dark:hover:text-neon-blue hover:bg-gray-50 dark:hover:bg-gray-800'
+              }`}
+            >
+              Now
+            </a>
+            <a 
+              href="/mentors" 
+              class={`block px-3 py-2 text-base font-medium rounded-md transition-colors ${
+                currentPath === '/mentors' 
+                  ? 'text-neon-blue dark:text-neon-blue bg-gray-100 dark:bg-gray-800' 
+                  : 'text-gray-700 dark:text-gray-300 hover:text-neon-blue dark:hover:text-neon-blue hover:bg-gray-50 dark:hover:bg-gray-800'
+              }`}
+            >
+              Mentors
+            </a>
+            <a 
+              href="/contact" 
+              class={`block px-3 py-2 text-base font-medium rounded-md transition-colors ${
+                currentPath === '/contact' 
+                  ? 'text-neon-blue dark:text-neon-blue bg-gray-100 dark:bg-gray-800' 
+                  : 'text-gray-700 dark:text-gray-300 hover:text-neon-blue dark:hover:text-neon-blue hover:bg-gray-50 dark:hover:bg-gray-800'
+              }`}
+            >
+              Contact
+            </a>
+            <ThemeToggle slot="theme-toggle" />
+          </BurgerMenu>
         </div>
         <!-- Desktop navigation - hidden on mobile -->
-        <div class="hidden sm:flex items-center space-x-8">
+        <div class="hidden md:flex items-center space-x-8">
           <a 
             href="/about" 
             class={`text-sm font-medium transition-colors hover:text-neon-blue dark:hover:text-neon-blue ${
