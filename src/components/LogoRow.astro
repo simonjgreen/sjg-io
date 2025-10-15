@@ -4,6 +4,7 @@ export interface Props {
     name: string;
     url: string;
     logo: string;
+    invertInLight?: boolean;
   }>;
   title?: string;
 }
@@ -24,7 +25,9 @@ const { logos, title = "Trusted by" } = Astro.props;
           <img 
             src={logo.logo} 
             alt={logo.name}
-            class={`h-8 w-auto logo-img transition-all duration-200 ${logo.logo.endsWith('.svg') ? 'logo-svg' : 'logo-png'}`}
+            class={`h-8 w-auto logo-img transition-all duration-200 ${logo.logo.endsWith('.svg') ? 'logo-svg' : 'logo-png'} ${
+              logo.invertInLight ? 'logo-invert-light' : ''
+            }`}
           />
         </div>
       ))}
@@ -46,14 +49,22 @@ const { logos, title = "Trusted by" } = Astro.props;
     filter: grayscale(0) brightness(1) contrast(1);
     transition: filter 0.2s ease;
   }
-  
+
+  .logo-invert-light {
+    filter: invert(1) grayscale(0) brightness(0.35) contrast(1.15);
+  }
+
   /* Dark mode: both SVG and PNG get brighter */
   @media (prefers-color-scheme: dark) {
     .logo-svg {
       filter: grayscale(0) brightness(1) contrast(1);
     }
-    
+
     .logo-png {
+      filter: grayscale(0) brightness(1) contrast(1);
+    }
+
+    .logo-invert-light {
       filter: grayscale(0) brightness(1) contrast(1);
     }
   }
