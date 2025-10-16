@@ -1,0 +1,131 @@
+---
+title: "The Slack I Loved Is Slipping Away"
+description: "Salesforce's grip on Slack is reshaping it from a neutral collaboration layer into a gated CRM surface, squeezing communities and third-party builders."
+date: 2025-09-22
+tags: ["slack", "salesforce", "platforms", "community", "ai"]
+draft: false
+---
+
+I have been a Slack evangelist for over a decade. I have built chat-ops tooling, bot integrations, and community bridges on top of its real time surface. I watched it grow from a nimble start-up to a workplace utility, and now, increasingly, a silo controlled by Salesforce's CRM priorities. What is happening now feels less like evolution and more like corporate capture, and it hurts.
+
+Since Salesforce acquired Slack, the trajectory has gradually but unmistakably shifted: Slack is becoming less of a neutral collaboration layer and more of a vertical feature in the Salesforce stack. The decisions they have made - feature gating, tighter controls, preferential treatment of Salesforce-adjacent workflows - are damaging Slack's appeal as a platform for creativity, for grassroots community building, and for third party innovation.
+
+Let me walk through how I see that shift, why it is stifling, and why I am more frustrated than ever.
+
+---
+
+## Tightening the Noose Around Free and Community Users
+
+One of the first red flags was the way Slack has hardened the boundaries around its free tier. The 90 day message history cap is old news, but now Slack is actively deleting messages older than a year from free workspaces ([Slack Help Center](https://slack.com/help/articles/27204752526611-Feature-limitations-on-the-free-version-of-Slack)). Combine that with limits on apps and workspace tools, and you have got a setup that increasingly mothballs smaller teams, side projects, and community groups.
+
+To me it is self defeating. Those are the spaces where trust is built, where developers experiment, where early adopters surface use cases that eventually scale. By imposing constraints on the free tier, Slack (under Salesforce) is effectively throttling its own grassroots ecosystem. What is the point of having an open API if nobody can reliably build on it without a high barrier to entry?
+
+---
+
+## The Salesforce Gravity Well: Where Slack Becomes CRM Frontend
+
+Over time, Slack has been repositioned less as a workplace canvas and more as a conversational UI surface for Salesforce's core business. The "Salesforce channels" feature - where Slack conversations are bi-directionally embedded with CRM records like Accounts, Opportunities, and custom objects - is a telling example ([Salesforce Newsroom](https://www.salesforce.com/news/stories/slack-collaboration-in-salesforce/)). That is not a neutral integration; that is a structural alignment of Slack's identity with the Salesforce back end.
+
+The messaging is now explicitly about collapsing the gap between "conversations and customer data." That is fine for Salesforce users, but it subtly repositions non CRM integrations as secondary. You start to feel the boundary: Slack is not a neutral stage anymore, it is a Salesforce stage.
+
+Then there is Agentforce. Slack now supports adding Agentforce agents into channels, not just direct messages ([Slack Blog](https://slack.com/blog/news/slack-ai-and-agentforce-integration-announcement)). But what happens when those paths require you to be in the Salesforce ecosystem (or pay for it)? The power differential becomes obvious. Slack's pitch: "We will integrate deeply with Salesforce. You just pay for that privilege."
+
+This tiered integration model is problematic. It means that third party bots - which once could live side by side with Slack native workflows - are increasingly forced to play catch up or be relegated to constrained surfaces.
+
+---
+
+## The New API Terms: Walled Garden for Slack's Own AI Plans
+
+Perhaps the most aggressive move has been the tightening of Slack's API terms - changes that effectively bar third parties from bulk surfing, archiving, or indexing Slack data ([Reworked](https://www.reworked.co/digital-workplace/salesforces-slack-api-restrictions-sparks-broader-questions-on-future-of-ai/)). Think of it like severing the arteries that bring Slack data into the wider tech ecosystem.
+
+Now, third party apps can no longer create persistent copies, archives, or indexes of Slack message data ([Hunton Privacy Blog](https://www.hunton.com/insights/legal/salesforce-locks-down-slack-data-time-to-review-your-slack-api-terms)). That may be defensible for privacy or compliance arguments, but it also gives Salesforce full control over which agents or analytics tools get privileged access. The narrative claim is "we are reinforcing safeguards around how data is accessed," but the net effect is that external AI or search tools are muted unless validated by Slack or Salesforce ([Reuters](https://www.reuters.com/business/salesforce-blocks-ai-rivals-using-slack-data-information-reports-2025-06-11)).
+
+From one analysis:
+
+> "The announcement restricts long term access to Slack data through its API, effectively cutting off access for vendors outside of its approved marketplace list."  
+> [Reworked](https://www.reworked.co/digital-workplace/salesforces-slack-api-restrictions-sparks-broader-questions-on-future-of-ai/)
+
+And further:
+
+> "Slack API changes will prevent third party applications from bulk accessing or storing chat data ... Apps not officially listed in the Slack Marketplace will be subject to one API request per minute, and limited to 15 messages per call."  
+> [Marketing Tech News](https://www.marketingtechnews.net/news/salesforce-slack-limit-on-api-calls-affecting-third-party-marketing-applications/)
+
+In other words, if you are not in the inner ring, you get starved of context. If your agent cannot see history, it is dumb by design. This is a pivot from openness to gatekeeping.
+
+---
+
+## The Crux of My Frustration: Channel Bots vs Agent APIs
+
+Let me get personal for a second. Over years, I have invested heavily in Slack as the layer where engineering, product, operations, and even finance or marketing meet under the same conversational surface. Bots that people talk to in channels, slash commands, lightweight interactions - that is the sweet spot. And it works, because the barrier is low.
+
+What always annoyed me (and many bot developers) is that bots in channels lack nice affordances: you cannot always show "bot is thinking," you cannot robustly lock out user input mid processing, and managing concurrency or session state is a clunky affair. The agent APIs (often in direct message or private thread mode) solve many of these issues - they treat each user session as a scope, let you control status, and interact cleanly.
+
+So I was thrilled to see Slack prototype a "new bot" that gives real time feedback in public channels - "thinking" states, up and down feedback, and so on. That is the direction I had been hoping for. And we were in a position to adopt it, because under our Salesforce package we already had Agentforce access.
+
+Then comes the gut punch: all the documentation I tracked led me back to Salesforce owned pages. I asked around, and got confirmation - these APIs are proprietary to the Agentforce and Slack internal interface. In effect, Slack is rolling out features that are only usable if you are in the Salesforce or Agentforce realm. That means if you build your bot in plain Slack mode, you will never get access to the best affordances.
+
+This is not a subtle tilt. It is a full platform lock in strategy: the better experience is gated. The neutral surface is slowly being hollowed.
+
+---
+
+## Why This Matters Beyond My Pet Projects
+
+You might say, "Sure, you are annoyed because your fancy bots are getting locked out." But the implications go deeper.
+
+- **Community and Open Source Chill:** Slack's constraints and closed API plans make it a less hospitable place for developer communities. In open source circles, folks already complain that Slack is a "walled garden" where discussion is siloed, not indexable or searchable ([Dave Cheney](https://dave.cheney.net/2017/04/11/why-slack-is-inappropriate-for-open-source-communications)). Limiting free usage and gating advanced APIs damages trust in Slack as a neutral, community friendly platform.
+- **Innovation Suppression:** Third parties used to push Slack's envelope, experimenting with analytics, bots, and integrations. With the API walls rising, fewer players will have the freedom (or incentive) to push innovation. Slack becomes less of a canvas and more of a curated gallery.
+- **Vendor Dominance Over User Agency:** When Slack and Salesforce jointly control which integrations get privileged access, users lose choice. You are gradually nudged toward Salesforce's ecosystem, even if alternative tools might suit you better.
+- **AI Lock In Pressure:** With Slack dialling back access to conversational data, outside agents or analytics services cannot build persistent "memory" or context. That limits what external AI can do, pushing organisations toward Salesforce's own AI offerings.
+- **Reputational Risk:** Companies sensitive to openness and community perception will question Slack's pivot toward proprietary internal features. The more Slack becomes "Salesforce with conversations," the more it alienates the developer base that once felt it was a neutral, extensible layer.
+
+---
+
+## So Where Do We Go from Here?
+
+I do not believe Slack is dead yet. There is still value in its UI, in the muscle memory teams have built around it, in the seamless nature of chat. And Salesforce is clearly placing big bets by embedding Slack into their AI and CRM narrative ([Slack Blog](https://slack.com/blog/news/june-2025-pricing-and-packaging-announcement)).
+
+But unless they walk back the API constraints, loosen the grip on free and community tiers, and re-embrace neutral integration surfaces, Slack risks alienating the very communities that made it indispensable.
+
+To save it - or at least preserve something of the ethos it once had - Slack and Salesforce need to reinvest in third party agility. They need to prove they believe in innovation beyond CRM. Otherwise, what started as a conversational glue will become a vertical silo.
+
+And from where I sit, that is a heartbreaking realisation.
+
+---
+
+## Timeline: Slack's Slide into Enshitification
+
+### 2013  
+Slack launches (initially for internal use at Tiny Speck) and quickly gains traction publicly. Within 24 hours of its beta release in August 2013, over 8,000 companies signed up to try Slack ([TechCrunch](https://techcrunch.com/2013/08/14/slack/)). Early on, Slack embraces openness by supporting integrations and even providing gateways for IRC and XMPP, which allows users to connect through other chat clients. This user first approach and compatibility with existing workflows help Slack spread rapidly in tech circles.
+
+### 2015  
+Slack's user base surges as both companies and online communities adopt it for group communication. By April 2015, Slack reports 750,000 daily active users, and later that year it surpasses 1 million ([TechCrunch](https://techcrunch.com/2015/04/29/slack-raises-160-million-at-2-8-billion-valuation/)). Communities flock to Slack as an alternative to forums or mailing lists, but scaling issues surface - for instance, when freeCodeCamp attempted to host its 8,000 member community on Slack, the platform struggled ([freeCodeCamp Blog](https://www.freecodecamp.org/news/why-we-cant-have-nice-slack-things/)). Still, the period cements Slack's reputation as a vibrant, community driven tool.
+
+### 2017  
+Slack wins "Start-up of the Year" at the 10th Annual Crunchies Awards ([TechCrunch](https://techcrunch.com/2016/02/08/the-10th-annual-crunchies-winners/)). It launches its first major user conference, **Slack Frontiers**, aimed at celebrating and educating its community ([Slack Frontiers](https://slack.com/frontiers)). Around this time, Slack creates the **Slack Fund** to invest in apps and integrations, and hundreds of unofficial Slack communities emerge - from developer groups to hobby collectives - thanks to generous free tiers and easy onboarding.
+
+### 2018  
+Slack begins shifting toward a more closed ecosystem, announcing the shutdown of its IRC and XMPP gateways effective 15 May 2018 ([TechCrunch](https://techcrunch.com/2018/03/06/slack-ends-irc-and-xmpp-support/)). Slack explains that new features like threads and emoji reactions could not be mirrored through those legacy protocols. Despite backlash from power users, Slack surpasses 8 million daily active users with 3 million paid customers ([The Verge](https://www.theverge.com/2018/5/8/17329550/slack-daily-users-paid-accounts-growth-competition-microsoft-teams)). The platform continues to fund community workspaces through its **Slack for Good** programme, offering free Standard plans to non-profits and education groups ([Slack for Good](https://slack.com/slack-for-good)).
+
+### 2019  
+Slack goes public via direct listing on the NYSE, reporting 10 million daily active users and 600,000 organisations ([Reuters](https://www.reuters.com/article/us-slack-ipo/slack-shares-surge-in-direct-listing-idUSKCN1TS0K2)). It launches the **Slack Community Leaders** initiative to formalise global user meetups ([Slack Community](https://slack.com/community)). The company continues hosting large Frontiers conferences and nurturing developer communities - its openness and extensive API support are still key to its success.
+
+### 2020  
+The pandemic drives a massive increase in usage, and Slack introduces **Slack Connect** to link up to 20 organisations in shared channels ([Slack Blog](https://slack.com/blog/productivity/introducing-slack-connect)). Slack files an antitrust complaint in the EU against Microsoft over Teams bundling ([The Verge](https://www.theverge.com/2020/7/22/21333329/slack-microsoft-teams-eu-antitrust-complaint)). In December 2020, Salesforce announces plans to acquire Slack for $27.7 billion - the largest deal in Salesforce's history ([Reuters](https://www.reuters.com/article/us-salesforce-slack-m-a/salesforce-to-buy-slack-for-27-7-billion-in-cloud-computing-bet-idUSKBN28A2SQ)).
+
+### 2021  
+Salesforce finalises the Slack acquisition in July 2021, positioning Slack as the "digital HQ for the new way to work" ([Salesforce Newsroom](https://www.salesforce.com/news/stories/salesforce-completes-acquisition-of-slack/)). Slack remains vibrant for a while, continuing its community events and open API development. But Salesforce's enterprise priorities begin to shape the roadmap - non-profit sponsorships and community grants start to be quietly reevaluated.
+
+### 2022  
+Slack announces its first major post acquisition policy shift: free workspaces will now only retain 90 days of history, replacing the older 10,000 message view limit, effective 1 September 2022 ([Slack Blog](https://slack.com/blog/news/pricing-changes-for-pro-plan-and-free-plan-updates)). Slack also raises prices for the first time since launch. Community moderators criticise the move as the start of Salesforce's monetisation squeeze. In December, co-founder and CEO Stewart Butterfield resigns ([The Verge](https://www.theverge.com/2022/12/5/23494775/slack-ceo-stewart-butterfield-steps-down-salesforce-lidiane-jones)).
+
+### 2024  
+Slack enforces permanent deletion of free tier messages older than one year, ending the previous practice of hidden archival ([Zulip Blog](https://blog.zulip.com/2025/07/08/slack-deletes-old-messages-free-plan/)). It also tightens API rate limits for non marketplace apps, blocking most third party export tools. Slack frames this as a security measure, but critics note it effectively prevents free users from backing up their data ([Reworked](https://www.reworked.co/digital-workplace/salesforces-slack-api-restrictions-sparks-broader-questions-on-future-of-ai/)). This same year, Slack begins restricting large scale community sponsorships, quietly sunsetting many legacy grants.
+
+### Mid 2025  
+Salesforce begins abruptly revoking free Enterprise Grid plans for community workspaces. The Kubernetes Slack community (with over 10,000 members) is told its sponsorship will end, giving just one week's notice before being downgraded to a 90 day free plan ([The Register](https://www.theregister.com/2025/06/19/slack_kubernetes_community_downgrade/)). After backlash, Salesforce delays the downgrade - but the warning shot is clear. Similar communities begin pre-emptively migrating off Slack. NumFOCUS reports losing its Slack sponsorship with no explanation, prompting a move to open alternatives ([Zulip Blog](https://blog.zulip.com/2025/07/08/slack-deletes-old-messages-free-plan/)).
+
+### September 2025  
+Hack Club, a non-profit network of teen coding clubs, receives an ultimatum from Slack: pay $50,000 within a week and commit to a $200,000 per year contract or have its workspace deleted ([TechCrunch](https://techcrunch.com/2025/09/13/hack-club-slack-nonprofit-deletion-threat/)). Facing public outcry, Slack backtracks, but Hack Club still migrates to an open source Mattermost server, citing a loss of trust. The episode draws widespread attention to how dependent communities had become on a platform that no longer viewed them as valuable customers.
+
+### Late 2025  
+Slack's transformation is complete. Once a neutral, open collaboration layer, it is now deeply embedded into Salesforce's ecosystem, with proprietary APIs (like those used by Agentforce) unavailable to third parties. The free tier is gutted, developer access is restricted, and communities are leaving. Cory Doctorow's theory of enshitification - where platforms gradually degrade the user experience to favour revenue extraction - has played out in full ([Wired](https://www.wired.com/story/tiktok-platforms-cory-doctorow-enshittification/)). Slack remains a strong enterprise tool, but its community soul is gone.
