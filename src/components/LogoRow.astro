@@ -54,18 +54,11 @@ const { logos, title = "Trusted by" } = Astro.props;
     filter: invert(1) grayscale(0) brightness(0.35) contrast(1.15);
   }
 
-  /* Dark mode: both SVG and PNG get brighter */
-  @media (prefers-color-scheme: dark) {
-    .logo-svg {
-      filter: grayscale(0) brightness(1) contrast(1);
-    }
-
-    .logo-png {
-      filter: grayscale(0) brightness(1) contrast(1);
-    }
-
-    .logo-invert-light {
-      filter: grayscale(0) brightness(1) contrast(1);
-    }
+  /* Dark mode override when the site toggles the `.dark` class */
+  :global(.dark) .logo-svg,
+  :global(.dark) .logo-png,
+  :global(.dark) .logo-invert-light {
+    filter: grayscale(0) brightness(1) contrast(1);
   }
+
 </style>
