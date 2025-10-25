@@ -111,4 +111,14 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, Astro.site);
   html {
     font-family: system-ui, sans-serif;
   }
+  
+  /* Fix table headers in dark mode */
+  .prose table thead th {
+    font-weight: 700 !important;
+    color: rgb(17, 24, 39) !important;
+  }
+  
+  .dark .prose table thead th {
+    color: white !important;
+  }
 </style>
