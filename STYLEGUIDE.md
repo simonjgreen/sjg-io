@@ -280,6 +280,22 @@ import Button from '../components/Button.astro';
 - Validate required fields (title, description, date)
 - Use descriptive alt text for images
 
+#### Bullet Points and Lists
+- **Main bullets**: Use dashes (`-`) at the start of the line
+- **Sub-bullets**: Use dashes (`-`) with 2-space indentation (`  -`)
+- **Never use bullet symbols** (`•`) - let the markdown renderer handle bullet display
+- **Consistent indentation**: Always use 2 spaces for each indentation level
+
+**Examples:**
+```markdown
+- Main bullet point
+  - Sub-bullet with proper indentation
+  - Another sub-bullet
+- Another main bullet
+  - Nested sub-bullet
+    - Deeply nested bullet (4 spaces)
+```
+
 ### Frontmatter Schema
 ```yaml
 title: "Descriptive Title"
