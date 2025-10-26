@@ -56,7 +56,9 @@ Secrets required in repo settings:
 ## Performance & a11y
 - Target Lighthouse scores ≥ 95 across Performance, A11y, SEO, Best Practices.
 - Images: AVIF/WebP, responsive sizes, lazy load.
+- Header images: Automatic Open Graph meta tag generation for social media previews.
 - Supports dark mode and prefers-reduced-motion.
+- Table headers optimized for dark mode visibility.
 
 ---
 

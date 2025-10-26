@@ -9,6 +9,7 @@ and [Tailwind CSS](https://tailwindcss.com).
 ## Goals
 - Fast, lightweight, privacy-respecting site.
 - Markdown/MDX driven content collections (posts, projects, pages).
+- Header images with automatic social media preview generation.
 - Automated build and deploy from GitHub to Cloudflare Workers.
 - Minimal maintenance burden.
 
@@ -103,5 +104,6 @@ Target Lighthouse scores ≥ 95 across all categories. The site is optimised for
 - Minimal JavaScript footprint
 - Privacy-respecting analytics (Plausible)
 - Dark mode and accessibility support
+- Header images with social media preview optimization
 
 See [ARCHITECTURE.md](./ARCHITECTURE.md) for technical details.

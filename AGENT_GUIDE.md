@@ -43,14 +43,14 @@ The site serves as a portfolio, blog, and professional presence with content inc
 ```
 
 ### Content Collections
-- **Posts**: `src/content/posts/*.mdx` - Blog posts and essays
+- **Posts**: `src/content/posts/*.mdx` - Blog posts and essays (supports header images)
 - **Pages**: `src/content/pages/*.mdx` - Static content pages (about, now, contact, colophon, media, mentors)
 - **Work**: `src/content/pages/work/*.mdx` - Work experience pages
 
 ### Component System
-- **Layouts**: `src/layouts/` - Base, Page, Post layout templates
+- **Layouts**: `src/layouts/` - Base, Page, Post layout templates (Post supports header images)
 - **Components**: `src/components/` - Reusable UI components (Button, Card, Header, etc.)
-- **Styles**: `src/styles/globals.css` - Global styles and Tailwind imports
+- **Styles**: `src/styles/globals.css` - Global styles and Tailwind imports (includes dark mode fixes)
 
 ## How to Run, Verify, and Test
 
