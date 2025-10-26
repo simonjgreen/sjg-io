@@ -7,6 +7,7 @@ export interface Props {
   description?: string;
   ogTitle?: string;
   ogDescription?: string;
+  ogImage?: string;
   canonical?: string;
 }
 
@@ -15,6 +16,7 @@ const {
   description = "Simon's personal website and blog",
   ogTitle,
   ogDescription,
+  ogImage,
   canonical
 } = Astro.props;
 
@@ -87,11 +89,15 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, Astro.site);
     <meta property="og:description" content={ogDescriptionFinal} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:site_name" content="sjg.io" />
+    {ogImage && <meta property="og:image" content={new URL(ogImage, Astro.site)} />}
+    {ogImage && <meta property="og:image:width" content="1200" />}
+    {ogImage && <meta property="og:image:height" content="630" />}
     
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={ogTitleFinal} />
     <meta name="twitter:description" content={ogDescriptionFinal} />
+    {ogImage && <meta name="twitter:image" content={new URL(ogImage, Astro.site)} />}
     
     <title>{siteTitle}</title>
     
@@ -110,5 +116,15 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, Astro.site);
 <style is:global>
   html {
     font-family: system-ui, sans-serif;
+  }
+  
+  /* Fix table headers in dark mode */
+  .prose table thead th {
+    font-weight: 700 !important;
+    color: rgb(17, 24, 39) !important;
+  }
+  
+  .dark .prose table thead th {
+    color: white !important;
   }
 </style>

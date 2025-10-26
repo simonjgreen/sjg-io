@@ -11,6 +11,7 @@ export interface Props {
   ogDescription?: string;
   canonical?: string;
   readingTime?: number;
+  image?: string;
 }
 
 const { 
@@ -22,7 +23,8 @@ const {
   ogTitle, 
   ogDescription, 
   canonical,
-  readingTime
+  readingTime,
+  image
 } = Astro.props;
 
 
@@ -40,11 +42,21 @@ const formatDate = (date: Date) => {
   description={description}
   ogTitle={ogTitle}
   ogDescription={ogDescription}
+  ogImage={image}
   canonical={canonical}
 >
   <article class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-12">
     <div class="max-w-3xl">
       <header class="mb-8">
+        {image && (
+          <div class="mb-8">
+            <img 
+              src={image} 
+              alt={title}
+              class="w-full h-64 object-cover rounded-lg shadow-lg"
+            />
+          </div>
+        )}
         <h1 class="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl">
           {title}
         </h1>
