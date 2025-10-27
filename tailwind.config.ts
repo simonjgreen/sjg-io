@@ -61,6 +61,17 @@ export default {
               color: 'inherit',
               textDecoration: 'underline',
               fontWeight: '500',
+              wordBreak: 'break-word',
+              overflowWrap: 'anywhere',
+            },
+            table: {
+              display: 'block',
+              maxWidth: '100%',
+              overflowX: 'auto',
+            },
+            'th, td': {
+              whiteSpace: 'normal',
+              wordBreak: 'normal',
             },
             '[class~="lead"]': {
               color: 'inherit',
@@ -158,9 +169,20 @@ export default {
           css: {
             a: {
               color: 'inherit',
+              wordBreak: 'break-word',
+              overflowWrap: 'anywhere',
             },
             strong: {
               color: 'inherit',
+            },
+            table: {
+              display: 'block',
+              maxWidth: '100%',
+              overflowX: 'auto',
+            },
+            'th, td': {
+              whiteSpace: 'normal',
+              wordBreak: 'normal',
             },
             'ol[type="A"]': {
               '--list-counter-style': 'upper-alpha',
