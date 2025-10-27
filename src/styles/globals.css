@@ -40,6 +40,11 @@
     @apply prose-gray dark:prose-invert;
   }
 
+  .prose :where(a):not(:where([class~="not-prose"] *)) {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
   /* Background textures - keeping only the working particle effect */
   .bg-texture-particles {
     background-image: 
