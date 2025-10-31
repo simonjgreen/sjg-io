@@ -105,5 +105,6 @@ Target Lighthouse scores ≥ 95 across all categories. The site is optimised for
 - Minimal JavaScript footprint
 - Privacy-respecting analytics (Cloudflare Web Analytics)
 - Dark mode and accessibility support
+- Header images with social media preview optimization
 
 See [ARCHITECTURE.md](./ARCHITECTURE.md) for technical details.

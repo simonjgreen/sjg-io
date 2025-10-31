@@ -258,6 +258,13 @@ import Button from '../components/Button.astro';
 - Add lazy loading for below-the-fold images
 - Include proper alt text for accessibility
 
+### Header Images
+- Place images in `public/` directory for direct serving
+- Use descriptive filenames (e.g., `post-title-header.jpg`)
+- Recommended dimensions: 1200×630px for optimal social media previews
+- Images are automatically used for Open Graph meta tags
+- Header images display above post title with rounded corners and shadow
+
 ### Code Splitting
 - Keep components focused and single-purpose
 - Use dynamic imports for large dependencies
@@ -269,6 +276,12 @@ import Button from '../components/Button.astro';
 - Ensure proper heading hierarchy
 - Test with screen readers
 
+### Dark Mode Support
+- All components should support both light and dark themes
+- Use Tailwind's `dark:` prefix for dark mode styles
+- Test table headers and other elements for proper contrast
+- Ensure text remains readable in both themes
+
 ## Content Guidelines
 
 ### Markdown/MDX
@@ -276,6 +289,22 @@ import Button from '../components/Button.astro';
 - Include frontmatter for all content
 - Validate required fields (title, description, date)
 - Use descriptive alt text for images
+
+#### Bullet Points and Lists
+- **Main bullets**: Use dashes (`-`) at the start of the line
+- **Sub-bullets**: Use dashes (`-`) with 2-space indentation (`  -`)
+- **Never use bullet symbols** (`•`) - let the markdown renderer handle bullet display
+- **Consistent indentation**: Always use 2 spaces for each indentation level
+
+**Examples:**
+```markdown
+- Main bullet point
+  - Sub-bullet with proper indentation
+  - Another sub-bullet
+- Another main bullet
+  - Nested sub-bullet
+    - Deeply nested bullet (4 spaces)
+```
 
 ### Frontmatter Schema
 ```yaml
@@ -285,6 +314,7 @@ date: 2024-01-15
 updated: 2024-01-20  # Optional
 tags: ["tag1", "tag2"]  # Optional
 draft: false  # Optional, defaults to false
+image: "/path/to/header-image.jpg"  # Optional - header image for posts
 canonical: "https://example.com"  # Optional
 ogTitle: "Custom OG Title"  # Optional
 ogDescription: "Custom OG Description"  # Optional

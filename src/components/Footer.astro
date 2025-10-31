@@ -15,8 +15,8 @@ const currentYear = new Date().getFullYear();
             <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
           </svg>
         </a>
-        <a 
-          href="https://twitter.com/SimonJGreen" 
+        <a
+          href="https://twitter.com/SimonJGreen"
           class="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300"
           aria-label="Twitter"
         >
@@ -24,8 +24,17 @@ const currentYear = new Date().getFullYear();
             <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
           </svg>
         </a>
-        <a 
-          href="https://linkedin.com/in/simonjgreen" 
+        <a
+          href="https://bsky.app/profile/sjg.io"
+          class="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300"
+          aria-label="Bluesky"
+        >
+          <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2.25c1.223 1.409 2.5 4.17 3.002 5.47 1.238-1.59 3.525-3.63 5.598-4.05 1.199-.243 1.97.307 2.152 1.602.447 3.162-2.29 6.615-4.973 8.546 3.872 1.914 4.977 4.941 4.426 6.837-.258.901-.978 1.3-1.963 1.1-2.026-.41-4.536-2.4-5.813-3.705.39 1.746.547 3.964-.098 5.34-.367.786-.96 1.17-1.733 1.17-.773 0-1.366-.384-1.733-1.17-.645-1.376-.488-3.594-.098-5.34-1.277 1.305-3.787 3.295-5.813 3.705-.985.2-1.705-.199-1.963-1.1-.551-1.896.554-4.923 4.426-6.837-2.683-1.931-5.42-5.384-4.973-8.546.182-1.295.953-1.845 2.152-1.602 2.073.42 4.36 2.46 5.598 4.05.502-1.3 1.779-4.061 3.002-5.47Z"/>
+          </svg>
+        </a>
+        <a
+          href="https://linkedin.com/in/simonjgreen"
           class="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300"
           aria-label="LinkedIn"
         >
@@ -34,8 +43,14 @@ const currentYear = new Date().getFullYear();
           </svg>
         </a>
       </div>
-      <div class="text-sm text-gray-500 dark:text-gray-400">
-        © {currentYear} Simon Green. All rights reserved. <a href="/colophon" class="ml-4 text-gray-400 hover:text-gray-500 dark:hover:text-gray-300">Colophon</a>
+      <div class="text-center md:text-right text-sm text-gray-500 dark:text-gray-400 space-y-2">
+        <div>
+          © {currentYear} Simon Green. All rights reserved.
+          <a href="/colophon" class="ml-1 md:ml-4 text-gray-400 hover:text-gray-500 dark:hover:text-gray-300">Colophon</a>
+        </div>
+        <p class="text-xs text-gray-400 dark:text-gray-500">
+          The views on this website are my own and do not represent the views of my employers.
+        </p>
       </div>
     </div>
   </div>
