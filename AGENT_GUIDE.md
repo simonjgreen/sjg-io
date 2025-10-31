@@ -333,4 +333,4 @@ try {
 ---
 ```
 
-This guide provides the essential information for AI agents to understand and contribute to the  codebase effectively.
+This guide provides the essential information for AI agents to understand and contribute to the codebase effectively.

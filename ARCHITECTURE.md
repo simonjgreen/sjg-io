@@ -21,8 +21,7 @@ are used to type and validate frontmatter.
 
 Collections:
 - `posts` — essays and notes
-- `projects` — work case studies
-- `pages` — about, now, contact, colophon
+- `pages` — about, now, contact, colophon, and work case studies (`pages/work/`)
 
 ---
 

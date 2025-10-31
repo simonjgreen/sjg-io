@@ -8,7 +8,7 @@ and [Tailwind CSS](https://tailwindcss.com).
 
 ## Goals
 - Fast, lightweight, privacy-respecting site.
-- Markdown/MDX driven content collections (posts, projects, pages).
+- Markdown/MDX driven content collections (posts, pages).
 - Automated build and deploy from GitHub to Cloudflare Workers.
 - Minimal maintenance burden.
 
@@ -20,7 +20,9 @@ This project uses sandboxed environments for development:
 
 1. **Install system dependencies:**
    ```bash
-   sudo apt update && sudo apt install -y curl wget git build-essential python3-venv python3-pip python3-dev python3-setuptools python3-wheel vim nano tree htop
+   sudo apt update && sudo apt install -y \
+     curl wget git build-essential \
+     python3-venv python3-pip python3-dev python3-setuptools python3-wheel
    ```
 
 2. **Install Node.js via nvm (Node Version Manager):**
@@ -82,8 +84,7 @@ npm run typecheck  # Run TypeScript checks
 Content is managed through Astro Content Collections in `src/content/`:
 
 - `posts/` — essays and notes
-- `projects/` — work case studies
-- `pages/` — static pages (about, now, contact, colophon)
+- `pages/` — static pages (about, now, contact, colophon) and work case studies (`pages/work/`)
 
 All content uses MDX with validated frontmatter schemas.
 
