@@ -10,7 +10,7 @@ A machine-friendly primer for AI agents working on the sjg.io codebase.
 - **Styling**: Tailwind CSS with custom components
 - **Content**: Markdown/MDX files in Astro Content Collections
 - **Deployment**: Cloudflare Workers (static hosting)
-- **Domain**: sjg.io (production) + preview.sjg.io (PR previews)
+- **Domain**: sjg.io (production) + preview{NUMBER}.sjg.io (PR previews, where NUMBER is the PR number)
 
 The site serves as a portfolio, blog, and professional presence with content including:
 - Personal essays and technical writing (`/writing/`)
@@ -30,9 +30,9 @@ The site serves as a portfolio, blog, and professional presence with content inc
 /                    → src/pages/index.astro (homepage)
 /about              → src/pages/about.astro
 /work               → src/pages/work/index.astro
-/work/[slug]        → src/pages/work/[slug].astro
+/work/wirehive      → src/pages/work/wirehive.astro (static pages, one per work item)
 /writing            → src/pages/writing/index.astro
-/writing/[slug]     → src/pages/writing/[...slug].astro
+/writing/[slug]     → src/pages/writing/[...slug].astro (dynamic, uses getStaticPaths)
 /now                → src/pages/now.astro
 /contact            → src/pages/contact.astro
 /colophon           → src/pages/colophon.astro
@@ -86,10 +86,7 @@ npm run og:gen     # Generate OG images
 5. **Preview Test**: `npm run preview` should serve the built site
 
 ### Testing (Future)
-Currently no automated tests, but when added:
-- Unit tests: `npm test`
-- E2E tests: `npm run test:e2e`
-- Coverage: `npm run test:coverage`
+Currently no automated tests. When tests are added, they will follow the conventions outlined in [STYLEGUIDE.md](./STYLEGUIDE.md).
 
 ## How to Add a New Module or Endpoint
 
@@ -141,11 +138,24 @@ touch src/pages/new-page.astro
 import Page from '../layouts/Page.astro';
 import { getCollection } from 'astro:content';
 
-const pageContent = await getCollection('pages', ({ slug }) => slug === 'new-page');
-const { Content } = await pageContent[0].render();
+export async function getStaticPaths() {
+  const pageContent = await getCollection('pages', ({ slug }) => slug === 'new-page');
+  
+  if (pageContent.length === 0) {
+    throw new Error('New page content not found');
+  }
+  
+  return [{
+    params: {},
+    props: { pageContent: pageContent[0] },
+  }];
+}
+
+const { pageContent } = Astro.props;
+const { Content } = await pageContent.render();
 ---
 
-<Page title={pageContent[0].data.title} description={pageContent[0].data.description}>
+<Page title={pageContent.data.title} description={pageContent.data.description}>
   <Content />
 </Page>
 ```
@@ -231,30 +241,6 @@ const { Content } = await item.render();
 </Base>
 ```
 
-### Adding a New API Endpoint
-
-```bash
-# Create API endpoint
-touch src/pages/api/new-endpoint.js
-```
-
-```javascript
-export async function GET({ request, url }) {
-  const searchParams = url.searchParams;
-  const param = searchParams.get('param');
-  
-  return new Response(JSON.stringify({ 
-    message: 'Hello from new endpoint',
-    param 
-  }), {
-    status: 200,
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-}
-```
-
 ### Testing New Features
 
 #### Manual Testing Checklist
@@ -280,9 +266,10 @@ npm run lint
 ### Deployment
 
 Changes are automatically deployed via GitHub Actions:
-1. Push to `main` branch → Production deployment to sjg.io
-2. Create PR → Preview deployment to preview.sjg.io
-3. No manual deployment steps required
+1. Push to `main` branch → Production deployment to sjg.io (via `deploy.yml`)
+2. Create PR → Preview deployment to `preview{NUMBER}.sjg.io` (via `preview.yml`, where NUMBER is the PR number)
+3. PR merged or closed → Preview deployment automatically cleaned up
+4. No manual deployment steps required
 
 ### Common Patterns
 
@@ -333,4 +320,4 @@ try {
 ---
 ```
 
-This guide provides the essential information for AI agents to understand and contribute to the  codebase effectively.
+This guide provides the essential information for AI agents to understand and contribute to the codebase effectively.

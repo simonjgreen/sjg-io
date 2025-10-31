@@ -8,8 +8,7 @@ and [Tailwind CSS](https://tailwindcss.com).
 
 ## Goals
 - Fast, lightweight, privacy-respecting site.
-- Markdown/MDX driven content collections (posts, projects, pages).
-- Header images with automatic social media preview generation.
+- Markdown/MDX driven content collections (posts, pages).
 - Automated build and deploy from GitHub to Cloudflare Workers.
 - Minimal maintenance burden.
 
@@ -21,7 +20,9 @@ This project uses sandboxed environments for development:
 
 1. **Install system dependencies:**
    ```bash
-   sudo apt update && sudo apt install -y curl wget git build-essential python3-venv python3-pip python3-dev python3-setuptools python3-wheel vim nano tree htop
+   sudo apt update && sudo apt install -y \
+     curl wget git build-essential \
+     python3-venv python3-pip python3-dev python3-setuptools python3-wheel
    ```
 
 2. **Install Node.js via nvm (Node Version Manager):**
@@ -83,8 +84,7 @@ npm run typecheck  # Run TypeScript checks
 Content is managed through Astro Content Collections in `src/content/`:
 
 - `posts/` — essays and notes
-- `projects/` — work case studies
-- `pages/` — static pages (about, now, contact, colophon)
+- `pages/` — static pages (about, now, contact, colophon) and work case studies (`pages/work/`)
 
 All content uses MDX with validated frontmatter schemas.
 
@@ -92,17 +92,18 @@ All content uses MDX with validated frontmatter schemas.
 
 The site deploys automatically to Cloudflare Workers via GitHub Actions:
 
-1. Push to `main` branch
+1. Push to `main` branch triggers production deployment
 2. GitHub Actions builds the site
 3. Deploys to Cloudflare Workers using Wrangler
 4. Serves from `sjg.io` domain
+5. Pull requests automatically deploy previews to `preview{NUMBER}.sjg.io` (where NUMBER is the PR number)
 
 ## Performance
 
 Target Lighthouse scores ≥ 95 across all categories. The site is optimised for:
 - Fast loading with static generation
 - Minimal JavaScript footprint
-- Privacy-respecting analytics (Plausible)
+- Privacy-respecting analytics (Cloudflare Web Analytics)
 - Dark mode and accessibility support
 - Header images with social media preview optimization
 

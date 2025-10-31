@@ -11,7 +11,7 @@ This document describes the technical architecture and conventions of the site.
 - **CI/CD:** GitHub Actions (CI + deploy via Wrangler)
 - **Analytics:** Cloudflare Web Analytics (privacy-focused, auto-injected)
 - **Domain:** sjg.io (delegated to Cloudflare DNS)
-- **Preview:** preview.sjg.io (for PR previews)
+- **Preview:** preview{NUMBER}.sjg.io (for PR previews, where NUMBER is the PR number)
 
 ---
 
@@ -21,20 +21,20 @@ are used to type and validate frontmatter.
 
 Collections:
 - `posts` — essays and notes
-- `projects` — work case studies
-- `pages` — about, now, contact, colophon
+- `pages` — about, now, contact, colophon, and work case studies (`pages/work/`)
 
 ---
 
 ## Deployment flow
 1. Developer pushes to a branch → Pull request.
 2. **CI (`ci.yml`):**  
-   - Lint, type-check, build, link-check, Lighthouse CI.
-3. **Preview (`preview.yml`):**  
+   - Lint, type-check, build, link-check.
+3. **Preview (`preview.yml`):  
    - Build Astro project with preview config.
    - Deploy `dist/` to Cloudflare Workers using Wrangler.
-   - Map to `preview.sjg.io` via Cloudflare routes.
-4. Merge PR → `main`.
+   - Map to `preview{NUMBER}.sjg.io` via Cloudflare routes (where NUMBER is the PR number).
+   - Automatically cleaned up when PR is merged or closed.
+4. Push to `main` branch.
 5. **Deploy (`deploy.yml`):**  
    - Build Astro project.  
    - Deploy `dist/` to Cloudflare Workers using Wrangler.  
@@ -48,8 +48,9 @@ Secrets required in repo settings:
 
 ## DNS
 - Zone hosted on Cloudflare.
-- Apex and `www` both routed to the Worker.
-- `preview.sjg.io` routed to preview Worker.
+- Apex (`sjg.io`) routed to the Worker.
+- `www.sjg.io` redirects to `sjg.io`.
+- `preview{NUMBER}.sjg.io` subdomains routed to preview Workers (created per PR).
 
 ---
 
@@ -72,5 +73,6 @@ Secrets required in repo settings:
 ## Conventions
 - Lowercase hyphenated slugs.
 - Frontmatter `tags` field for taxonomy.
+- Branch naming: `feature/description`, `fix/description`, or `docs/description`.
 - Commit via PR to `main` (branch protection enabled).
 - CI must pass before merge.

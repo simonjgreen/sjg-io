@@ -135,20 +135,23 @@ const posts = await getCollection('posts', ({ data }) => {
 ## Testing Conventions
 
 ### Test Structure
-While this project doesn't currently have automated tests, here are the conventions for when they're added:
+This project currently doesn't have automated tests. When tests are added, they should follow these conventions:
 
 #### Unit Tests
 - **Location**: `tests/` directory
 - **Naming**: `*.test.ts` or `*.spec.ts`
 - **Coverage**: Components, utilities, content validation
+- **Command**: To be defined when tests are added (e.g., `npm test`)
 
 #### Integration Tests
 - **Location**: `tests/integration/`
 - **Coverage**: Page rendering, content collections, build process
+- **Command**: To be defined when tests are added (e.g., `npm run test:integration`)
 
 #### E2E Tests
 - **Location**: `tests/e2e/`
 - **Coverage**: Critical user journeys, accessibility, performance
+- **Command**: To be defined when tests are added (e.g., `npm run test:e2e`)
 
 ### Test Patterns
 
@@ -205,10 +208,17 @@ describe('Build Process', () => {
 src/
 ├── components/          # Reusable UI components
 ├── content/            # Content collections and schemas
+│   ├── config.ts       # Collection definitions and schemas
+│   ├── pages/          # Page content (about, now, contact, etc. + work/)
+│   └── posts/          # Blog posts and essays
+├── data/               # Static data files (JSON, etc.)
+├── images/             # Static images and assets
+│   └── og/             # OG image templates
 ├── layouts/            # Page layout templates
 ├── pages/              # Route handlers and static pages
-├── styles/             # Global styles and Tailwind config
-└── images/             # Static images and assets
+│   ├── work/           # Work case study pages (static routes)
+│   └── writing/        # Blog post pages (dynamic routes)
+└── styles/             # Global styles and Tailwind config
 ```
 
 ### Import Organization
