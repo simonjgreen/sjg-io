@@ -92,17 +92,18 @@ All content uses MDX with validated frontmatter schemas.
 
 The site deploys automatically to Cloudflare Workers via GitHub Actions:
 
-1. Push to `main` branch
+1. Push to `main` branch triggers production deployment
 2. GitHub Actions builds the site
 3. Deploys to Cloudflare Workers using Wrangler
 4. Serves from `sjg.io` domain
+5. Pull requests automatically deploy previews to `preview{NUMBER}.sjg.io` (where NUMBER is the PR number)
 
 ## Performance
 
 Target Lighthouse scores ≥ 95 across all categories. The site is optimised for:
 - Fast loading with static generation
 - Minimal JavaScript footprint
-- Privacy-respecting analytics (Plausible)
+- Privacy-respecting analytics (Cloudflare Web Analytics)
 - Dark mode and accessibility support
 
 See [ARCHITECTURE.md](./ARCHITECTURE.md) for technical details.
