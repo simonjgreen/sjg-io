@@ -2,7 +2,6 @@
 import Post from '../../layouts/Post.astro';
 import { getCollection } from 'astro:content';
 import readingTime from 'reading-time';
-import remarkGfm from 'remark-gfm';
 import ArticleLink from '../../components/ArticleLink.astro';
 
 export async function getStaticPaths() {
@@ -15,14 +14,8 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 
-// Render content with custom components for article links
-const { Content } = await post.render({
-  remarkPlugins: [remarkGfm],
-  // Pass ArticleLink component to MDX so authors can use it
-  components: {
-    ArticleLink
-  }
-});
+// Render content
+const { Content } = await post.render();
 
 // Calculate reading time from the post body
 const readingStats = readingTime(post.body);
