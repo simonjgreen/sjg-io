@@ -127,4 +127,18 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, Astro.site);
   .dark .prose table thead th {
     color: white !important;
   }
+  
+  /* Tighten spacing between footnotes - match Tailwind Typography specificity */
+  .prose.prose-lg.max-w-none section.footnotes ol .footnote-item,
+  div.prose.prose-lg.max-w-none section.footnotes ol .footnote-item {
+    margin-top: 0 !important;
+    margin-bottom: 0.25rem !important;
+  }
+  
+  /* Reduce paragraph margins inside footnote items */
+  .prose.prose-lg.max-w-none section.footnotes ol .footnote-item p,
+  div.prose.prose-lg.max-w-none section.footnotes ol .footnote-item p {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
 </style>
