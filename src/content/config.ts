@@ -14,6 +14,8 @@ const posts = defineCollection({
     canonical: z.string().optional(),
     ogTitle: z.string().optional(),
     ogDescription: z.string().optional(),
+    previewTitle: z.string().optional(),
+    previewDescription: z.string().optional(),
   }),
 });
 
