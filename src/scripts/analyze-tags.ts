@@ -173,10 +173,18 @@ function analyzeTags(): void {
   }
 }
 
-main().catch(console.error);
-
 async function main() {
   analyzeTags();
+}
+
+// Run if called directly
+if (import.meta.url === `file://${process.argv[1]}` || process.argv[1]?.endsWith('analyze-tags.ts')) {
+  try {
+    main().catch(console.error);
+  } catch (error) {
+    console.error('Fatal error:', error);
+    process.exit(1);
+  }
 }
 
 

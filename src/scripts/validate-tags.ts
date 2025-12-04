@@ -122,6 +122,15 @@ function validateTag(tag: string): { valid: boolean; issue?: string; suggestion?
     };
   }
 
+  // Check if tag is in canonical tags list
+  if (canonicalTags && !canonicalTags.canonicalTags.includes(tag)) {
+    return {
+      valid: false,
+      issue: 'Tag not in canonical tags list',
+      suggestion: undefined,
+    };
+  }
+
   return { valid: true };
 }
 
