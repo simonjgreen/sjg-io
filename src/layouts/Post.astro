@@ -82,9 +82,12 @@ const formatDate = (date: Date) => {
           {tags.length > 0 && (
             <div class="flex flex-wrap gap-2">
               {tags.map((tag) => (
-                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200">
+                <a
+                  href={`/writing/tags/${tag}`}
+                  class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+                >
                   {tag}
-                </span>
+                </a>
               ))}
             </div>
           )}
