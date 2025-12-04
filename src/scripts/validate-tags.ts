@@ -25,12 +25,15 @@ interface CanonicalTags {
 
 let canonicalTags: CanonicalTags | null = null;
 
-function loadCanonicalTags(): CanonicalTags | null {
+function loadCanonicalTags(): CanonicalTags {
   try {
     const content = readFileSync(canonicalTagsPath, 'utf-8');
     return JSON.parse(content) as CanonicalTags;
   } catch (error) {
-    return null;
+    console.error(`❌ Failed to load canonical tags file: ${canonicalTagsPath}`);
+    console.error(`   Error: ${error instanceof Error ? error.message : String(error)}`);
+    console.error('   The canonical tags file is required for validation.');
+    process.exit(1);
   }
 }
 
@@ -61,7 +64,8 @@ function validateTag(tag: string): { valid: boolean; issue?: string; suggestion?
   }
 
   // Check if tag should be consolidated
-  if (canonicalTags && canonicalTags.consolidationMap[tag]) {
+  // canonicalTags is guaranteed to be loaded (loadCanonicalTags() exits on failure)
+  if (canonicalTags.consolidationMap[tag]) {
     return {
       valid: false,
       issue: 'Tag should be consolidated',
@@ -123,7 +127,8 @@ function validateTag(tag: string): { valid: boolean; issue?: string; suggestion?
   }
 
   // Check if tag is in canonical tags list
-  if (canonicalTags && !canonicalTags.canonicalTags.includes(tag)) {
+  // canonicalTags is guaranteed to be loaded (loadCanonicalTags() exits on failure)
+  if (!canonicalTags.canonicalTags.includes(tag)) {
     return {
       valid: false,
       issue: 'Tag not in canonical tags list',
@@ -222,6 +227,7 @@ function main() {
   const result = validateTags();
 
   // Load canonical tags for suggestions
+  // This will exit if the file can't be loaded, so canonicalTags is always defined here
   const canonicalTags = loadCanonicalTags();
 
   // Print statistics
@@ -229,14 +235,12 @@ function main() {
   console.log(`   Total posts: ${result.stats.totalPosts}`);
   console.log(`   Total tags: ${result.stats.totalTags}`);
   console.log(`   Unique tags: ${result.stats.uniqueTags}`);
-  if (canonicalTags) {
-    const nonCanonicalTags = result.issues
-      .filter(i => canonicalTags.canonicalTags.includes(i.tag) === false)
-      .map(i => i.tag);
-    const uniqueNonCanonical = [...new Set(nonCanonicalTags)];
-    if (uniqueNonCanonical.length > 0) {
-      console.log(`   Non-canonical tags: ${uniqueNonCanonical.length}`);
-    }
+  const nonCanonicalTags = result.issues
+    .filter(i => canonicalTags.canonicalTags.includes(i.tag) === false)
+    .map(i => i.tag);
+  const uniqueNonCanonical = [...new Set(nonCanonicalTags)];
+  if (uniqueNonCanonical.length > 0) {
+    console.log(`   Non-canonical tags: ${uniqueNonCanonical.length}`);
   }
   console.log('');
 
@@ -270,10 +274,8 @@ function main() {
     console.log('   - Multi-word tags must use kebab-case (hyphens, no spaces)');
     console.log('   - Single-word tags should be lowercase');
     console.log('   - No underscores or multiple consecutive hyphens');
-    if (canonicalTags) {
-      console.log('   - Use canonical tags when possible (see canonical-tags.json)');
-      console.log('   - Consolidate tags according to consolidationMap');
-    }
+    console.log('   - Use canonical tags when possible (see canonical-tags.json)');
+    console.log('   - Consolidate tags according to consolidationMap');
     console.log('');
 
     process.exit(1);
