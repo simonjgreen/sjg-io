@@ -30,6 +30,9 @@ jobs:
       run: npm run lint
       continue-on-error: true
 
+    - name: Validate tags
+      run: npm run validate:tags
+
     - name: Build
       run: npm run build
 

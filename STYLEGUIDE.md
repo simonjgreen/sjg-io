@@ -320,6 +320,79 @@ ogTitle: "Custom OG Title"  # Optional
 ogDescription: "Custom OG Description"  # Optional
 ```
 
+### Tag Guidelines
+
+Tags help readers discover related content and improve SEO. Follow these rules for consistency:
+
+#### Format Rules
+- **All tags must be lowercase**: `ai`, `automation`, `aws` (not `AI`, `Automation`, `AWS`)
+- **Multi-word tags use kebab-case**: `home-automation`, `work-life-balance`, `future-of-work`
+- **Single-word tags are lowercase**: `automation`, `linux`, `slack`
+- **No spaces**: Use hyphens instead (e.g., `future-of-work` not `future of work`)
+- **No underscores**: Use hyphens instead (e.g., `work-life-balance` not `work_life_balance`)
+- **No multiple consecutive hyphens**: `home-automation` not `home--automation`
+- **No leading/trailing hyphens**: `ai` not `-ai-`
+
+#### Tag Selection
+- **Limit to 3-7 tags per post** (recommended: 5)
+- Choose tags that accurately reflect the content
+- Prefer existing tags when possible to maintain consistency
+- Use broader canonical tags over specific ones (e.g., `ai` over `operational-ai` - see consolidationMap)
+
+#### Canonical Tag List
+We maintain a canonical tag list to ensure consistency and improve discoverability. The **single source of truth** is `src/data/canonical-tags.json`, which contains:
+
+- **`canonicalTags`**: Array of all approved tags
+- **`consolidationMap`**: Mapping of deprecated tags to their canonical replacements
+
+**Key principles**:
+- Prefer existing canonical tags when possible
+- Use broader tags over specific ones (e.g., `workflow` over `workflow-engineering`)
+- Consolidate similar concepts (e.g., `skills` covers `digital-skills`, `computer-literacy`)
+- Always reference `canonical-tags.json` for the current list (don't duplicate in documentation)
+
+**To view canonical tags**:
+```bash
+# View the JSON file directly
+cat src/data/canonical-tags.json
+
+# Or use the analysis script to see tag usage
+npm run analyze:tags
+```
+
+#### Validation
+Run the tag validation script before committing:
+```bash
+npm run validate:tags
+```
+
+This will check all post tags for:
+- Format compliance (lowercase, kebab-case)
+- Consolidation opportunities (suggests canonical tags)
+- Consistency with canonical tag list
+
+You can also analyze tag usage:
+```bash
+npm run analyze:tags
+```
+
+#### Examples
+✅ **Correct** (using canonical tags):
+```yaml
+tags: ["ai", "automation", "workflow", "enterprise", "pax8"]
+tags: ["home-automation", "open-source", "privacy"]
+tags: ["future-of-work", "careers", "skills"]
+```
+
+❌ **Incorrect**:
+```yaml
+tags: ["AI", "Automation", "Workflow Engineering"]  # Uppercase and spaces
+tags: ["future of work", "work_life_balance"]  # Spaces and underscores
+tags: ["--ai--", "-automation-"]  # Multiple hyphens and leading/trailing hyphens
+tags: ["workflow-engineering"]  # Should use "workflow" (see consolidationMap)
+tags: ["operational-ai"]  # Should use "ai" (see consolidationMap)
+```
+
 ## Git Conventions
 
 ### Commit Messages
