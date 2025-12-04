@@ -42,7 +42,7 @@ const formatDate = (date: Date) => {
             <time datetime={post.data.date.toISOString()}>
               {formatDate(post.data.date)}
             </time>
-            {post.data.tags.length > 0 && (
+            {post.data.tags && post.data.tags.length > 0 && (
               <div class="flex flex-wrap gap-2">
                 {post.data.tags.map((tag) => (
                   <a
