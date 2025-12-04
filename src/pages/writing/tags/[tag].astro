@@ -63,12 +63,10 @@ const formatDate = (date: Date) => {
 
     <div class="mt-12 space-y-8">
       {postsWithTag.map((post) => (
-        <Card>
-          <a href={`/writing/${post.slug}`} class="block">
-            <h2 class="text-xl font-semibold text-gray-900 dark:text-white hover:text-neon-blue dark:hover:text-neon-blue transition-colors">
-              {post.data.title}
-            </h2>
-          </a>
+        <Card class="cursor-pointer post-card" data-href={`/writing/${post.slug}`}>
+          <h2 class="text-xl font-semibold text-gray-900 dark:text-white hover:text-neon-blue dark:hover:text-neon-blue transition-colors">
+            {post.data.title}
+          </h2>
           <p class="mt-2 text-gray-600 dark:text-gray-300">
             {post.data.description}
           </p>
@@ -97,6 +95,23 @@ const formatDate = (date: Date) => {
         </Card>
       ))}
     </div>
+
+    <script is:inline>
+      document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.post-card').forEach((card) => {
+          card.addEventListener('click', (e) => {
+            // Don't navigate if clicking on a link
+            if (e.target.closest('a')) {
+              return;
+            }
+            const href = card.getAttribute('data-href');
+            if (href) {
+              window.location.href = href;
+            }
+          });
+        });
+      });
+    </script>
 
     {postsWithTag.length === 0 && (
       <div class="text-center py-12">
