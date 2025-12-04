@@ -10,7 +10,9 @@
     "astro": "astro",
     "lint": "eslint .",
     "typecheck": "astro check",
-    "og:gen": "tsx src/components/OgImageTemplate.ts"
+    "og:gen": "tsx src/components/OgImageTemplate.ts",
+    "validate:tags": "tsx src/scripts/validate-tags.ts",
+    "analyze:tags": "tsx src/scripts/analyze-tags.ts"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
