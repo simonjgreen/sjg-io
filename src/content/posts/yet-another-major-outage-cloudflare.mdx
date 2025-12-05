@@ -1,0 +1,16 @@
+---
+title: "Yet another major outage caused by everybody using the same cloud provider"
+description: "Cloudflare was down again, taking a swath of the web with it—and reminding us that monocultures are a choice, not a law of nature."
+date: 2025-12-05
+tags: ["infrastructure", "outage", "platforms", "consolidation"]
+---
+
+Cloudflare just had a rough day. A major outage rippled through their network and, because half the internet is tucked behind their edge, a significant chunk of websites vanished behind 502s and timeouts until the fix landed. Cloudflare’s own status page tracked the incident: [massive service disruption](https://www.cloudflarestatus.com/incidents/lfrm31y6sw9q).
+
+This keeps happening because we keep pretending that centralising everything behind one provider is “simpler.” It is simpler—right up until the moment that provider sneezes and thousands of businesses catch a cold. The internet was supposed to be decentralised; we keep rebuilding it as a monoculture, and we should be embarrassed that the outage was even possible.
+
+It is ridiculous that roughly 20% of the web sits behind Cloudflare, and frankly it would be ridiculous for 20% to sit behind any single intermediary. More often than not you do not even need a CDN for a basic site, yet we keep shovelling traffic into someone else’s edge as if doing so were mandatory.
+
+The simplest fix is to stop defaulting to intermediaries you do not need. Host the site, serve it directly, and leave the complicated global routing to the few who genuinely benefit from it. The incident may be resolved, but outages like this remain avoidable if we stop treating single-vendor convenience as a virtue.
+
+And yes, the irony is rich: this site is served from a Cloudflare Worker. Hypocrisy does not make the point wrong.
