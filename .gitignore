@@ -44,7 +44,8 @@ __pycache__/
 *.pyd
 .Python
 
-# Development setup files (optional - uncomment if you don't want to track these)
-# setup-dev.sh
-# .envrc
+# TODO List when used
 TODO.md
+
+# Tumblr export being used to merge in archive content
+tumblr export/
