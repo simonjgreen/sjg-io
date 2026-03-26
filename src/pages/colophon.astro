@@ -1,15 +1,15 @@
 ---
 import Page from '../layouts/Page.astro';
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 
-const colophonPage = await getCollection('pages', ({ slug }) => slug === 'colophon');
+const colophonPage = await getCollection('pages', ({ id }) => id === 'colophon');
 const colophonContent = colophonPage[0];
 
 if (!colophonContent) {
   throw new Error('Colophon page content not found');
 }
 
-const { Content } = await colophonContent.render();
+const { Content } = await render(colophonContent);
 ---
 
 <Page 

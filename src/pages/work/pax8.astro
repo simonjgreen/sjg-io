@@ -1,15 +1,15 @@
 ---
 import Page from '../../layouts/Page.astro';
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 
-const pageContent = await getCollection('pages', ({ slug }) => slug === 'work/pax8');
+const pageContent = await getCollection('pages', ({ id }) => id === 'work/pax8');
 const content = pageContent[0];
 
 if (!content) {
   throw new Error('Pax8 page content not found');
 }
 
-const { Content } = await content.render();
+const { Content } = await render(content);
 ---
 
 <Page 

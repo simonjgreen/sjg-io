@@ -15,7 +15,7 @@ const cleanSlug = slugProp.replace(/^\/writing\//, '').replace(/\/$/, '');
 let post;
 try {
   const posts = await getCollection('posts', ({ data }) => !data.draft);
-  post = posts.find(p => p.slug === cleanSlug);
+  post = posts.find(p => p.id === cleanSlug);
 } catch (_e) {
   post = null;
 }
@@ -30,7 +30,7 @@ const formatDate = (date: Date) => {
 ---
 
 {post ? (
-  <Card href={`/writing/${post.slug}`} class="mt-8">
+  <Card href={`/writing/${post.id}`} class="mt-8">
     <div class="p-6">
       {post.data.image && (
         <img 

@@ -1,15 +1,15 @@
 ---
 import Page from '../layouts/Page.astro';
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 
-const mediaPage = await getCollection('pages', ({ slug }) => slug === 'media');
+const mediaPage = await getCollection('pages', ({ id }) => id === 'media');
 const mediaContent = mediaPage[0];
 
 if (!mediaContent) {
   throw new Error('Media page content not found');
 }
 
-const { Content } = await mediaContent.render();
+const { Content } = await render(mediaContent);
 ---
 
 <Page 
