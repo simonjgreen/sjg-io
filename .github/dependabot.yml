@@ -12,7 +12,8 @@ updates:
       eslint:
         patterns:
           - "eslint*"
-          - "@typescript-eslint/*"
+          - "typescript-eslint"
+          - "@eslint/*"
       tailwind:
         patterns:
           - "tailwindcss"
@@ -31,13 +32,6 @@ updates:
       - dependency-name: "autoprefixer"
         update-types: ["version-update:semver-major"]
       - dependency-name: "typescript"
-        update-types: ["version-update:semver-major"]
-      # ESLint flat config migration tracked in #62 — remove these when resolved
-      - dependency-name: "eslint"
-        update-types: ["version-update:semver-major"]
-      - dependency-name: "eslint-plugin-astro"
-        update-types: ["version-update:semver-major"]
-      - dependency-name: "@typescript-eslint/*"
         update-types: ["version-update:semver-major"]
 
   - package-ecosystem: "github-actions"
