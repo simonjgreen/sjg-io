@@ -17,7 +17,7 @@ jobs:
   deploy-preview:
     runs-on: ubuntu-latest
     environment: preview
-    if: github.event_name == 'pull_request'
+    if: github.event_name == 'pull_request' && github.actor != 'dependabot[bot]'
 
     steps:
     - name: Checkout
