@@ -1,15 +1,15 @@
 ---
 import Page from '../layouts/Page.astro';
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 
-const contactPage = await getCollection('pages', ({ slug }) => slug === 'contact');
+const contactPage = await getCollection('pages', ({ id }) => id === 'contact');
 const contactContent = contactPage[0];
 
 if (!contactContent) {
   throw new Error('Contact page content not found');
 }
 
-const { Content } = await contactContent.render();
+const { Content } = await render(contactContent);
 ---
 
 <Page 

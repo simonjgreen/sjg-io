@@ -2,16 +2,16 @@
 import Base from '../layouts/Base.astro';
 import Prose from '../components/Prose.astro';
 import Timeline from '../components/Timeline.astro';
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 
-const aboutPage = await getCollection('pages', ({ slug }) => slug === 'about');
+const aboutPage = await getCollection('pages', ({ id }) => id === 'about');
 const aboutContent = aboutPage[0];
 
 if (!aboutContent) {
   throw new Error('About page content not found');
 }
 
-const { Content } = await aboutContent.render();
+const { Content } = await render(aboutContent);
 ---
 
 <Base 

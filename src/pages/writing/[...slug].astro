@@ -1,13 +1,13 @@
 ---
 import Post from '../../layouts/Post.astro';
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import readingTime from 'reading-time';
 import ArticleLink from '../../components/ArticleLink.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('posts', ({ data }) => !data.draft);
   return posts.map((post) => ({
-    params: { slug: post.slug },
+    params: { slug: post.id },
     props: { post },
   }));
 }
@@ -15,10 +15,10 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 
 // Render content
-const { Content } = await post.render();
+const { Content } = await render(post);
 
 // Calculate reading time from the post body
-const readingStats = readingTime(post.body);
+const readingStats = readingTime(post.body ?? '');
 const readingTimeMinutes = Math.ceil(readingStats.minutes);
 ---
 

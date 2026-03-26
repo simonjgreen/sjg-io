@@ -3,13 +3,13 @@ import Base from '../../layouts/Base.astro';
 import Card from '../../components/Card.astro';
 import { getCollection } from 'astro:content';
 
-const allWorkPages = await getCollection('pages', ({ slug }) => {
-  return slug.startsWith('work/');
+const allWorkPages = await getCollection('pages', ({ id }) => {
+  return id.startsWith('work/');
 });
 
 const workPages = allWorkPages.sort((a, b) => {
   const order = ['work/wirehive', 'work/1310', 'work/pax8', 'work/bluhalo', 'work/search-rescue', 'work/forest-school', 'work/school-governor'];
-  return order.indexOf(a.slug) - order.indexOf(b.slug);
+  return order.indexOf(a.id) - order.indexOf(b.id);
 });
 ---
 
@@ -27,7 +27,7 @@ const workPages = allWorkPages.sort((a, b) => {
 
     <div class="mt-12 space-y-8">
       {workPages.map((workPage) => (
-        <Card href={`/work/${workPage.slug.replace('work/', '')}`}>
+        <Card href={`/work/${workPage.id.replace('work/', '')}`}>
           <div class="flex items-start justify-between">
             <div class="flex-1">
               <h2 class="text-xl font-semibold text-gray-900 dark:text-white">

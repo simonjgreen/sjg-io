@@ -1,15 +1,15 @@
 ---
 import Page from '../../layouts/Page.astro';
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 
-const pageForestSchool = await getCollection('pages', ({ slug }) => slug === 'work/forest-school');
+const pageForestSchool = await getCollection('pages', ({ id }) => id === 'work/forest-school');
 const pageContent = pageForestSchool[0];
 
 if (!pageContent) {
   throw new Error('Forest School page content not found');
 }
 
-const { Content } = await pageContent.render();
+const { Content } = await render(pageContent);
 ---
 
 <Page 
