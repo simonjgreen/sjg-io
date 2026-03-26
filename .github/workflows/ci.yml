@@ -37,7 +37,7 @@ jobs:
       run: npm run build
 
     - name: Link check
-      uses: lycheeverse/lychee-action@v1.9.0
+      uses: lycheeverse/lychee-action@v2.8.0
       with:
         args: --verbose --no-progress --format=json --output=lychee-results.json ./dist
       continue-on-error: true
