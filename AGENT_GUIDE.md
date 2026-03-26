@@ -6,7 +6,7 @@ A machine-friendly primer for AI agents working on the sjg.io codebase.
 
 **sjg.io** is a personal website and blog for Simon Green, built as a statically generated site using:
 
-- **Framework**: Astro 4.x with MDX support
+- **Framework**: Astro 6.x with MDX support
 - **Styling**: Tailwind CSS with custom components
 - **Content**: Markdown/MDX files in Astro Content Collections
 - **Deployment**: Cloudflare Workers (static hosting)
