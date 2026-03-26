@@ -1,0 +1,179 @@
+---
+title: "Fixing EDID Failures on Resume with a Framework Laptop"
+description: "Why your external monitor connects at 640x480 after waking from sleep, and a dynamic EDID caching fix for Framework laptops on Linux."
+date: 2026-03-26
+tags: ["linux", "technology"]
+---
+
+If you're on a Framework laptop running Linux and your external monitor occasionally comes up at 640x480 or 1024x768 after waking from sleep, this is probably your problem - and here's how to fix it.
+
+## The Problem
+
+On resume, the kernel reads your monitor's EDID (the data describing its supported resolutions) over the DDC/I2C bus. With Framework expansion cards, this bus runs through the USB-C link, and that link isn't always stable in time. The EDID read completes but the data is corrupted:
+
+```
+EDID block 0 (tag 0x00) checksum is invalid, remainder is 168
+```
+
+You can check for this with `journalctl -b | grep "EDID block"`.
+
+The kernel tries twice, fails both times, and falls back to safe VGA modes. Unplugging and replugging always fixes it because by then the link has stabilised - but that's annoying.
+
+To make things worse, GNOME saves a display configuration every time it sees your monitor in this state. It records it as `vendor=unknown, product=unknown` at 640x480, and helpfully reapplies that configuration on future connections. Check `~/.config/monitors.xml` for entries with `<vendor>unknown</vendor>` and delete them.
+
+## What Doesn't Work
+
+**sysfs reprobe** (`echo detect > /sys/class/drm/card1-DP-1/status`): the i915 driver caches the failed EDID and doesn't re-read it on reprobe.
+
+**USB device reset** (unbind/rebind the expansion card): the link drops and re-establishes, but the timing is just as tight and the EDID read fails again.
+
+**xrandr modeline**: without valid EDID data the driver rejects high-bandwidth modes, and on Wayland xrandr can't do much anyway.
+
+## The Fix
+
+The kernel has a parameter called `edid_firmware` that tells the DRM subsystem to load EDID data from a firmware file instead of reading it over DDC. The usual advice is to set this as a boot parameter, but that hardcodes a single monitor - not ideal if you move your laptop between displays.
+
+The key is that `/sys/module/drm/parameters/edid_firmware` is writable at runtime. So you can set it dynamically, only when needed.
+
+The fix is three pieces: a script, two systemd services, and a udev rule.
+
+### The Script
+
+Save this as `/usr/local/bin/drm-edid-fix` and `chmod +x` it:
+
+```bash
+#!/bin/bash
+# Save good EDIDs on hotplug, restore them on resume when DDC fails.
+
+EDID_DIR=/var/lib/drm-edid
+FW_DIR=/lib/firmware/edid
+ACTION="${1:-restore}"
+
+mkdir -p "$EDID_DIR" "$FW_DIR"
+
+save_edids() {
+    for edid_path in /sys/class/drm/card*-DP-*/edid; do
+        [ -f "$edid_path" ] || continue
+        connector=$(echo "$edid_path" | grep -oP 'card\d+-DP-\d+')
+        size=$(stat -c%s "$edid_path" 2>/dev/null)
+        if [ "$size" -gt 0 ] 2>/dev/null; then
+            cp "$edid_path" "$EDID_DIR/${connector}.bin"
+            cp "$edid_path" "$FW_DIR/${connector}.bin"
+            logger -t drm-edid-fix "Saved EDID for $connector ($size bytes)"
+        fi
+    done
+}
+
+restore_edids() {
+    local need_reprobe=0
+    local fw_param=""
+
+    for edid_path in /sys/class/drm/card*-DP-*/edid; do
+        [ -f "$edid_path" ] || continue
+        connector=$(echo "$edid_path" | grep -oP 'card\d+-DP-\d+')
+        dp_name=$(echo "$connector" | grep -oP 'DP-\d+')
+        size=$(stat -c%s "$edid_path" 2>/dev/null)
+
+        if [ "$size" -eq 0 ] 2>/dev/null || [ -z "$size" ]; then
+            if [ -f "$FW_DIR/${connector}.bin" ]; then
+                logger -t drm-edid-fix \
+                    "EDID empty on $connector, loading saved firmware"
+                [ -n "$fw_param" ] && fw_param="${fw_param},"
+                fw_param="${fw_param}${dp_name}:edid/${connector}.bin"
+                need_reprobe=1
+            else
+                logger -t drm-edid-fix \
+                    "EDID empty on $connector but no saved EDID available"
+            fi
+        fi
+    done
+
+    if [ "$need_reprobe" -eq 1 ]; then
+        echo "$fw_param" > /sys/module/drm/parameters/edid_firmware
+        logger -t drm-edid-fix "Set edid_firmware=$fw_param"
+        sleep 1
+        for status in /sys/class/drm/card*-DP-*/status; do
+            echo detect > "$status" 2>/dev/null
+        done
+        logger -t drm-edid-fix "Reprobe triggered"
+    fi
+}
+
+case "$ACTION" in
+    save)    save_edids ;;
+    restore) restore_edids ;;
+esac
+```
+
+When called with `save`, it copies the EDID from every connected DP output into `/lib/firmware/edid/` and `/var/lib/drm-edid/`. When called with `restore`, it checks each DP connector - if the EDID is empty and a saved copy exists, it sets the `edid_firmware` kernel parameter and triggers a reprobe.
+
+### The Systemd Services
+
+**`/etc/systemd/system/drm-edid-save.service`** - triggered by udev on successful hotplug:
+
+```ini
+[Unit]
+Description=Save known-good EDIDs from connected monitors
+StopWhenUnneeded=true
+
+[Service]
+Type=oneshot
+ExecStartPre=/bin/sleep 5
+ExecStart=/usr/local/bin/drm-edid-fix save
+```
+
+**`/etc/systemd/system/drm-edid-restore.service`** - runs on resume from sleep:
+
+```ini
+[Unit]
+Description=Restore saved EDID on resume when DDC read fails
+After=suspend.target hibernate.target hybrid-sleep.target suspend-then-hibernate.target
+
+[Service]
+Type=oneshot
+ExecStartPre=/bin/sleep 3
+ExecStart=/usr/local/bin/drm-edid-fix restore
+
+[Install]
+WantedBy=suspend.target hibernate.target hybrid-sleep.target suspend-then-hibernate.target
+```
+
+### The Udev Rule
+
+**`/etc/udev/rules.d/99-drm-edid-save.rules`** - triggers the save service on hotplug:
+
+```
+ACTION=="change", SUBSYSTEM=="drm", ENV{HOTPLUG}=="1", TAG+="systemd", ENV{SYSTEMD_WANTS}="drm-edid-save.service"
+```
+
+### Install
+
+Save the script above to `~/drm-edid-fix`, the two service files to `~/drm-edid-save.service` and `~/drm-edid-restore.service`, and the udev rule to `~/99-drm-edid-save.rules`. Then:
+
+```bash
+# Create the directories for saved EDIDs
+sudo mkdir -p /var/lib/drm-edid /lib/firmware/edid
+
+# Install the script
+sudo cp ~/drm-edid-fix /usr/local/bin/drm-edid-fix
+sudo chmod +x /usr/local/bin/drm-edid-fix
+
+# Install the systemd services and udev rule
+sudo cp ~/drm-edid-save.service ~/drm-edid-restore.service /etc/systemd/system/
+sudo cp ~/99-drm-edid-save.rules /etc/udev/rules.d/
+
+# Reload and enable
+sudo udevadm control --reload-rules
+sudo systemctl daemon-reload
+sudo systemctl enable drm-edid-restore.service
+```
+
+Then unplug and replug your monitor once to seed the EDID cache. After that, resume from sleep should work automatically.
+
+## The Bootstrap Caveat
+
+The first time you connect a new monitor, there's no saved EDID to fall back on. If the read fails on that first connection, you'll need one manual replug to seed the cache. After that, it's covered. Since most people use the same one or two monitors regularly, this is a one-time cost.
+
+## Environment
+
+I'm running Ubuntu with kernel 6.17, GNOME on Wayland, with an Intel Raptor Lake (Iris Xe) GPU. The monitor connects through a Framework HDMI Expansion Card. The same underlying issue likely applies to DisplayPort expansion cards and USB-C docks from other manufacturers - anything where the DDC bus has to traverse a USB link that takes time to stabilise on resume.
