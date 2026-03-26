@@ -4,7 +4,7 @@ import Card from './Card.astro';
 
 interface Props {
   slug: string;
-  children?: any;
+  children?: unknown;
 }
 
 const { slug: slugProp, children } = Astro.props;
@@ -16,7 +16,7 @@ let post;
 try {
   const posts = await getCollection('posts', ({ data }) => !data.draft);
   post = posts.find(p => p.slug === cleanSlug);
-} catch (e) {
+} catch (_e) {
   post = null;
 }
 

@@ -162,7 +162,7 @@ function parseFrontmatter(content: string): { tags?: string[]; slug: string } {
   }
 
   // Extract slug from filename if not in frontmatter
-  let slug = slugMatch ? slugMatch[1].trim() : 'unknown';
+  const slug = slugMatch ? slugMatch[1].trim() : 'unknown';
 
   return { tags, slug };
 }

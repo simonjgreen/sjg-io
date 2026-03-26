@@ -9,7 +9,6 @@ const isHomePage = currentPath === '/';
     <header class="bg-gray-50 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700">
   <nav class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8" aria-label="Top">
     {isHomePage ? (
-      <!-- Home page layout: centered navigation -->
       <div class="flex w-full items-center justify-center py-6">
         <div class="flex items-center space-x-2 sm:hidden">
           <ThemeToggle />
@@ -80,7 +79,6 @@ const isHomePage = currentPath === '/';
         </div>
       </div>
     ) : (
-      <!-- Other pages layout: left logo, right navigation -->
       <div class="flex w-full items-center justify-between py-6">
         <div class="flex items-center">
           <a href="/" class="text-xl font-bold text-neon-blue dark:text-neon-blue">
