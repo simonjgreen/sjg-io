@@ -1,0 +1,240 @@
+---
+title: "Suspend Battery Drain on the Framework 13 Intel - It's Fine, Actually"
+description: "Investigating battery drain during suspend on a Framework 13 running Ubuntu, finding out s2idle is working perfectly, and setting up suspend-then-hibernate as a sensible workaround."
+date: 2026-04-12
+tags: ["linux", "technology"]
+---
+
+I noticed my Framework 13 was losing a noticeable chunk of battery overnight while suspended. Enough that leaving it in a bag over a weekend meant coming back to a laptop that was either dead or limping. My assumption was that something was broken - a rogue USB device, a driver not entering its low-power state, the usual Linux-on-laptop nonsense. So I dug in.
+
+Turns out nothing is broken. The laptop is doing exactly what it should. This is a write-up of the investigation, what I found, and what I ended up doing about it. If you're on a Framework 13 Intel (13th gen, Raptor Lake) running Ubuntu 24.04, this should save you some time.
+
+## My Setup
+
+- Framework 13, 13th Gen Intel Core (Raptor Lake-P)
+- Ubuntu 24.04.4 LTS, kernel 6.17 (HWE)
+- 32 GB RAM
+- 60 Wh battery
+- Expansion cards: HDMI, USB-C
+- Goodix fingerprint reader, Intel AX210 Wi-Fi/Bluetooth
+
+Being a Framework, your expansion cards, RAM, and storage will likely differ from mine. I'll call out where those choices might affect results.
+
+## What Sleep Mode Is the Kernel Using?
+
+First thing to check:
+
+```bash
+cat /sys/power/mem_sleep
+```
+
+Output: `[s2idle] deep`
+
+The square brackets show the active mode. This laptop is using **s2idle** (also called S0ix or Modern Standby), not S3 deep sleep. `deep` is listed as available, but on Framework 13 Intel the firmware was validated for s2idle only - S3 is there in name but not reliably functional. Framework doesn't expose an S3 option in the BIOS and the [community consensus](https://community.frame.work/t/tracking-13th-gen-intel-on-linux/31402) is to leave it alone.
+
+The kernel confirms this at boot:
+
+```
+ACPI: PM: (supports S0 S3 S4 S5)
+Low-power S0 idle used by default for system suspend
+```
+
+s2idle keeps the system in a very low power state but doesn't fully power off the way S3 does. DRAM stays in self-refresh, the embedded controller stays alive, USB-PD keeps ticking. The trade-off is instant resume.
+
+## Measuring the Actual Drain
+
+Rather than guessing, I ran a controlled test. Unplugged the laptop, recorded the battery state, closed the lid for four hours, then immediately read the values again.
+
+Before:
+```bash
+cat /sys/class/power_supply/BAT1/charge_now    # 3737000 µAh
+cat /sys/class/power_supply/BAT1/voltage_now   # 17053000 µV
+sudo cat /sys/kernel/debug/pmc_core/slp_s0_residency_usec  # 0
+date +%s                                        # 1775929803
+```
+
+After (~4 hours):
+```bash
+cat /sys/class/power_supply/BAT1/charge_now    # 3613000 µAh
+cat /sys/class/power_supply/BAT1/voltage_now   # 17091000 µV
+sudo cat /sys/kernel/debug/pmc_core/slp_s0_residency_usec  # 14181263774
+date +%s                                        # 1775944145
+```
+
+The numbers:
+
+| Metric | Value |
+|---|---|
+| Elapsed time | 3 h 59 m |
+| Charge lost | 124 mAh |
+| Energy drained | ~2.12 Wh |
+| Average power draw | **0.53 W** |
+| Drain rate | **~0.9% per hour** |
+| S0ix residency | **98.9%** |
+
+That last number is the important one. `slp_s0_residency_usec` tells you how long the platform was actually in its deepest low-power state. 98.9% means the hardware was in S0ix for almost the entire time the lid was closed. Nothing was holding it awake. No rogue USB device. No Thunderbolt link stuck in a high-power state. No fingerprint reader blocking the transition.
+
+I left it overnight as well - 18 hours suspended, same story. Consistent 0.5 W draw, same residency ratio. No spurious wakeups.
+
+0.9% per hour doesn't sound like much until you do the maths. That's about 20% per day. Over a weekend that's 40% gone. Over a week away from a charger you're dead.
+
+But here's the thing - **this is about as low as it goes**. Framework 13 Intel users on Linux [typically report between 0.5 and 1.5 W](https://community.frame.work/t/battery-drain-on-suspend-sleep-with-linux/42395) in s2idle, and my 0.53 W sits right at the bottom of that range. What's left is DRAM self-refresh, the EC, the USB-PD controller, the RTC, Wi-Fi firmware heartbeats - stuff you can't tune from Linux. Canonical and Framework have clearly done decent work here. The power management defaults on Ubuntu 24.04 with the HWE kernel are about as good as they can be for this platform.
+
+## Things I Investigated and Ruled Out
+
+**Goodix fingerprint reader** - commonly blamed for blocking s0ix on other laptops. On this system, USB wakeup is disabled on every device (`/sys/bus/usb/devices/*/power/wakeup = disabled`) and the 98.9% residency proves it's not the culprit.
+
+**Thunderbolt root ports** - all four TRP ports plus TXHC and TDM controllers are armed as ACPI wakeup sources, which looked suspicious. But again, the residency data says they're entering their low-power states correctly.
+
+**TLP** - Framework's Matt Hartley [actually recommends TLP for Intel configurations](https://community.frame.work/t/tracking-13th-gen-intel-on-linux/31402/11), and it's worth looking at for runtime battery life. But it won't help here. TLP is a runtime power manager - it doesn't run during suspend. With s0ix residency already at 98.9% there's nothing for it to improve in the suspend path. It also conflicts with `power-profiles-daemon` (you'd lose the GNOME power profile switcher), so it's a separate decision. Something to investigate for daytime battery life, but not the answer to overnight drain.
+
+**Switching to S3 deep sleep** - `/sys/power/mem_sleep` lets you request `deep`, but Framework 13 Intel wasn't validated for S3. Community reports suggest it either [fails to suspend or wakes unreliably](https://community.frame.work/t/deep-sleep-issues-on-linux/61146). Intel has been steering platforms toward S0ix since roughly 10th gen - S3 still exists in the ACPI tables for backwards compatibility, but the firmware and driver stack aren't tested against it. Thunderbolt controllers are particularly bad at saving and restoring state across a full S3 power cycle, and the Framework 13 has four Thunderbolt root ports. Users who [force S3 on](https://community.frame.work/t/enabled-s3-sleep-sleep-timers-dont-work-and-laptop-wakes-up-and-stays-awake-still/38278) tend to find that sleep timers break, the laptop wakes itself, or it simply doesn't come back.
+
+## The Fix: Suspend-then-Hibernate
+
+If the drain is hardware-floor and s2idle can't be tuned lower, the only option is to not stay in s2idle for long periods. systemd has a built-in mechanism for this: `suspend-then-hibernate`. Close the lid, the laptop enters s2idle for instant resume. After a configurable delay, the kernel wakes briefly, writes RAM to swap, and hibernates. Zero drain from that point on.
+
+The downside is that resuming from hibernate is slower - maybe 5 to 15 seconds instead of instant. But for overnight or over-the-weekend scenarios, that's a trade-off I'm happy with.
+
+### Implementation
+
+This is on Ubuntu 24.04 with an unencrypted LVM root (`/dev/mapper/ubuntu--vg-ubuntu--lv`), Secure Boot disabled, and kernel lockdown set to `none`. If your setup differs - particularly if you have LUKS or Secure Boot enabled - your path will be different and harder. Secure Boot enables kernel lockdown, which blocks hibernation entirely on Ubuntu's signed kernels.
+
+#### Check Your Blockers
+
+```bash
+mokutil --sb-state                        # needs to be "disabled"
+cat /sys/kernel/security/lockdown         # needs to be "[none]"
+free -h                                   # note your RAM - swap must be >= this
+```
+
+#### Create a Swapfile
+
+My VG had no free space for a dedicated swap LV, so I went with a swapfile. You need a swapfile at least as large as your RAM. I used 34 GB for 32 GB of RAM.
+
+```bash
+sudo fallocate -l 34G /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+```
+
+Disable the old 8 GB swap and activate the new one:
+
+```bash
+sudo swapoff /swap.img
+sudo swapon /swapfile
+```
+
+Update `/etc/fstab` - comment out the `/swap.img` line and add:
+
+```
+/swapfile    none    swap    sw    0    0
+```
+
+#### Get the Resume Offset
+
+The kernel needs to know where on disk the swapfile lives:
+
+```bash
+sudo filefrag -v /swapfile | head -10
+```
+
+Look for the `physical_offset` on the `0:` row. Mine was `224825344`.
+
+Also grab your root filesystem UUID:
+
+```bash
+findmnt -no UUID /
+```
+
+Mine was `2686406a-57e7-4275-a9c0-672977410411`.
+
+#### Configure Kernel Resume Parameters
+
+Create `/etc/initramfs-tools/conf.d/resume`:
+
+```
+RESUME=UUID=2686406a-57e7-4275-a9c0-672977410411 resume_offset=224825344
+```
+
+Edit `/etc/default/grub` and append to `GRUB_CMDLINE_LINUX_DEFAULT`:
+
+```
+GRUB_CMDLINE_LINUX_DEFAULT="quiet splash resume=UUID=2686406a-57e7-4275-a9c0-672977410411 resume_offset=224825344"
+```
+
+Rebuild and apply:
+
+```bash
+sudo update-initramfs -u -k all
+sudo update-grub
+sudo reboot
+```
+
+You'll get a warning from `update-initramfs` about "no matching swap device" - this is expected. initramfs-tools is looking for a swap partition with that UUID, but it's a root filesystem UUID (the swapfile lives inside it). The kernel handles resume correctly via the command line parameters.
+
+After reboot, verify:
+
+```bash
+cat /proc/cmdline | grep resume
+```
+
+#### Test Hibernate
+
+Save your work, then:
+
+```bash
+sudo systemctl hibernate
+```
+
+The laptop should power off completely. Press the power button to resume. Everything should be exactly where you left it. Verify with:
+
+```bash
+journalctl -b 0 -k | grep -iE "PM: hibernation" | tail
+```
+
+If resume fails, the most common causes are: wrong UUID, wrong resume_offset, initramfs not rebuilt, or kernel lockdown unexpectedly active. You can always edit the GRUB line at boot (press `e`) and remove the `resume=` parameters to get back to a normal boot.
+
+#### Wire Up Suspend-then-Hibernate
+
+Create `/etc/systemd/sleep.conf.d/hibernate-delay.conf`:
+
+```ini
+[Sleep]
+HibernateDelaySec=60min
+```
+
+Create `/etc/systemd/logind.conf.d/lid.conf`:
+
+```ini
+[Login]
+HandleLidSwitch=suspend-then-hibernate
+HandleLidSwitchExternalPower=suspend
+HandleLidSwitchDocked=ignore
+```
+
+Apply with `sudo systemctl restart systemd-logind` (this will kill your GUI session) or just reboot.
+
+The behaviour is now: lid close on battery enters s2idle, and after 60 minutes the system automatically hibernates. On AC power it just suspends normally since drain doesn't matter. Tune `HibernateDelaySec` to taste - 30 minutes if you're aggressive about battery, 120 if you want a longer instant-resume window.
+
+#### One Caveat
+
+GNOME's idle-timeout suspend still uses plain suspend, not suspend-then-hibernate. That's because GNOME handles idle itself and calls `Suspend()` directly rather than routing through logind's `HandleLidSwitch`. For most people this doesn't matter - you close the lid when you walk away, and that's what triggers the hibernate transition. But if you leave the laptop open and idle on battery, it'll use plain s2idle. There are workarounds (GNOME Shell extensions, overriding the idle action via logind) but I haven't bothered.
+
+## Will Ubuntu 26.04 Help?
+
+No. I checked the release notes and roadmap ahead of the April 2026 LTS release. No installer toggle for hibernation, no default swap sizing for hibernate, no distro-level declaration that hibernation is "supported". The TPM-backed FDE work that landed as opt-in in 26.04 is orthogonal to hibernation - it doesn't ship a resume-from-encrypted-swap story. The long-running "Re-visiting hibernate on Ubuntu" Discourse thread hasn't produced a policy change. The community setup script [`jdtanner/ubuntu-gnome-hibernate`](https://github.com/jdtanner/ubuntu-gnome-hibernate) explicitly notes that even on 26.04, hibernation is not configured out of the box.
+
+If you're waiting for this to get easier through an Ubuntu upgrade, don't. The procedure is the same on 24.04 and 26.04.
+
+## The Takeaway
+
+The Framework 13 on Ubuntu is actually well-optimised for suspend. 0.53 W and 98.9% s0ix residency is genuinely good for a 13th-gen Intel laptop on Linux - better than many ThinkPads I've tested. Canonical's HWE kernel defaults and Framework's BIOS tuning are doing their job. The drain isn't a bug, it's just physics - and suspend-then-hibernate is a clean workaround that gives you instant resume for quick breaks and zero drain for everything else.
+
+## Environment
+
+- Framework 13, 13th Gen Intel Core
+- Ubuntu 24.04.4 LTS, kernel 6.17.0-20-generic (HWE)
+- GNOME on Wayland
+- Intel Iris Xe (Raptor Lake-P)
+- Root on LVM (ext4, no LUKS), Secure Boot disabled
