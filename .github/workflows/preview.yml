@@ -56,7 +56,7 @@ jobs:
         EOF
 
     - name: Deploy Preview to Cloudflare Workers
-      uses: cloudflare/wrangler-action@v3
+      uses: cloudflare/wrangler-action@v3.15.0
       with:
         apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -111,7 +111,7 @@ jobs:
         EOF
 
     - name: Delete Preview Deployment
-      uses: cloudflare/wrangler-action@v3
+      uses: cloudflare/wrangler-action@v3.15.0
       with:
         apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
