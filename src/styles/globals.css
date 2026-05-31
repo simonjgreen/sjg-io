@@ -113,6 +113,13 @@
     outline-offset: 2px;
   }
 
+  /* The wrapper owns the overflow, so the table itself must not scroll. */
+  .prose .table-region > table {
+    display: table;
+    max-width: none;
+    overflow-x: visible;
+  }
+
   /* Background textures - keeping only the working particle effect */
   .bg-texture-particles {
     background-image:
