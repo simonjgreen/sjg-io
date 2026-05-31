@@ -39,6 +39,8 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, Astro.site);
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="canonical" href={canonicalUrl} />
     {markdownPath && <link rel="alternate" type="text/markdown" href={markdownPath} />}
+    <link rel="alternate" type="application/rss+xml" title="sjg.io — RSS feed" href="/rss.xml" />
+    <link rel="alternate" type="application/feed+json" title="sjg.io — JSON feed" href="/feed.json" />
     
     <!-- Typography: Inter is self-hosted via @fontsource-variable/inter (imported in this layout), so no external font requests are made. -->
 
