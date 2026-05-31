@@ -32,6 +32,17 @@ const ogDescriptionFinal = ogDescription || description;
 const canonicalUrl = canonical || new URL(Astro.url.pathname, Astro.site);
 
 const jsonLdBlocks = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
+
+// Serialize JSON-LD for safe injection into a <script> tag. JSON.stringify does
+// not escape '<', '>' or '&', so a value containing '</script>' could otherwise
+// prematurely close the tag (invalid HTML / injection vector). Escape those
+// characters as their \u-unicode equivalents; the JSON remains valid and parses
+// back to the original string.
+const serializeJsonLd = (block: Record<string, unknown>): string =>
+  JSON.stringify(block)
+    .replace(/</g, '\\u003c')
+    .replace(/>/g, '\\u003e')
+    .replace(/&/g, '\\u0026');
 ---
 
 <!DOCTYPE html>
@@ -109,7 +120,7 @@ const jsonLdBlocks = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 
     <!-- Structured data (schema.org JSON-LD) for search engines and agents -->
     {jsonLdBlocks.map((block) => (
-      <script type="application/ld+json" set:html={JSON.stringify(block)} />
+      <script type="application/ld+json" set:html={serializeJsonLd(block)} />
     ))}
 
   </head>
