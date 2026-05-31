@@ -100,6 +100,19 @@
     white-space: normal;
   }
 
+  /* Focusable scroll region wrapping wide data tables (a11y) */
+  .prose .table-region {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .prose .table-region:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+
   /* Background textures - keeping only the working particle effect */
   .bg-texture-particles {
     background-image:
