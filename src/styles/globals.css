@@ -45,6 +45,35 @@
   }
 }
 
+/*
+ * Cross-document View Transitions.
+ * Animates full-page (MPA) navigations with the browser-default short
+ * cross-fade. Progressive enhancement: browsers without support simply do an
+ * instant navigation, so there is no regression. The site header is given a
+ * stable view-transition-name (#site-header, below) so it stays in place while
+ * the page content cross-fades.
+ */
+@view-transition {
+  navigation: auto;
+}
+
+/*
+ * Honour reduced-motion for transitions too: disable the view-transition
+ * animations entirely for users who opt out of motion.
+ */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
+/* Keep the site header visually stable across navigations. */
+#site-header {
+  view-transition-name: site-header;
+}
+
 /* Base styles */
 @layer base {
   html {
