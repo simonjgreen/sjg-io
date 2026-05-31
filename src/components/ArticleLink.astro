@@ -33,9 +33,11 @@ const formatDate = (date: Date) => {
   <Card href={`/writing/${post.id}`} class="mt-8">
     <div class="p-6">
       {post.data.image && (
-        <img 
-          src={post.data.image} 
+        <img
+          src={post.data.image}
           alt={post.data.title}
+          loading="lazy"
+          decoding="async"
           class="w-full h-32 object-cover rounded-lg mb-4"
         />
       )}
