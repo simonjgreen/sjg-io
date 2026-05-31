@@ -11,10 +11,10 @@ export async function GET() {
     feed_url: 'https://sjg.io/feed.json',
     language: 'en',
     items: posts.map((post) => ({
-      id: post.slug,
+      id: post.id,
       title: post.data.title,
       content_text: post.data.description,
-      url: `https://sjg.io/writing/${post.slug}/`,
+      url: `https://sjg.io/writing/${post.id}/`,
       date_published: post.data.date.toISOString(),
       tags: post.data.tags,
     })),
