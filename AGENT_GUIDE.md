@@ -53,7 +53,13 @@ The site serves as a portfolio, blog, and professional presence with content inc
 ⚠️ **Every writing post is published twice, from the same MDX source. Changes to how posts are authored or rendered must account for both paths.**
 
 1. **HTML** — `src/pages/writing/[...slug].astro` renders `post.body` through Astro and the site's components (`Callout`, `ArticleLink`, etc.), wrapped in the `Post` layout. This is the human-facing page.
-2. **Markdown** — `src/pages/writing/[...slug].md.ts` serves the *same* post as clean, portable Markdown at `/writing/<slug>.md` (advertised from each article via `<link rel="alternate" type="text/markdown">` and from the colophon). It must be **plain Markdown** — no MDX leakage.
+2. **Markdown** — `src/pages/writing/[...slug].md.ts` serves the *same* post as clean, portable Markdown at `/writing/<slug>.md`. It must be **plain Markdown** — no MDX leakage.
+
+**Discoverability of the Markdown path** — the `.md` URLs are surfaced four ways:
+- a per-article `<link rel="alternate" type="text/markdown">` in the page `<head>` (threaded as `markdownPath` through `Post.astro` → `Base.astro`),
+- a human-readable note in the colophon,
+- a line in `public/llms.txt` describing the `append .md` convention,
+- a full enumeration in the sitemap — `astro.config.mjs` adds the `.md` URLs via `sitemap({ customPages: markdownWritingUrls() })`, because `@astrojs/sitemap` does not list non-HTML endpoints on its own.
 
 Because MDX is a superset of Markdown, the `.md` endpoint cannot just emit `post.body` verbatim. It parses the body to an mdast tree (`remark-parse` + `remark-mdx`) and strips MDX-only constructs before serialising with `remark-stringify`:
 
@@ -63,8 +69,9 @@ Because MDX is a superset of Markdown, the `.md` endpoint cannot just emit `post
 - any other component → unwrapped to its children
 - fenced code blocks and inline HTML → preserved verbatim (working at the AST level, never with regex, is what makes this safe — e.g. a literal `<Project or theme>` placeholder inside a code fence must survive)
 
-**Maintenance rule:** when you introduce a **new MDX component for use in posts**, add a matching case to `remarkStripMdx` in `[...slug].md.ts` (map it to a Markdown equivalent, or rely on the default unwrap if its children are already Markdown). Verify after building with:
-`grep -lE "^import .*from |<[A-Z][A-Za-z]*" dist/writing/*.md` — this should find nothing.
+**Maintenance rules:**
+- When you introduce a **new MDX component for use in posts**, add a matching case to `remarkStripMdx` in `[...slug].md.ts` (map it to a Markdown equivalent, or rely on the default unwrap if its children are already Markdown). Verify after building with `grep -nE "^import [A-Za-z].*from " dist/writing/*.md` — this should find nothing (a leaked component always drags in its `import`, so the import line is the reliable signal). Do **not** grep for `<Capitalised>` tags: that false-positives on legitimate placeholders inside code fences, e.g. `<Project or theme>` in `cicd-for-communication.mdx`.
+- `markdownWritingUrls()` in `astro.config.mjs` derives the sitemap entries from the post **filenames** and skips `draft: true`. This mirrors the `glob` loader's id logic; if post id derivation ever changes (e.g. nested folders, a custom slug field added to the schema), update that helper to match, or the sitemap and the real `.md` routes will diverge.
 
 ### Component System
 - **Layouts**: `src/layouts/` - Base, Page, Post layout templates (Post supports header images)
