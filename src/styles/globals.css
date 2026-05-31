@@ -77,6 +77,25 @@
     font-weight: 600;
     letter-spacing: -0.02em;
   }
+
+  /*
+   * Visible focus indicators (WCAG 2.4.7 / 2.4.11 / 2.4.13).
+   * Consistent, high-contrast (3:1+) ring for keyboard users only,
+   * 2px thick and offset so it never disappears into borders.
+   * :focus-visible avoids showing the ring on mouse/touch interaction.
+   */
+  :focus-visible {
+    outline: 2px solid var(--color-neon-blue);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  /* Keep focused controls clear of the sticky header when scrolled into view. */
+  :target,
+  a[id],
+  [tabindex] {
+    scroll-margin-top: 5rem;
+  }
 }
 
 @layer components {
