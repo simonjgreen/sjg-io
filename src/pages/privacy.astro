@@ -1,0 +1,20 @@
+---
+import Page from '../layouts/Page.astro';
+import { getCollection, render } from 'astro:content';
+
+const privacyPage = await getCollection('pages', ({ id }) => id === 'privacy');
+const privacyContent = privacyPage[0];
+
+if (!privacyContent) {
+  throw new Error('Privacy page content not found');
+}
+
+const { Content } = await render(privacyContent);
+---
+
+<Page
+  title={privacyContent.data.title}
+  description={privacyContent.data.description}
+>
+  <Content />
+</Page>
