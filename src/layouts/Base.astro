@@ -59,8 +59,10 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, Astro.site);
         
         if (theme === 'dark') {
           document.documentElement.classList.add('dark');
+          document.documentElement.style.colorScheme = 'dark';
         } else {
           document.documentElement.classList.remove('dark');
+          document.documentElement.style.colorScheme = 'light';
         }
       })();
       
@@ -76,9 +78,11 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, Astro.site);
             
             if (html.classList.contains('dark')) {
               html.classList.remove('dark');
+              html.style.colorScheme = 'light';
               localStorage.setItem('theme', 'light');
             } else {
               html.classList.add('dark');
+              html.style.colorScheme = 'dark';
               localStorage.setItem('theme', 'dark');
             }
           }
@@ -119,6 +123,14 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, Astro.site);
 <style is:global>
   html {
     font-family: system-ui, sans-serif;
+    /* Tie native surfaces (scrollbars, form controls, canvas) to the active
+       theme rather than the OS preference. The inline theme script also sets
+       this before paint; this keeps it correct as a CSS-level fallback. */
+    color-scheme: light;
+  }
+
+  html.dark {
+    color-scheme: dark;
   }
   
   /* Fix table headers in dark mode */
