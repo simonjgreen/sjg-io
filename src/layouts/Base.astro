@@ -31,6 +31,28 @@ const ogTitleFinal = ogTitle || title;
 const ogDescriptionFinal = ogDescription || description;
 const canonicalUrl = canonical || new URL(Astro.url.pathname, Astro.site);
 
+// Speculation Rules: prerender same-origin page navigations on hover/pointerdown
+// intent. Chromium-only; ignored elsewhere with no regression. The site is a
+// read-only static blog (no auth, forms, or destructive endpoints), so
+// prerendering is safe. Non-document endpoints (.md, feeds, sitemaps) are excluded.
+// Defined here (not as inline JSON) so the linter does not parse it as JavaScript.
+const speculationRules = {
+  prerender: [
+    {
+      where: {
+        and: [
+          { href_matches: '/*' },
+          { not: { href_matches: '/*.md' } },
+          { not: { href_matches: '/rss.xml' } },
+          { not: { href_matches: '/feed.json' } },
+          { not: { selector_matches: '[rel~="nofollow"]' } }
+        ]
+      },
+      eagerness: 'moderate'
+    }
+  ]
+};
+
 const jsonLdBlocks = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 
 // Serialize JSON-LD for safe injection into a <script> tag. JSON.stringify does
@@ -149,6 +171,9 @@ const serializeJsonLd = (block: Record<string, unknown>): string =>
     {ogImage && <meta name="twitter:image" content={new URL(ogImage, Astro.site)} />}
     
     <title>{siteTitle}</title>
+
+    <!-- Speculation Rules: prerender same-origin navigations (see frontmatter for rationale). -->
+    <script type="speculationrules" is:inline set:html={JSON.stringify(speculationRules)} />
 
     <!-- Structured data (schema.org JSON-LD) for search engines and agents -->
     {jsonLdBlocks.map((block) => (
