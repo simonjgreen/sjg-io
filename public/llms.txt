@@ -1,0 +1,49 @@
+# Simon Green — sjg.io
+
+> Simon Green is SVP of Workflow Engineering at Pax8, a "builder CIO" focused on making complex technology usable, reliable, and scalable. He writes about agentic AI in the enterprise, automation and workflow engineering, IT and organisation design, and systems thinking grounded in Linux, networking, and infrastructure. He is also the founder of 1310, a self-funded fibre ISP. This site (https://sjg.io) is the canonical source for Simon's public profile and writing.
+
+## Core pages
+
+- [About](https://sjg.io/about): Career, current role at Pax8, and background as a builder CIO.
+- [Work](https://sjg.io/work): Selected projects, roles, and ventures.
+- [Writing](https://sjg.io/writing/): Full index of articles and essays.
+- [Now](https://sjg.io/now): What Simon is currently focused on.
+- [Contact](https://sjg.io/contact): How to get in touch.
+
+## Key topics
+
+- Agentic AI and multi-agent orchestration in production
+- Operational and enterprise AI that actually ships
+- Workflow engineering, automation, and reducing toil
+- IT transformation and organisation design (product pods)
+- Linux, networking, DNS, and systems thinking
+- Platforms, communities, and the tools we work with
+
+## Selected writing
+
+- [The Shape of Agentic Work](https://sjg.io/writing/the-shape-of-agentic-work/): Field guide to agents that ship work — embedded, policy-guided, loop-closing.
+- [No, your Agent Skill is not automation](https://sjg.io/writing/no-your-agent-skill-is-not-automation/): Why personal AI productivity gains are not the same as operational automation.
+- [Operational AI that actually ships](https://sjg.io/writing/operational-ai-that-actually-ships/): The routing layer that makes agentic systems safe and measurable.
+- [New Role: SVP, Workflow Engineering at Pax8](https://sjg.io/writing/new-role-svp-workflow-engineering-pax8/): Enablement, automation, and orchestration as the three outcomes of the role.
+- [From single region to product pods](https://sjg.io/writing/from-single-region-to-product-pods/): Reshaping a regional IT team into product-oriented pods with worldwide coverage.
+- [Why I still care about DNS, routing, and logs](https://sjg.io/writing/why-i-still-care-about-dns/): Linux and networking roots that still apply to AI and modern systems.
+- [The Slack I Loved Is Slipping Away](https://sjg.io/writing/the-slack-i-loved-is-slipping-away/): How platform consolidation squeezes communities and third-party builders.
+- [Open Source, Open Home](https://sjg.io/writing/open-source-open-home/): Automation-first home systems built on Home Assistant and open source tools.
+
+## Topic clusters
+
+- [AI & agents](https://sjg.io/writing/): Agentic work, enterprise AI, automation, future of work.
+- [Engineering leadership](https://sjg.io/writing/): IT transformation, organisation design, product pods.
+- [Systems & infrastructure](https://sjg.io/writing/): Linux, networking, DNS, reliability.
+- [Tools & platforms](https://sjg.io/writing/): Email, Slack, open source, home automation.
+
+## Notes
+
+- This site is the canonical source for Simon Green's public profile and writing.
+- Views expressed in articles are personal and do not necessarily represent any employer.
+
+## Machine-readable resources
+
+- [RSS Feed](https://sjg.io/rss.xml)
+- [JSON Feed](https://sjg.io/feed.json)
+- [Sitemap](https://sjg.io/sitemap-0.xml)

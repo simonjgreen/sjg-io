@@ -189,16 +189,20 @@ function validateXmlUrls(relPath: string, raw: string): void {
     checkUrl(`dist/${relPath} <loc>/<link>/<guid>`, u);
   }
 
-  // 2. Defensively scan every string in the document: any value that looks
-  //    like an http(s) URL is validated, and any value containing the
-  //    forbidden literals fails (catches e.g. "/writing/undefined/").
+  // 2. Defensively scan every string in the document for anything that looks
+  //    like an absolute http(s) URL and validate it. This catches stray URLs
+  //    that live outside the known URL-bearing elements (e.g. atom:link hrefs
+  //    surfaced as attributes). The forbidden-literal check is intentionally
+  //    NOT applied to arbitrary text here: free-text fields such as RSS
+  //    <title>/<description> may legitimately contain words like "undefined
+  //    behavior" or "null hypothesis". checkUrl() still enforces the
+  //    forbidden-literal rule on every URL-bearing value (including relative
+  //    paths such as "/writing/undefined/") via step 1.
   const strings: string[] = [];
   collectStrings(parsed, strings);
   for (const s of strings) {
     if (/^https?:\/\//i.test(s)) {
       checkUrl(`dist/${relPath} URL`, s);
-    } else if (hasBadLiteral(s)) {
-      fail(`dist/${relPath}: value contains forbidden literal "undefined"/"null": ${s}`);
     }
   }
 
