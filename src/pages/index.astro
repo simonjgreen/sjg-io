@@ -6,25 +6,11 @@ import LogoRow from '../components/LogoRow.astro';
 import { getCollection } from 'astro:content';
 import { marked } from 'marked';
 
-// Get the "now" page content for the focus section
+// Get the "now" page homepage summary for the focus section
 const nowPage = await getCollection('pages', ({ id }) => id === 'now');
 const nowContent = nowPage[0];
-
-// Extract a short summary from the now page content
-let nowSummary = "Figuring out what's next...";
-if (nowContent) {
-  // Get the first paragraph from the "Current work" section
-  const content = nowContent.body ?? '';
-  const currentWorkMatch = content.match(/## Current work\s*\n\n(.*?)(?=\n##|\n\*\*|$)/s);
-  if (currentWorkMatch) {
-    const currentWorkText = currentWorkMatch[1];
-    // Extract the first sentence or two, but keep markdown formatting
-    const sentences = currentWorkText.split(/[.!?]+/).filter(s => s.trim().length > 0);
-    const markdownText = sentences.slice(0, 2).join('. ').trim() + '.';
-    // Convert markdown to HTML
-    nowSummary = await marked(markdownText);
-  }
-}
+const nowSummaryMarkdown = nowContent?.data.homepageSummary ?? "Figuring out what's next...";
+const nowSummary = await marked(nowSummaryMarkdown);
 
 // Get recent posts for the writing section
 const allPosts = await getCollection('posts', ({ data }) => !data.draft);
