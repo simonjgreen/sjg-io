@@ -19,6 +19,7 @@ import type { Root, RootContent, Paragraph, Text } from 'mdast';
  *   - `import`/`export` (ESM) statements are dropped,
  *   - <Callout> becomes a blockquote (keeping its prose + icon),
  *   - <ArticleLink slug="…" /> becomes a real Markdown link,
+ *   - raw <img …/> becomes a Markdown image (so it survives the unwrap),
  *   - any other component is unwrapped to its children.
  * Sections are separated by horizontal rules with the canonical URL beside each
  * heading for citation, matching the curation/order of the writing index
@@ -90,6 +91,22 @@ function remarkStripMdx({ titleBySlug, site }: StripOptions) {
             children: [{ type: 'link', url, children: [{ type: 'text', value: label }] }],
           } as RootContent;
           return index;
+        }
+
+        // Raw HTML <img> elements are self-closing, so unwrapping them to
+        // `el.children` would silently drop the image (and its alt text) from a
+        // corpus advertised as full. Convert them to Markdown images instead.
+        if (el.name === 'img') {
+          const url = stringAttr(el, 'src');
+          if (url) {
+            const alt = stringAttr(el, 'alt') ?? '';
+            const absolute = new URL(url, site).toString();
+            parent.children[index] = {
+              type: 'paragraph',
+              children: [{ type: 'image', url: absolute, alt, title: null }],
+            } as RootContent;
+            return index;
+          }
         }
 
         parent.children.splice(index, 1, ...(el.children ?? []));
