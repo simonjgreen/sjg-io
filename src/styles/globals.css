@@ -56,6 +56,22 @@
     scrollbar-gutter: stable;
   }
 
+  /*
+   * Honour the user's reduced-motion preference.
+   * Neutralises animations, transitions and smooth scrolling for people who
+   * experience motion sickness, vestibular disorders, migraines or seizures.
+   */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
   body {
     @apply bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100;
   }
