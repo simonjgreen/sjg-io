@@ -53,9 +53,13 @@ const formatDate = (date: Date) => {
       <header class="mb-8">
         {image && (
           <div class="mb-8">
-            <img 
-              src={image} 
+            <img
+              src={image}
               alt={title}
+              width="896"
+              height="256"
+              fetchpriority="high"
+              decoding="async"
               class="w-full h-64 object-cover rounded-lg shadow-lg"
             />
           </div>
