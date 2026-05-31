@@ -35,9 +35,34 @@ const logos = [
   { name: 'NFL', url: '#', logo: '/logos/nfl.svg', invertInLight: true },
 ];
 
+const siteUrl = Astro.site?.toString() ?? 'https://sjg.io/';
+const personId = new URL('/about', Astro.site).toString() + '#person';
+
+const homeJsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': siteUrl + '#website',
+    url: siteUrl,
+    name: 'sjg.io',
+    description: 'Simon Green: Builder CIO. I bring AI out of the lab and into operations.',
+    inLanguage: 'en-GB',
+    publisher: { '@id': personId }
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    '@id': personId,
+    name: 'Simon Green',
+    url: siteUrl,
+    jobTitle: 'Builder CIO',
+    description: 'Simon Green: Builder CIO. I bring AI out of the lab and into operations.'
+  }
+];
+
 ---
 
-<Base title="Home" description="Simon Green: Builder CIO. I bring AI out of the lab and into operations.">
+<Base title="Home" description="Simon Green: Builder CIO. I bring AI out of the lab and into operations." jsonLd={homeJsonLd}>
   <!-- Hero Section -->
       <section class="bg-gray-50 dark:bg-gray-900 bg-texture-particles relative overflow-hidden">
     <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-24 relative z-10">

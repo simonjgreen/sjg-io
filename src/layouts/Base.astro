@@ -12,6 +12,7 @@ export interface Props {
   ogImage?: string;
   canonical?: string;
   markdownPath?: string;
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 }
 
 const {
@@ -21,13 +22,16 @@ const {
   ogDescription,
   ogImage,
   canonical,
-  markdownPath
+  markdownPath,
+  jsonLd
 } = Astro.props;
 
 const siteTitle = title === "sjg.io" ? title : `${title} | Simon Green`;
 const ogTitleFinal = ogTitle || title;
 const ogDescriptionFinal = ogDescription || description;
 const canonicalUrl = canonical || new URL(Astro.url.pathname, Astro.site);
+
+const jsonLdBlocks = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 ---
 
 <!DOCTYPE html>
@@ -102,7 +106,12 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, Astro.site);
     {ogImage && <meta name="twitter:image" content={new URL(ogImage, Astro.site)} />}
     
     <title>{siteTitle}</title>
-    
+
+    <!-- Structured data (schema.org JSON-LD) for search engines and agents -->
+    {jsonLdBlocks.map((block) => (
+      <script type="application/ld+json" set:html={JSON.stringify(block)} />
+    ))}
+
   </head>
       <body class="h-full bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
     <div class="min-h-full">
