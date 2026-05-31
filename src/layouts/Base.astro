@@ -11,15 +11,17 @@ export interface Props {
   ogDescription?: string;
   ogImage?: string;
   canonical?: string;
+  markdownPath?: string;
 }
 
-const { 
-  title, 
+const {
+  title,
   description = "Simon's personal website and blog",
   ogTitle,
   ogDescription,
   ogImage,
-  canonical
+  canonical,
+  markdownPath
 } = Astro.props;
 
 const siteTitle = title === "sjg.io" ? title : `${title} | Simon Green`;
@@ -36,6 +38,7 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, Astro.site);
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="canonical" href={canonicalUrl} />
+    {markdownPath && <link rel="alternate" type="text/markdown" href={markdownPath} />}
     
     <!-- Typography: Inter is self-hosted via @fontsource-variable/inter (imported in this layout), so no external font requests are made. -->
 

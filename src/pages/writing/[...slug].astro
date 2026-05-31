@@ -33,6 +33,7 @@ const readingTimeMinutes = Math.ceil(readingStats.minutes);
   canonical={post.data.canonical}
   readingTime={readingTimeMinutes}
   image={post.data.image}
+  markdownPath={`/writing/${post.id}.md`}
 >
   <Content components={{ ArticleLink }} />
 </Post>
