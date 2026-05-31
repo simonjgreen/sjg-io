@@ -38,27 +38,36 @@ const logos = [
 const siteUrl = Astro.site?.toString() ?? 'https://sjg.io/';
 const personId = new URL('/about', Astro.site).toString() + '#person';
 
-const homeJsonLd = [
-  {
-    '@context': 'https://schema.org',
-    '@type': 'WebSite',
-    '@id': siteUrl + '#website',
-    url: siteUrl,
-    name: 'sjg.io',
-    description: 'Simon Green: Builder CIO. I bring AI out of the lab and into operations.',
-    inLanguage: 'en-GB',
-    publisher: { '@id': personId }
-  },
-  {
-    '@context': 'https://schema.org',
-    '@type': 'Person',
-    '@id': personId,
-    name: 'Simon Green',
-    url: siteUrl,
-    jobTitle: 'Builder CIO',
-    description: 'Simon Green: Builder CIO. I bring AI out of the lab and into operations.'
-  }
-];
+// Single @graph per page with cross-referenced @id nodes (schema.org best
+// practice). sameAs lists Simon's verified profiles, sourced from the footer.
+const homeJsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': siteUrl + '#website',
+      url: siteUrl,
+      name: 'sjg.io',
+      description: 'Simon Green: Builder CIO. I bring AI out of the lab and into operations.',
+      inLanguage: 'en-GB',
+      publisher: { '@id': personId }
+    },
+    {
+      '@type': 'Person',
+      '@id': personId,
+      name: 'Simon Green',
+      url: siteUrl,
+      jobTitle: 'Builder CIO',
+      description: 'Simon Green: Builder CIO. I bring AI out of the lab and into operations.',
+      sameAs: [
+        'https://github.com/simonjgreen',
+        'https://linkedin.com/in/simonjgreen',
+        'https://twitter.com/SimonJGreen',
+        'https://bsky.app/profile/sjg.io'
+      ]
+    }
+  ]
+};
 
 ---
 
