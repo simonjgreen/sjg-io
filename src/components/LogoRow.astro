@@ -22,9 +22,11 @@ const { logos, title = "Trusted by" } = Astro.props;
     <div class="flex flex-wrap items-center justify-center gap-8 opacity-60">
       {logos.map((logo) => (
         <div class="flex items-center logo-container">
-          <img 
-            src={logo.logo} 
+          <img
+            src={logo.logo}
             alt={logo.name}
+            loading="lazy"
+            decoding="async"
             class={`h-8 w-auto logo-img transition-all duration-200 ${logo.logo.endsWith('.svg') ? 'logo-svg' : 'logo-png'} ${
               logo.invertInLight ? 'logo-invert-light' : ''
             }`}
