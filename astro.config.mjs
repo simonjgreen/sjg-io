@@ -4,6 +4,7 @@ import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 import remarkGfm from 'remark-gfm';
 import rehypeFootnoteClass from './src/plugins/rehype-footnote-class.mjs';
+import rehypeAccessibleTables from './src/plugins/rehype-accessible-tables.mjs';
 import { readdirSync, readFileSync } from 'node:fs';
 
 // The Markdown export endpoint (src/pages/writing/[...slug].md.ts) emits a
@@ -30,11 +31,11 @@ export default defineConfig({
   output: 'static',
   integrations: [mdx({
     remarkPlugins: [remarkGfm],
-    rehypePlugins: [rehypeFootnoteClass]
+    rehypePlugins: [rehypeFootnoteClass, rehypeAccessibleTables]
   }), sitemap({ customPages: markdownWritingUrls() })],
   markdown: {
     remarkPlugins: [remarkGfm],
-    rehypePlugins: [rehypeFootnoteClass],
+    rehypePlugins: [rehypeFootnoteClass, rehypeAccessibleTables],
     shikiConfig: {
       theme: 'github-dark',
       wrap: true

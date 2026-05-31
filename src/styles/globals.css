@@ -139,6 +139,26 @@
     white-space: normal;
   }
 
+  /* Focusable scroll region wrapping wide data tables (a11y) */
+  .prose .table-region {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .prose .table-region:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+
+  /* The wrapper owns the overflow, so the table itself must not scroll. */
+  .prose .table-region > table {
+    display: table;
+    max-width: none;
+    overflow-x: visible;
+  }
+
   /* Background textures - keeping only the working particle effect */
   .bg-texture-particles {
     background-image:
