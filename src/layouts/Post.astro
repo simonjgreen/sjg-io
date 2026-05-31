@@ -12,19 +12,21 @@ export interface Props {
   canonical?: string;
   readingTime?: number;
   image?: string;
+  markdownPath?: string;
 }
 
-const { 
-  title, 
-  description, 
-  date, 
-  updated, 
-  tags = [], 
-  ogTitle, 
-  ogDescription, 
+const {
+  title,
+  description,
+  date,
+  updated,
+  tags = [],
+  ogTitle,
+  ogDescription,
   canonical,
   readingTime,
-  image
+  image,
+  markdownPath
 } = Astro.props;
 
 
@@ -44,6 +46,7 @@ const formatDate = (date: Date) => {
   ogDescription={ogDescription}
   ogImage={image}
   canonical={canonical}
+  markdownPath={markdownPath}
 >
   <article class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-12">
     <div class="max-w-3xl">
