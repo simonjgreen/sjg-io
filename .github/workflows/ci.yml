@@ -32,6 +32,9 @@ jobs:
     - name: Validate tags
       run: npm run validate:tags
 
+    - name: Validate images
+      run: npm run validate:images
+
     - name: Build
       run: npm run build
 
