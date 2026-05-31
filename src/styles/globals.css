@@ -50,6 +50,10 @@
   html {
     font-family: system-ui, sans-serif;
     font-feature-settings: 'tnum' 1, 'kern' 1;
+    /* Reserve scrollbar space to prevent horizontal layout shift when
+       content overflow toggles (e.g. navigation between short/long pages).
+       No visual effect with overlay scrollbars. */
+    scrollbar-gutter: stable;
   }
 
   body {
