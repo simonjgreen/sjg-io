@@ -8,7 +8,11 @@ export async function GET(context) {
   const lastBuildDate =
     posts.length > 0
       ? new Date(
-          Math.max(...posts.map((post) => post.data.date.getTime())),
+          Math.max(
+            ...posts.map((post) =>
+              (post.data.updated ?? post.data.date).getTime(),
+            ),
+          ),
         ).toUTCString()
       : new Date().toUTCString();
 
