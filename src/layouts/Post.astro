@@ -37,16 +37,45 @@ const formatDate = (date: Date) => {
     day: 'numeric'
   }).format(date);
 };
+
+const postUrl = canonical || new URL(Astro.url.pathname, Astro.site).toString();
+
+const blogPostingJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  '@id': postUrl,
+  headline: title,
+  ...(description && { description }),
+  url: postUrl,
+  mainEntityOfPage: postUrl,
+  datePublished: date.toISOString(),
+  dateModified: (updated ?? date).toISOString(),
+  ...(image && { image: new URL(image, Astro.site).toString() }),
+  ...(tags.length > 0 && { keywords: tags }),
+  inLanguage: 'en-GB',
+  author: {
+    '@type': 'Person',
+    '@id': new URL('/about', Astro.site).toString() + '#person',
+    name: 'Simon Green',
+    url: Astro.site?.toString()
+  },
+  publisher: {
+    '@type': 'Person',
+    '@id': new URL('/about', Astro.site).toString() + '#person',
+    name: 'Simon Green'
+  }
+};
 ---
 
-<Base 
-  title={title} 
+<Base
+  title={title}
   description={description}
   ogTitle={ogTitle}
   ogDescription={ogDescription}
   ogImage={image}
   canonical={canonical}
   markdownPath={markdownPath}
+  jsonLd={blogPostingJsonLd}
 >
   <article class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-12">
     <div class="max-w-3xl">
@@ -56,6 +85,8 @@ const formatDate = (date: Date) => {
             <img
               src={image}
               alt={title}
+              width="896"
+              height="256"
               loading="eager"
               fetchpriority="high"
               decoding="async"
