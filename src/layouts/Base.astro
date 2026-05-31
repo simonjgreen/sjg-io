@@ -12,6 +12,7 @@ export interface Props {
   ogImage?: string;
   canonical?: string;
   markdownPath?: string;
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 }
 
 const {
@@ -21,13 +22,27 @@ const {
   ogDescription,
   ogImage,
   canonical,
-  markdownPath
+  markdownPath,
+  jsonLd
 } = Astro.props;
 
 const siteTitle = title === "sjg.io" ? title : `${title} | Simon Green`;
 const ogTitleFinal = ogTitle || title;
 const ogDescriptionFinal = ogDescription || description;
 const canonicalUrl = canonical || new URL(Astro.url.pathname, Astro.site);
+
+const jsonLdBlocks = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
+
+// Serialize JSON-LD for safe injection into a <script> tag. JSON.stringify does
+// not escape '<', '>' or '&', so a value containing '</script>' could otherwise
+// prematurely close the tag (invalid HTML / injection vector). Escape those
+// characters as their \u-unicode equivalents; the JSON remains valid and parses
+// back to the original string.
+const serializeJsonLd = (block: Record<string, unknown>): string =>
+  JSON.stringify(block)
+    .replace(/</g, '\\u003c')
+    .replace(/>/g, '\\u003e')
+    .replace(/&/g, '\\u0026');
 ---
 
 <!DOCTYPE html>
@@ -36,6 +51,7 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, Astro.site);
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f9fafb" />
     <meta name="color-scheme" content="light dark" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="canonical" href={canonicalUrl} />
@@ -47,18 +63,28 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, Astro.site);
 
     <!-- Theme initialization and toggle script -->
     <script is:inline>
+      // Theme-color values must match the rendered light/dark background.
+      const THEME_COLORS = { light: '#f9fafb', dark: '#111827' };
+
+      function applyThemeColor(theme) {
+        const meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) {
+          meta.setAttribute('content', THEME_COLORS[theme] || THEME_COLORS.light);
+        }
+      }
+
       // Initialize theme before page renders to prevent flash
       (function() {
         const storedTheme = localStorage.getItem('theme');
         let theme;
-        
+
         if (storedTheme) {
           theme = storedTheme;
         } else {
           // Default to system preference
           theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
         }
-        
+
         if (theme === 'dark') {
           document.documentElement.classList.add('dark');
           document.documentElement.style.colorScheme = 'dark';
@@ -66,6 +92,10 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, Astro.site);
           document.documentElement.classList.remove('dark');
           document.documentElement.style.colorScheme = 'light';
         }
+
+        // Keep the browser UI colour in sync with the actual rendered theme,
+        // including manual overrides via the toggle (class/localStorage based).
+        applyThemeColor(theme);
       })();
       
       // Theme toggle functionality
@@ -82,13 +112,23 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, Astro.site);
               html.classList.remove('dark');
               html.style.colorScheme = 'light';
               localStorage.setItem('theme', 'light');
+              applyThemeColor('light');
             } else {
               html.classList.add('dark');
               html.style.colorScheme = 'dark';
               localStorage.setItem('theme', 'dark');
+              applyThemeColor('dark');
             }
           }
         });
+      });
+
+      // When no manual override is stored, follow OS preference changes live.
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+        if (localStorage.getItem('theme')) return;
+        const theme = e.matches ? 'dark' : 'light';
+        document.documentElement.classList.toggle('dark', e.matches);
+        applyThemeColor(theme);
       });
     </script>
     
@@ -109,7 +149,12 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, Astro.site);
     {ogImage && <meta name="twitter:image" content={new URL(ogImage, Astro.site)} />}
     
     <title>{siteTitle}</title>
-    
+
+    <!-- Structured data (schema.org JSON-LD) for search engines and agents -->
+    {jsonLdBlocks.map((block) => (
+      <script type="application/ld+json" set:html={serializeJsonLd(block)} />
+    ))}
+
   </head>
       <body class="h-full bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
     <a
