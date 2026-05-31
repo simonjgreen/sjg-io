@@ -4,6 +4,9 @@
 # Search engines and all other crawlers
 User-agent: *
 Allow: /
+# Content Signals (experimental, specification.website): indexing, live AI
+# fetching, and AI training are all permitted, matching the policy above.
+Content-Signal: search=yes, ai-input=yes, ai-train=yes
 
 # AI crawlers — explicitly allowed (training, search, and on-demand fetching)
 User-agent: GPTBot
@@ -18,5 +21,9 @@ User-agent: Bytespider
 User-agent: Amazonbot
 User-agent: Meta-ExternalAgent
 Allow: /
+# Content Signals (repeated here because robots.txt matching uses the single
+# most-specific User-agent group; these AI crawlers would otherwise not see
+# the signals declared in the wildcard group above).
+Content-Signal: search=yes, ai-input=yes, ai-train=yes
 
 Sitemap: https://sjg.io/sitemap-index.xml
