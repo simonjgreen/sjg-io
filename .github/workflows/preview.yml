@@ -70,10 +70,12 @@ jobs:
       with:
         script: |
           const previewUrl = `https://preview${{ github.event.number }}.sjg.io`;
-          const comment = `🚀 **Preview deployed successfully!**
+          const comment = `🚀 **Preview deploying…**
           
           **Preview URL:** ${previewUrl}
-          
+
+          ⏳ Give it a minute or two to become reachable — Cloudflare provisions the custom domain and TLS certificate after the deploy finishes, so a "site can't be reached" error right away just means it's still coming up. Refresh shortly.
+
           This preview will be automatically cleaned up when the PR is merged or closed.`;
           
           github.rest.issues.createComment({
