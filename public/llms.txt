@@ -47,4 +47,5 @@
 - [RSS Feed](https://sjg.io/rss.xml)
 - [JSON Feed](https://sjg.io/feed.json)
 - [Sitemap](https://sjg.io/sitemap-0.xml)
+- [Full text (llms-full.txt)](https://sjg.io/llms-full.txt): the full Markdown of every published article concatenated into one file.
 - Plain Markdown: append `.md` to any `/writing/<slug>` URL for the clean Markdown source of an article (e.g. https://sjg.io/writing/email-is-not-dead.md). All article Markdown URLs are listed in the [sitemap](https://sjg.io/sitemap-0.xml).
