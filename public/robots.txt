@@ -1,4 +1,22 @@
+# This is a public personal/writing site. Crawlers are welcome — including AI
+# crawlers. The policy below is intentionally permissive and explicit.
+
+# Search engines and all other crawlers
 User-agent: *
+Allow: /
+
+# AI crawlers — explicitly allowed (training, search, and on-demand fetching)
+User-agent: GPTBot
+User-agent: ChatGPT-User
+User-agent: OAI-SearchBot
+User-agent: ClaudeBot
+User-agent: PerplexityBot
+User-agent: Google-Extended
+User-agent: CCBot
+User-agent: Applebot-Extended
+User-agent: Bytespider
+User-agent: Amazonbot
+User-agent: Meta-ExternalAgent
 Allow: /
 
 Sitemap: https://sjg.io/sitemap-index.xml

@@ -1,0 +1,4 @@
+Contact: mailto:hello@sjg.io
+Expires: 2027-05-31T10:30:38Z
+Canonical: https://sjg.io/.well-known/security.txt
+Preferred-Languages: en
