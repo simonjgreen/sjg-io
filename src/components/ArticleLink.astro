@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
 import Card from './Card.astro';
 
 interface Props {
@@ -33,9 +34,11 @@ const formatDate = (date: Date) => {
   <Card href={`/writing/${post.id}`} class="mt-8">
     <div class="p-6">
       {post.data.image && (
-        <img
+        <Image
           src={post.data.image}
           alt={post.data.title}
+          widths={[320, 640]}
+          sizes="(min-width: 640px) 640px, 100vw"
           loading="lazy"
           decoding="async"
           class="w-full h-32 object-cover rounded-lg mb-4"

@@ -12,6 +12,7 @@
     "typecheck": "astro check",
     "og:gen": "tsx src/components/OgImageTemplate.ts",
     "validate:tags": "tsx src/scripts/validate-tags.ts",
+    "validate:images": "tsx src/scripts/validate-images.ts",
     "validate:feeds": "tsx src/scripts/validate-feeds.ts",
     "analyze:tags": "tsx src/scripts/analyze-tags.ts"
   },
