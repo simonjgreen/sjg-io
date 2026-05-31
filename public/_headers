@@ -12,3 +12,10 @@
 # cached immutably for a year (RFC 9111). A new build produces a new filename.
 /_astro/*
   Cache-Control: public, max-age=31536000, immutable
+
+# Per-page Markdown source endpoints (/writing/<slug>.md). Re-assert the
+# charset that Cloudflare strips from static assets, and Vary: Accept so the
+# Markdown representation is cached distinctly from its HTML counterpart.
+/writing/*.md
+  Content-Type: text/markdown; charset=utf-8
+  Vary: Accept
