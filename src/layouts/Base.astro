@@ -36,8 +36,7 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, Astro.site);
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f9fafb" />
-    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#111827" />
+    <meta name="theme-color" content="#f9fafb" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="canonical" href={canonicalUrl} />
     {markdownPath && <link rel="alternate" type="text/markdown" href={markdownPath} />}
@@ -46,23 +45,37 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, Astro.site);
 
     <!-- Theme initialization and toggle script -->
     <script is:inline>
+      // Theme-color values must match the rendered light/dark background.
+      const THEME_COLORS = { light: '#f9fafb', dark: '#111827' };
+
+      function applyThemeColor(theme) {
+        const meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) {
+          meta.setAttribute('content', THEME_COLORS[theme] || THEME_COLORS.light);
+        }
+      }
+
       // Initialize theme before page renders to prevent flash
       (function() {
         const storedTheme = localStorage.getItem('theme');
         let theme;
-        
+
         if (storedTheme) {
           theme = storedTheme;
         } else {
           // Default to system preference
           theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
         }
-        
+
         if (theme === 'dark') {
           document.documentElement.classList.add('dark');
         } else {
           document.documentElement.classList.remove('dark');
         }
+
+        // Keep the browser UI colour in sync with the actual rendered theme,
+        // including manual overrides via the toggle (class/localStorage based).
+        applyThemeColor(theme);
       })();
       
       // Theme toggle functionality
@@ -78,12 +91,22 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, Astro.site);
             if (html.classList.contains('dark')) {
               html.classList.remove('dark');
               localStorage.setItem('theme', 'light');
+              applyThemeColor('light');
             } else {
               html.classList.add('dark');
               localStorage.setItem('theme', 'dark');
+              applyThemeColor('dark');
             }
           }
         });
+      });
+
+      // When no manual override is stored, follow OS preference changes live.
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+        if (localStorage.getItem('theme')) return;
+        const theme = e.matches ? 'dark' : 'light';
+        document.documentElement.classList.toggle('dark', e.matches);
+        applyThemeColor(theme);
       });
     </script>
     
