@@ -12,6 +12,7 @@
     "typecheck": "astro check",
     "og:gen": "tsx src/components/OgImageTemplate.ts",
     "validate:tags": "tsx src/scripts/validate-tags.ts",
+    "validate:feeds": "tsx src/scripts/validate-feeds.ts",
     "analyze:tags": "tsx src/scripts/analyze-tags.ts"
   },
   "dependencies": {
@@ -33,6 +34,7 @@
     "@types/node": "^25.6.0",
     "eslint": "^10.1.0",
     "eslint-plugin-astro": "^1.6.0",
+    "fast-xml-parser": "^5.8.0",
     "prettier": "^3.8.3",
     "prettier-plugin-astro": "^0.14.0",
     "rehype": "^13.0.2",

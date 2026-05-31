@@ -35,6 +35,9 @@ jobs:
     - name: Build
       run: npm run build
 
+    - name: Validate feeds, sitemap & schema
+      run: npm run validate:feeds
+
     - name: Link check
       uses: lycheeverse/lychee-action@v2.8.0
       with:
