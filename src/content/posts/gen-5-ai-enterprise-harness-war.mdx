@@ -1,0 +1,424 @@
+---
+title: "Gen 5 AI and the Enterprise Harness War"
+description: "Why the next enterprise AI fight is less about the smartest model and more about the harness: interfaces, runtimes, connectors, skills, governance, identity and agent-ready software."
+date: 2026-06-16
+tags: ["ai", "agents", "enterprise", "saas", "identity"]
+---
+
+I think we are entering Gen 5 of the assistive AI era.
+
+Forget coding for a minute. Coding AI is the noisy bit. It is easy to demo, easy to benchmark and easy to argue about because code either runs or it does not.
+
+I am more interested in everyone else.
+
+Knowledge workers, operators, home users and normal people with inboxes, calendars, spreadsheets, school forms, customer tickets, booking systems, expenses, policies, PDFs, meetings and all the other small jobs that fill a day.
+
+Most people do not want to become prompt engineers. They just want things done.
+
+For the first few generations we judged AI mostly like a better brain. Is it smarter? Is it faster? Does it know more? Does it make fewer mistakes? How much can it keep in context?
+
+All of that still matters, but I think the more interesting shift is happening around the model. The interface is moving. AI is starting to move from another place you visit into the place where the work happens.
+
+## Gen 1: the better answer box
+
+Gen 1 was the GPT-2 and GPT-3 era.
+
+For most people, it barely existed. For the people who did use it, it was basically a better Ask Jeeves. You typed something in and it gave you an answer. Sometimes a surprisingly good one. Sometimes nonsense. Sometimes something weirdly confident and wrong.
+
+It was impressive, but passive.
+
+The user carried the work. The AI answered questions.
+
+## Gen 2: the custom knowledge box
+
+Gen 2 was the GPT-4 and Custom GPT era.
+
+This was when every company, team and enthusiast started uploading documents, writing giant prompts and creating little domain experts. Policy bots, HR bots, legal Q&A bots, sales enablement bots and all the “ask our docs” assistants.
+
+A lot of this was useful. Some of it still is. But most of it was Q&A against a blob of knowledge. The AI knew more about your domain, but it still mostly sat there waiting for you to ask the right question.
+
+The user still had to know where to go, what to ask and what to do with the answer.
+
+## Gen 3: the assistant with hands
+
+Gen 3 was when tool calling and identity started to matter.
+
+The assistant could access systems. It could look things up. It could take bounded actions on your behalf. This is where customer service agents, Agentforce-style demos, Microsoft Copilot and the first serious personal AI alternatives to Google started to appear.
+
+This was a real step forward. The AI could do things, not just answer things.
+
+But it was still usually trapped inside a workflow, product or vendor-defined surface. It helped you use software. You still spent most of your day inside the software.
+
+## Gen 4: the coworker
+
+Gen 4 is where we largely are now.
+
+This is the GPT-5 onwards era, and also the point where Claude got very good. Better tool use, bigger context, more reliable long-running work, agents handing work around, fan outs, subtasks, background execution and all the superpower demos.
+
+The Cowork era.
+
+Claude Cowork, Microsoft Copilot Cowork, Codex, Claude Code and the rest of that pattern. The specific product names matter less than the product shape.
+
+You give the AI a larger, messier task and it can make real progress. It can build the deck, analyse the spreadsheet, draft the plan, clean up the files, investigate the issue, pull together the research or turn a vague ask into something that looks like work product.
+
+Microsoft describes Copilot Cowork as a way to turn intent into action across Microsoft 365, with Cowork able to send emails, schedule meetings, create documents, post in Teams and manage a calendar, while asking users to approve actions before they happen. ([Microsoft](https://www.microsoft.com/en-us/microsoft-365/blog/2026/03/09/copilot-cowork-a-new-way-of-getting-work-done/)) Anthropic has been pushing a similar product shape with Claude Cowork and plugins, where plugins can bundle skills, connectors and sub-agents into a ready-to-use package. ([Anthropic support](https://support.claude.com/en/articles/13837440-use-plugins-in-claude))
+
+Coding has been the obvious proof point because code is easy to verify. It runs or it does not. Tests pass or they fail. But the same shape is coming for normal work too.
+
+The assistant is starting to feel less like a chat window and more like a junior colleague you can hand things to.
+
+## Gen 5: the agent becomes the surface
+
+Gen 5 is the bit I think is emerging now.
+
+The model still matters, obviously. But the model is no longer the whole story. The system around the model matters just as much.
+
+A Gen 5 system needs to connect to tools, remember useful context, run in the background, react to events, work across channels, ask for approval when needed, hand work to other agents and stay out of the way until something actually needs your judgement.
+
+That is the shape of Gen 5.
+
+MCP is part of this because it gives AI applications a standard way to connect to external systems, tools, data and workflows. The newer MCP work around auth, registration, triggers and events is interesting because it moves the pattern from “the user asks and the agent calls a tool” towards “something changes, the agent is notified and work can continue”. MCP’s November 2025 authorization spec, for example, supports client ID metadata documents, pre-registration and dynamic client registration as different ways for clients and servers to establish the relationship needed for authorization. ([Model Context Protocol](https://modelcontextprotocol.io/specification/2025-11-25/basic/authorization))
+
+This is also where the OpenClaw moment matters.
+
+OpenClaw is interesting, but not because everyone is going to run OpenClaw.
+
+The interesting bit is the desire it revealed.
+
+People looked at that shape and immediately understood something. They want an assistant that is reachable through the channels they already use. They want it to run near their real work, not inside one vendor’s neat little box. They want tools, sessions, memory, routing and background jobs. They want to message it from a phone, a desktop, Slack, WhatsApp or wherever they happen to be, and have the work continue from there.
+
+That is the OpenClaw moment.
+
+Not the product specifically. The pattern.
+
+A local or controlled gateway. Multiple channels. Agent skills. Background loops. Tool access. The ability to sit across the messy flow of work rather than inside a single app.
+
+Microsoft Scout is a good example of the same desire moving into the enterprise. Microsoft describes Scout as an always-on personal agent across cloud, desktop and web, connected to Microsoft 365 surfaces like Teams, Outlook, OneDrive and SharePoint, and powered by OpenClaw open-source technology. ([Microsoft](https://www.microsoft.com/en-us/microsoft-365/blog/2026/06/02/introducing-microsoft-scout-your-always-on-personal-agent/)) Microsoft’s command-line blog described the internal Project Lobster work as bringing OpenClaw into Microsoft 365 and the cloud. ([Microsoft Command Line](https://commandline.microsoft.com/project-lobster-openclaw-personal-ai-assistant-enterprise-secure/))
+
+That does not mean Scout is the final form. It definitely is not.
+
+But the pattern is too obvious once you have seen it. Microsoft will do it. Google will do it. Anthropic and OpenAI will do their versions of it. Enterprises will want internal versions of it. The specific product names may change, but the desire will not.
+
+And once that shape exists, the next step is triggers.
+
+A message comes in. A ticket changes. A customer replies. A calendar conflict appears. A renewal email lands. A document is updated. A workflow reaches an approval step.
+
+The event wakes the agent up.
+
+The agent checks the context, decides what it can safely do, takes the next step and only interrupts you when it needs judgement, permission or taste.
+
+That is a big shift.
+
+The blank chat box becomes less central. The agent is just there, listening for the right things, acting when it should, waiting when it should and asking when it has to.
+
+## Gen 4 is not actually solved yet
+
+There is another uncomfortable bit here.
+
+We are starting to see Gen 5 patterns emerge, but Gen 4 is not fully solved.
+
+A lot of enterprise software still does not connect cleanly to today’s AI assistants. Not in the way users expect. Not in the way the sales demo implies. Not in the way IT would need for a reliable, governed rollout.
+
+That creates a messy gap between expectation and reality.
+
+The user has seen Claude, ChatGPT or Copilot do something impressive. They now expect that same assistant to work across the rest of their day. They ask IT to connect a tool. IT checks the vendor docs and finds a half-finished API, a brittle integration pattern, a security model built for back-office automation rather than interactive user delegation, or an MCP wrapper that exposes the wrong level of the product.
+
+Then everyone gets annoyed.
+
+The user thinks IT is blocking progress. IT thinks the vendor is not ready. Procurement starts asking awkward renewal questions. The AI team gets blamed for an inconsistent experience. The vendor says they have an API, which is technically true, but not the same thing as being agent-ready.
+
+This is especially painful for vendors that are not used to regular user interactivity over API. A lot of enterprise APIs were built for integration jobs, admin automation, reporting exports or system-to-system sync. They were not built for a user sitting in an AI surface saying, “Book this, change that, check this policy, update this record, then tell me what needs approval.”
+
+That is a different design problem.
+
+It is tempting to bolt MCP around the existing API and call it done. But agent connectivity needs more than a wrapper. It needs sensible tool descriptions, granular permissions, clear approval boundaries, user-aware auth, event hooks, task status and a way for the client to discover how it should safely connect.
+
+Even the boring OAuth parts matter. Earlier MCP authorization guidance leaned heavily on dynamic client registration. The later spec shifted towards client ID metadata documents as the most common pattern, with pre-registration and dynamic client registration still available for other scenarios. ([Model Context Protocol](https://modelcontextprotocol.io/specification/2025-11-25/basic/authorization)) That tells you something. This is not just about exposing an endpoint. It is about making products usable by unknown or semi-known AI clients in a way that still works for enterprise security, consent and governance.
+
+And this is where browser control comes in.
+
+The AI labs have built a shim so they can keep moving.
+
+If the product does not have a proper integration, the agent can drive the browser. It can look at the screen, click buttons, type into fields and operate the software through the same interface a human uses.
+
+OpenAI’s computer-use docs describe the feature as letting a model operate software through the user interface, including inspecting screenshots and returning interface actions for code to execute. ([OpenAI Developers](https://developers.openai.com/api/docs/guides/tools-computer-use)) Anthropic introduced computer use in 2024 as a way for Claude to look at a screen, move a cursor, click buttons and type, while also saying it was experimental, sometimes cumbersome and error-prone. ([Anthropic](https://www.anthropic.com/news/3-5-models-and-computer-use)) OpenAI’s ChatGPT agent help docs also show some of the practical awkwardness here, with the agent pausing for users to take over the virtual browser for login and then trying to resume afterwards. ([OpenAI Help](https://help.openai.com/en/articles/11752874-chatgpt-agent))
+
+That browser-driving layer is useful. It stops the whole vision from being blocked by legacy vendors. It lets the labs keep proving the direction of travel while the software ecosystem catches up.
+
+But it is a shim.
+
+An impressive shim, but still a shim.
+
+It is expensive. It is fragile. It is slow compared with a real integration. It breaks when the UI changes. It struggles with login flows, state, hidden validation, permissions and weird front-end behaviour. It is the AI lab version of “fine, we’ll do it ourselves” while waiting for the software world to become connectable.
+
+That is not the long-term architecture.
+
+The long-term solution is software that is agent-ready by design. Proper APIs. Proper auth. Proper eventing. Proper task state. Proper approval flows. Proper audit. Proper ways for assistive AI to act on behalf of a user without pretending to be a person clicking through a web app.
+
+Until that exists, the enterprise experience will stay patchy.
+
+## SaaS becomes infrastructure
+
+This is where SaaS starts to get uncomfortable.
+
+For the last 20 years, every SaaS company has fought to own the screen. Better dashboard, better workflow, better UI, better notification centre, better mobile app.
+
+In Gen 5, the buying question changes.
+
+Can my agent use it?
+
+Can my agent discover what this product can do, authenticate safely, take scoped actions, receive events, pause for approval, show me what it did and work without screen scraping its way through some awful interface?
+
+A SaaS product with poor agentic connectivity will start to feel broken.
+
+Not immediately. There will be years of transition. People will still need UIs. Of course they will. You need somewhere to review things, explore, configure, approve and fix edge cases. Some work is visual. Some work needs careful human control.
+
+But routine clicking through five screens is going to feel increasingly absurd.
+
+The UI becomes the control room and the fallback. The everyday work moves up into the agent.
+
+APIs used to be the enterprise integration layer. Then mobile support became table stakes. Then Slack, Teams and workflow integrations became table stakes.
+
+The next table stakes will be agentic connectivity.
+
+That probably means MCP-native or MCP-compatible interfaces. It means skills, plugins and workflow descriptions that agents can understand. It means task handles for long-running work, event triggers and permission boundaries that a normal buyer can reason about.
+
+It also means your product has to be legible to an AI worker.
+
+The agent needs to understand what the system can do, what it should never do, what needs approval, what is reversible, what is risky and what the safest next step looks like.
+
+The products that answer those questions well become useful infrastructure. The products that do not become annoying websites an agent has to fight with.
+
+## The user relationship moves up a layer
+
+Today people say things like, “I need to go into Salesforce”, “I need to check Workday”, “I need to update Concur” or “I need to find that thing in SharePoint”.
+
+In Gen 5, more of that becomes, “I asked my agent to sort it.”
+
+That sounds like a small wording change. I do not think it is.
+
+The brand relationship moves up to the agent surface.
+
+The underlying SaaS tool still matters. It is still the system of record. It still holds the data, permissions and workflows. But the place the user starts is different.
+
+The loyalty moves to the AI surface that gets the work done.
+
+That might be ChatGPT. It might be Claude. It might be Copilot. It might be something open and self-hosted. It might be WhatsApp connected to a claw-like gateway. It might be a company-controlled agent runtime.
+
+The exact winner is unclear. The direction feels obvious.
+
+The AI becomes the place you start. For more and more work, it becomes the place you stay.
+
+## Identity is the big unsolved problem
+
+There is another problem sitting underneath all of this: identity.
+
+I think we need to be much more precise about agent classes.
+
+For me, there are two broad categories: assistive agents and autonomous agents.
+
+Assistive agents act on behalf of a user. If I ask an assistant to read my calendar, search my files, draft an email, update a CRM record or book a meeting, it makes sense for that action to happen inside my permission boundary. The agent is acting as me, for me, because I asked it to.
+
+That is the current assistive AI pattern.
+
+The agent is a proxy for the user’s identity.
+
+That works for a lot of Gen 3 and Gen 4. It is not perfect, but it is understandable. The assistant can only see what I can see. It can only do what I can do. The audit trail should still show that an agent was involved, but the permission model is basically delegated user access.
+
+Autonomous agents are different.
+
+If an agent is persistent, event-driven and running in the background, it cannot always just be “me, but automated”. That gets messy quickly.
+
+Who changed the record? Was it Sarah, or Sarah’s sales agent? Did the agent act because Sarah explicitly asked it to, or because a trigger fired? What permissions did it have at the time? Who approved the action? Who owns the agent if Sarah leaves the company? What happens to its memory, credentials, tasks and access grants? Can it receive email? Can it own a document? Can it create a meeting? Can it be suspended without suspending the human sponsor?
+
+Those are not philosophical questions. They are audit, governance and incident response questions.
+
+For Gen 5 to work properly, autonomous agents need their own identities.
+
+Not just service accounts. Not just API keys. Not just invisible delegated user tokens. Real identities that can be seen, governed, permissioned, audited and retired.
+
+The right model needs both modes. Sometimes the agent acts on behalf of a user. Sometimes it acts as itself. In both cases, the organisation needs to know which human or team is accountable for it.
+
+Microsoft is beginning to step into this with Agent 365 and Entra Agent ID. Microsoft describes Entra Agent ID as an identity and security framework for assistive, autonomous and user-like agents, with purpose-built constructs to authenticate, authorize, govern and protect non-human identities. ([Microsoft Learn](https://learn.microsoft.com/en-us/entra/agent-id/what-is-microsoft-entra-agent-id)) Microsoft’s Agent 365 identity docs also distinguish between an on-behalf-of flow, where an agent acts for a user, and agent identity flows for autonomous operations like scheduled tasks, monitoring, agent-owned resources and background processing without user interaction. ([Microsoft Learn](https://learn.microsoft.com/en-us/microsoft-agent-365/developer/identity))
+
+The really interesting bit is the sponsor model. Microsoft’s Entra Agent ID documentation talks about administrative relationships that separate technical administration from business accountability, and the Agent ID docs describe agent identities as unique identity accounts for AI agents. ([Microsoft Learn](https://learn.microsoft.com/en-us/entra/agent-id/agent-owners-sponsors-managers)) That is directionally right.
+
+An autonomous agent should have an identifiable credential. It should report to a human sponsor. It should have its own permission boundary. It should show up in audit. It should be possible to disable it, rotate its credentials, review its access and understand what it has done.
+
+But this is still very new and unfinished.
+
+It is also still very Microsoft-shaped. That is not a criticism exactly. Microsoft is solving the problem where it has the most control: inside Entra, Microsoft 365, Copilot Studio and its own enterprise stack. But Gen 5 will not live inside one vendor boundary.
+
+The wider identity market is moving too, but it has not landed in a clean and settled place yet. Google Cloud now talks about Agent Identity as a first-class principal type distinct from human identities or generic service accounts, and its Gemini Enterprise Agent Platform docs describe agent identity as a cryptographic identity based on SPIFFE. ([Google Cloud](https://cloud.google.com/blog/products/identity-security/whats-new-in-iam-security-governance-and-runtime-defense)) Okta is also treating AI agents as first-class identities in Universal Directory, with discovery, onboarding, human ownership and least-privilege access. ([Okta](https://www.okta.com/products/govern-ai-agent-identity/)) Auth0 is moving in the same direction with “Agent as Principal”, where agents can have unique identities distinct from the users they serve, so actions can be independently permissioned and audited. ([Okta/Auth0](https://www.okta.com/en-in/newsroom/articles/auth0-may-2026-product-innovations/))
+
+So the identity industry has noticed the problem. That is good.
+
+But it still feels fragmented.
+
+We have delegated user tokens. We have service accounts. We have app registrations. We have workload identity. We have non-human identity governance. Now we have early agent identity products from Microsoft, Google, Okta, Auth0 and others. But autonomous AI agents are not quite the same as any of the older patterns, and the cross-enterprise model is not yet obvious.
+
+That is a big nut to crack.
+
+Without it, Gen 5 becomes hard to govern. With it, agents become much easier to trust.
+
+## So what does this mean?
+
+My take is that the front line has moved.
+
+The model race still matters, but it is no longer the whole war. The models are incredibly good now. You can tell because we are being treated to the usual theatre of “our tool is so powerful we can barely let you use it”. Anthropic is playing that game at the moment. OpenAI played its version of it before.
+
+That theatre is annoying, but it tells you something useful.
+
+Capability is no longer theoretical. The models are good enough that the fight has moved up the stack.
+
+For a lot of enterprise work, the models are also becoming more interchangeable. Not identical. Not for every task. But close enough that a cheaper model, a nearly as capable model, or even a self-hosted model in some cases, can do the job if the surrounding system is strong.
+
+That is the tell.
+
+This is all about the harness now.
+
+Who can produce the best interface, control plane and runtime for Gen 5 AI? Who can make the agent feel useful all day? Who can connect the right tools, manage memory, handle permissions, support approvals, package plugins and skills, trigger background work, keep audit logs and give admins enough control without making the whole thing horrible to use?
+
+And once they have done that, how do they lock users in?
+
+That is the enterprise harness war.
+
+## Anthropic is winning the early enterprise harness fight
+
+Right now, it feels like Anthropic is wiping the floor with everyone else from a capability perspective.
+
+Not because Claude is the only good model. The model is good, but that is not the main reason.
+
+The reason is Cowork.
+
+I see this in the real world. I get what feels like a business-case-a-day for why some team should get more Claude tokens, or any Claude tokens at all. The demand is not coming from people doing careful model comparisons in a spreadsheet. It is coming from people seeing the Cowork harness and wanting that pattern for their own work.
+
+That matters.
+
+Claude Cowork gives people a surface for delegation. Anthropic then adds plugins, skills, connectors and marketplaces around that surface. The result is much closer to the shape enterprises actually want: a central marketplace, admin control, reusable capability, portable skills and a way to turn team knowledge into something the agent can actually use.
+
+Anthropic says admins can create private plugin marketplaces, with better control over plugins, connectors and skills. ([Claude](https://claude.com/blog/cowork-plugins-across-enterprise)) Its plugin documentation says plugins bundle skills, connectors and sub-agents into a single package, and its open-source knowledge-work plugins are explicitly built for Claude Cowork and compatible with Claude Code. ([Anthropic support](https://support.claude.com/en/articles/13837440-use-plugins-in-claude))
+
+That is exactly the kind of enterprise shape people want.
+
+Anthropic is not perfect. There is UX tuning to do in the desktop app. Chat versus Cowork is still a little confusing. Connectors, skills and plugins do not always feel shared equally across every surface.
+
+But they are closest to the right shape.
+
+They understand that the model needs a harness.
+
+## OpenAI is good, but the format feels weaker
+
+ChatGPT Enterprise is good.
+
+OpenAI is clearly moving in the right direction with workspace agents. These are shared agents for teams, built for complex tasks and long-running workflows, operating inside the permissions and controls set by the organisation. ([OpenAI](https://openai.com/index/introducing-workspace-agents-in-chatgpt/)) OpenAI’s own release notes say workspace agents are generally available in ChatGPT Business, Enterprise and Edu, with agents able to own workflows, follow team processes and be shared across teams. ([OpenAI Help](https://help.openai.com/en/articles/10128477-chatgpt-enterprise-edu-release-notes))
+
+So this is not a case of OpenAI having no enterprise story.
+
+They do.
+
+But the shape still feels less clean.
+
+My read is that GPTs and Apps lost the early format war to Anthropic’s plugins and Agent Skills. OpenAI has Apps, GPTs, workspace agents, app directories and SDKs. Some of it is powerful. Some of it is improving fast. But it still feels like a collection of surfaces trying to become a platform.
+
+Anthropic’s plugin and skill model feels more like the thing enterprises can standardise around. It is easier to explain, easier to imagine governing and easier to imagine as a central internal marketplace where teams publish approved capabilities and users pick them up without needing to understand the plumbing.
+
+OpenAI may catch up quickly. They often do.
+
+But in early 2026, they lost the first enterprise harness round to Claude Cowork. That is not about the model. That is about the product shape.
+
+## Microsoft should be winning this, which makes it worse
+
+The most frustrating case is Microsoft.
+
+They should be dominating this. They have the OS, identity, Office, Outlook, Teams, SharePoint, OneDrive, Word, Excel, PowerPoint, Dynamics, Fabric, Purview, Entra, Intune and the enterprise admin relationship.
+
+Everything was stacked in their favour.
+
+And yet the product strategy feels all over the place.
+
+Microsoft made early choices around Teams, Power Platform and the Microsoft 365 Copilot infrastructure that now look expensive. They built around their own ecosystem, which made sense when the goal was “bring AI into Microsoft 365”. But Gen 5 is broader than Microsoft 365. It is cross-channel, cross-app, local, event-driven and increasingly agent-first.
+
+Microsoft keeps dragging everything back into Microsoft-shaped plumbing.
+
+Copilot Cowork is a good example. Microsoft says Copilot Cowork turns intent into action across Microsoft 365. That should be a huge advantage. ([Microsoft](https://www.microsoft.com/en-us/microsoft-365/blog/2026/03/09/copilot-cowork-a-new-way-of-getting-work-done/)) But then you look at the extensibility model and the whole thing gets pulled back through Microsoft 365 app packages, which Microsoft says are the same distribution mechanism used by Teams apps, Copilot agents and Office add-ins. ([Microsoft Learn](https://learn.microsoft.com/en-us/microsoft-365/copilot/cowork/cowork-plugin-development))
+
+That is exactly the sort of thing that makes sense to Microsoft and almost nobody else.
+
+Scout is another tell.
+
+Microsoft announced Scout as an always-on personal agent operating across cloud, desktop and web, grounded in Microsoft 365 and powered by OpenClaw open-source technology. ([Microsoft](https://www.microsoft.com/en-us/microsoft-365/blog/2026/06/02/introducing-microsoft-scout-your-always-on-personal-agent/)) That sounds very Gen 5. Then you look at the setup path and see the licensing shape. Microsoft says Scout access requires Frontier enrolment, Intune policy configuration, opt-in attestation and a GitHub Copilot licence. ([Microsoft](https://www.microsoft.com/en-us/microsoft-365/blog/2026/06/02/introducing-microsoft-scout-your-always-on-personal-agent/))
+
+For a tool aimed at enterprise knowledge workers, that is mad.
+
+A knowledge-worker agent that needs a GitHub Copilot licence is not a clean product path. It is internal plumbing showing through the walls.
+
+The docs also say Microsoft Scout uses the GitHub Copilot SDK. ([Microsoft Learn](https://learn.microsoft.com/en-us/microsoft-scout/faq)) From the outside, that makes the whole thing feel less like a clean Microsoft 365 knowledge-worker product and more like GitHub Copilot infrastructure being pushed into service because it is the only place in the family with a working model-access and subscription path.
+
+That is my read, not a confirmed internal fact.
+
+But it fits the pattern.
+
+None of the normal Microsoft 365 Copilot SKUs seem to give a user a simple, direct “here is your agent runtime and model access” path. GitHub Copilot is the part of Microsoft’s AI estate where this is already closer to normal. So Scout ends up needing GitHub Copilot.
+
+For developers, fine.
+
+For enterprise knowledge workers, huge blunder.
+
+And then there is the branding mess. At the time of writing, Tey Bannerman had mapped 80 separately marketed Microsoft products and tools named Copilot, after starting from the observation that the name had come to refer to at least 75 different things. ([Tey Bannerman](https://teybannerman.github.io/strategy/2026/03/31/how-many-microsoft-copilot-are-there.html))
+
+That looks less like product strategy and more like a naming fire.
+
+I really do want Microsoft to do better here.
+
+They have all the cards. They also have some of the right technical pieces. Agent 365 and Entra Agent ID are directionally important. Scout is pointed at the right desire. Copilot Cowork is clearly an attempt to respond to the new shape of work.
+
+But their persistent need to pretend the only ecosystem that exists is Microsoft keeps dragging them down.
+
+## The lock-in moves to the harness
+
+This is why the harness matters so much.
+
+In Gen 5, switching model providers may not be the hardest part. For a lot of enterprise work, the model becomes one input into a larger system. You can swap models, route tasks to cheaper ones, use a stronger one for harder jobs, or run something self-hosted where the risk profile demands it.
+
+The harder thing to move is the working environment around the model.
+
+That means the interface people use every day, the approved plugin marketplace, the internal skills teams have built, the memory layer, the permission model, the audit trail, the approval flows, the connectors, the background jobs and the habits people have formed around asking the agent to do things instead of opening ten different apps.
+
+That is where the lock-in starts to live.
+
+This is why the current enterprise fight feels so important. The winner is not simply whoever has the best model in a benchmark on a given Tuesday. The winner is whoever creates the most useful, trusted and governable place for AI work to happen.
+
+Anthropic looks closest to that right now. Not perfect, but closest. Claude Cowork, plugins, skills and the marketplace story all point in the right direction. It gives enterprises a way to imagine how this scales beyond a clever assistant into something closer to shared organisational capability.
+
+OpenAI is still very strong, but the enterprise shape feels less settled. ChatGPT Enterprise is good, and workspace agents are clearly pointed at the right problem. But GPTs, Apps, agents and the broader platform story still feel like pieces that have not fully snapped together for enterprise buyers.
+
+Microsoft is the most frustrating one. They should be winning. They have the operating system, identity, Office, Teams, SharePoint, Outlook, Purview, Intune, Entra and the enterprise relationship. But they keep pulling the future back through old Microsoft plumbing. Copilot Cowork running through Teams-style app infrastructure is a perfect example. Scout needing GitHub Copilot licensing for a knowledge-worker agent is another.
+
+It feels like the right ideas are there, but the packaging and product strategy keep getting in the way.
+
+The SaaS companies should be paying close attention too. If the agent becomes the place people start their work, then every product needs to become agent-friendly. Not just API-friendly. Not just “we have an AI feature”. Properly usable by agents, with clear actions, clear permissions, useful events and sensible ways to approve or reverse work.
+
+That is the bit I think matters most.
+
+Gen 5 is not just about better models. The models are already very good, and more of them are becoming good enough. The real battle is now around the harness: the interface, the runtime, the connectors, the skills, the governance, the marketplace, the trust layer and the identity model underneath it.
+
+Assistive agents need clean ways to act on behalf of users.
+
+Autonomous agents need their own identities.
+
+Enterprise software needs to become genuinely agent-ready, not just wrapped in a thin MCP layer and called done.
+
+Browser control will keep things moving in the meantime. It lets AI labs route around bad software connectivity and prove the user experience before the ecosystem is ready. But it is not the destination. It is too fragile, too expensive and too dependent on interfaces that were designed for humans, not agents.
+
+That is the state of enterprise AI right now.
+
+Gen 5 is starting to arrive, but the enterprise stack is not ready for it yet. The models are ahead of the harness. The harness is ahead of identity. Identity is ahead of many SaaS vendors. And user expectation is ahead of nearly everyone.
+
+That tension is where the next few years of product strategy will happen.
+
+The fight is not just who has the smartest model.
+
+It is who gives the model the best place to work, who makes it safe enough for enterprises to trust, and who makes enough software agent-ready that the experience stops being patchy.
+
+That is the enterprise harness war.
