@@ -49,6 +49,6 @@
     "typescript-eslint": "^8.62.1",
     "unist-util-visit": "^5.1.0",
     "unist-util-visit-parents": "^6.0.2",
-    "zod": "^4.3.6"
+    "zod": "^4.4.3"
   }
 }
