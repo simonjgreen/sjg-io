@@ -33,7 +33,12 @@ const items = headings.filter(
                 <a
                   href={`#${heading.slug}`}
                   data-toc-link={heading.slug}
-                  class="-ml-px block border-l border-transparent py-1 pl-4 text-sm leading-snug text-gray-500 transition-colors hover:border-gray-400 hover:text-gray-900 dark:text-gray-400 dark:hover:border-gray-500 dark:hover:text-white"
+                  class:list={[
+                    '-ml-px block border-l border-transparent py-1 text-sm leading-snug transition-colors hover:border-gray-400 dark:hover:border-gray-500',
+                    heading.depth === 2
+                      ? 'pl-4 font-medium text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white'
+                      : 'pl-7 text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white'
+                  ]}
                 >
                   {heading.text}
                 </a>
@@ -57,7 +62,12 @@ const items = headings.filter(
                 <a
                   href={`#${heading.slug}`}
                   data-toc-link={heading.slug}
-                  class="block py-1 text-sm leading-snug text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+                  class:list={[
+                    'block py-1 text-sm leading-snug hover:text-gray-900 dark:hover:text-white',
+                    heading.depth === 2
+                      ? 'font-medium text-gray-800 dark:text-gray-200'
+                      : 'pl-4 text-gray-600 dark:text-gray-400'
+                  ]}
                 >
                   {heading.text}
                 </a>

@@ -154,7 +154,7 @@ const blogPostingJsonLd = {
         </div>
       </header>
       
-      {showToc && <TableOfContents headings={headings} variant="inline" />}
+      {showToc && <TableOfContents headings={headings} variant="inline" maxDepth={3} />}
 
       <div class="prose prose-lg max-w-none">
         <slot />
@@ -162,7 +162,7 @@ const blogPostingJsonLd = {
     </div>
       {showToc && (
         <aside class="hidden lg:sticky lg:top-8 lg:block lg:max-h-[calc(100vh-4rem)] lg:overflow-y-auto">
-          <TableOfContents headings={headings} variant="sidebar" />
+          <TableOfContents headings={headings} variant="sidebar" maxDepth={3} />
         </aside>
       )}
     </div>
