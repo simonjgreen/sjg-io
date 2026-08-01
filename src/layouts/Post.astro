@@ -1,7 +1,8 @@
 ---
 import Base from './Base.astro';
 import { Image } from 'astro:assets';
-import type { ImageMetadata } from 'astro';
+import type { ImageMetadata, MarkdownHeading } from 'astro';
+import TableOfContents from '../components/TableOfContents.astro';
 
 export interface Props {
   title: string;
@@ -15,6 +16,8 @@ export interface Props {
   readingTime?: number;
   image?: ImageMetadata;
   markdownPath?: string;
+  headings?: MarkdownHeading[];
+  toc?: boolean;
 }
 
 const {
@@ -28,8 +31,13 @@ const {
   canonical,
   readingTime,
   image,
-  markdownPath
+  markdownPath,
+  headings = [],
+  toc = false
 } = Astro.props;
+
+// The contents column only earns its space on posts with several sections.
+const showToc = toc && headings.filter((heading) => heading.depth === 2).length > 1;
 
 
 const formatDate = (date: Date) => {
@@ -82,7 +90,17 @@ const blogPostingJsonLd = {
   articleModifiedTime={(updated ?? date).toISOString()}
   jsonLd={blogPostingJsonLd}
 >
-  <article class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-12">
+  <article
+    class:list={[
+      'mx-auto px-4 sm:px-6 lg:px-8 py-12',
+      showToc ? 'max-w-6xl' : 'max-w-4xl'
+    ]}
+  >
+    <div
+      class:list={[
+        showToc && 'lg:grid lg:grid-cols-[minmax(0,1fr)_15rem] lg:items-start lg:gap-x-12'
+      ]}
+    >
     <div class="max-w-3xl">
       <header class="mb-8">
         {image && (
@@ -136,9 +154,17 @@ const blogPostingJsonLd = {
         </div>
       </header>
       
+      {showToc && <TableOfContents headings={headings} variant="inline" />}
+
       <div class="prose prose-lg max-w-none">
         <slot />
       </div>
+    </div>
+      {showToc && (
+        <aside class="hidden lg:sticky lg:top-8 lg:block lg:max-h-[calc(100vh-4rem)] lg:overflow-y-auto">
+          <TableOfContents headings={headings} variant="sidebar" />
+        </aside>
+      )}
     </div>
   </article>
 </Base>
