@@ -1,0 +1,178 @@
+---
+import type { MarkdownHeading } from 'astro';
+
+export interface Props {
+  headings: MarkdownHeading[];
+  /** 'sidebar' floats beside the article on large screens; 'inline' collapses above it on small ones. */
+  variant?: 'sidebar' | 'inline';
+  /** Deepest heading level to list. The layout owns the h1, so depth 2 is the top level here. */
+  maxDepth?: number;
+}
+
+const { headings, variant = 'sidebar', maxDepth = 2 } = Astro.props;
+
+const items = headings.filter(
+  (heading) => heading.depth >= 2 && heading.depth <= maxDepth && heading.slug
+);
+---
+
+{
+  items.length > 1 && (
+    <>
+      {variant === 'sidebar' ? (
+        <nav class="toc hidden lg:block" aria-labelledby="toc-heading">
+          <h2
+            id="toc-heading"
+            class="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400"
+          >
+            On this page
+          </h2>
+          <ul class="mt-4 space-y-1 border-l border-gray-200 dark:border-gray-700">
+            {items.map((heading) => (
+              <li>
+                <a
+                  href={`#${heading.slug}`}
+                  data-toc-link={heading.slug}
+                  class:list={[
+                    '-ml-px block border-l border-transparent py-1 text-sm leading-snug transition-colors hover:border-gray-400 dark:hover:border-gray-500',
+                    heading.depth === 2
+                      ? 'pl-4 font-medium text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white'
+                      : 'pl-7 text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white'
+                  ]}
+                >
+                  {heading.text}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      ) : (
+        <details class="toc mb-10 rounded-lg border border-gray-200 bg-white/50 dark:border-gray-700 dark:bg-gray-800/50 lg:hidden">
+          <summary class="cursor-pointer list-none px-4 py-3 text-sm font-semibold text-gray-900 dark:text-white [&::-webkit-details-marker]:hidden">
+            <span class="inline-flex w-full items-center justify-between gap-2">
+              <span>On this page</span>
+              <span class="text-xs font-normal text-gray-500 dark:text-gray-400">
+                {items.length} sections
+              </span>
+            </span>
+          </summary>
+          <ul class="space-y-1 border-t border-gray-200 px-4 py-3 dark:border-gray-700">
+            {items.map((heading) => (
+              <li>
+                <a
+                  href={`#${heading.slug}`}
+                  data-toc-link={heading.slug}
+                  class:list={[
+                    'block py-1 text-sm leading-snug hover:text-gray-900 dark:hover:text-white',
+                    heading.depth === 2
+                      ? 'font-medium text-gray-800 dark:text-gray-200'
+                      : 'pl-4 text-gray-600 dark:text-gray-400'
+                  ]}
+                >
+                  {heading.text}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </details>
+      )}
+    </>
+  )
+}
+
+<style>
+  /*
+   * Active section, set by the scroll-spy below. Scoped to the sidebar so the
+   * collapsed mobile list stays a plain set of links.
+   */
+  nav.toc a[aria-current='true'] {
+    border-color: var(--color-neon-blue);
+    color: var(--color-gray-900);
+    font-weight: 500;
+  }
+
+  :global(html.dark) nav.toc a[aria-current='true'] {
+    color: #fff;
+  }
+</style>
+
+<script>
+  /*
+   * Scroll-spy: marks the section currently under the top of the viewport.
+   * Runs once per page even when the component is rendered twice (sidebar +
+   * inline), since Astro hoists and dedupes this module.
+   */
+  function initTableOfContents() {
+    const links = Array.from(
+      document.querySelectorAll<HTMLAnchorElement>('a[data-toc-link]')
+    );
+    if (links.length === 0) return;
+
+    // A slug can appear twice (sidebar and inline lists), so group by target.
+    const linksBySlug = new Map<string, HTMLAnchorElement[]>();
+    for (const link of links) {
+      const slug = link.dataset.tocLink;
+      if (!slug) continue;
+      linksBySlug.set(slug, [...(linksBySlug.get(slug) ?? []), link]);
+    }
+
+    const targets = Array.from(linksBySlug.keys())
+      .map((slug) => document.getElementById(slug))
+      .filter((el): el is HTMLElement => el !== null);
+    if (targets.length === 0) return;
+
+    let current: string | null = null;
+
+    const setActive = (slug: string | null) => {
+      if (slug === current) return;
+      if (current) {
+        for (const link of linksBySlug.get(current) ?? []) {
+          link.removeAttribute('aria-current');
+        }
+      }
+      if (slug) {
+        for (const link of linksBySlug.get(slug) ?? []) {
+          link.setAttribute('aria-current', 'true');
+        }
+      }
+      current = slug;
+    };
+
+    const update = () => {
+      // The last heading that has passed the reading line is the active one.
+      const readingLine = 96;
+      let active: HTMLElement | null = null;
+      for (const target of targets) {
+        if (target.getBoundingClientRect().top <= readingLine) {
+          active = target;
+        } else {
+          break;
+        }
+      }
+
+      // Past the end of the document, keep the final section lit rather than
+      // letting a short last section never activate.
+      const atBottom =
+        window.innerHeight + window.scrollY >= document.body.scrollHeight - 2;
+      if (atBottom) active = targets[targets.length - 1];
+
+      setActive(active?.id ?? null);
+    };
+
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        update();
+        ticking = false;
+      });
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    update();
+  }
+
+  initTableOfContents();
+</script>

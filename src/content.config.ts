@@ -14,6 +14,8 @@ const posts = defineCollection({
       updated: z.date().optional(),
       tags: z.array(z.string()).default([]),
       draft: z.boolean().default(false),
+      // Opt in to the sidebar table of contents, generated from the post's headings.
+      toc: z.boolean().default(false),
       hero: z.string().optional(),
       image: image().optional(),
       canonical: z.string().optional(),
