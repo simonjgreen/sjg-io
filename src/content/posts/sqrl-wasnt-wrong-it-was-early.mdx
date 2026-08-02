@@ -1,0 +1,51 @@
+---
+title: "SQRL Wasn't Wrong. It Was Early"
+description: "How Steve Gibson's SQRL anticipated passkeys, and why timing and coordination mattered more than the cryptography."
+date: 2026-08-02
+tags: ["security", "technology", "infrastructure"]
+draft: false
+---
+
+Every so often I come across a piece of technology that reminds me just how much timing matters. Passkeys are one of those. Whenever Apple, Google, Microsoft or a password manager vendor announces something new, my mind goes back to a drive to work somewhere around 2013 or 2014.
+
+Like many of my commutes back then, I had *Security Now!* playing. Steve Gibson was introducing something he'd been working on called [SQRL](https://www.grc.com/sqrl/sqrl.htm), short for Secure Quick Reliable Login. I can still remember arriving at the office that morning and talking about it for most of the day.
+
+The timing couldn't have been better for me. At Wirehive we'd been moving from SSH keys to SSH certificates, so authentication and identity came up almost daily. We were already thinking about how asymmetric cryptography could replace shared secrets in one part of the stack, and then Steve described how the same idea might work for logging into websites.
+
+It clicked immediately. I remember thinking that this was far more interesting than another password manager or another attempt to make passwords slightly less terrible. SQRL asked a bigger question: "What if we just stopped using passwords altogether?"
+
+You would present a different cryptographic identity to every website. There would be no password to remember or reuse, and no shared secret sitting in a database waiting to be stolen. A phishing site would have very little of value to capture. Public key cryptography did the work while the authentication itself almost disappeared from view.
+
+I loved it.
+
+I am fairly sure I convinced Robin to add SQRL support to the Wirehive portal not long afterwards. That was how we operated back then. If we found something interesting, we'd build it. There wasn't a committee, a steering group or a six-month discovery exercise. Someone would disappear for a couple of days and then casually mention they'd added support for it.
+
+Looking back, I miss that.
+
+For a while I followed SQRL closely and expected this to be where authentication was heading.
+
+Then not much happened.
+
+There were implementations and a committed community, but SQRL never escaped far beyond that community. Over time I stopped hearing much about it.
+
+A decade later, passkeys are built into operating systems, browsers and password managers. Banks and enterprise identity providers are adopting them. Passwordless authentication has moved from security podcasts into products that ordinary people use without needing to understand the cryptography underneath.
+
+Whenever I see that progress, I think of SQRL all grown up.
+
+The architectures are different. Modern passkeys create separate credentials for each service and can synchronise them between devices. SQRL derived each website identity deterministically from a master identity. They made different engineering choices, but started from a familiar premise: people should not have to remember a shared secret for every service they use.
+
+I have never seen evidence that the FIDO Alliance built on Steve Gibson's work, and I am not claiming a direct line from SQRL to WebAuthn or passkeys. Public key authentication predates SQRL, and plenty of clever people were working on passwordless authentication at the time.
+
+Steve still deserves credit for showing, in concrete technical detail, how passwordless web authentication could work years before the industry was ready to deploy it widely.
+
+SQRL's difficult problem was coordination. However elegant the protocol, browsers, operating systems, websites and users all needed to move together before it could become a normal way to log in. That never happened.
+
+Passkeys reached the same territory by a different route. Apple, Google and Microsoft backed common standards and integrated them into their platforms. Browsers gained support, password managers followed, and websites could adopt passkeys without first persuading users to seek out an unfamiliar authentication system.
+
+That support is what SQRL lacked. Public key login became practical because the software people already used began supporting it at roughly the same time.
+
+We tend to remember the technology that became standard and forget the people who demonstrated the idea earlier. SQRL did not become the authentication standard for the web, but it showed what passwordless authentication could look like long before the largest platform vendors were ready to deliver it.
+
+Every time I unlock something with a passkey, I still think back to that drive to work and walking into the Wirehive office, trying to explain to anyone who would listen why this strange thing called SQRL might just be the future.
+
+As it turns out, I don't think I was wrong. I just heard about it ten years before everyone else did.
