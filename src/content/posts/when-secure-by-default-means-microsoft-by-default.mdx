@@ -1,0 +1,169 @@
+---
+title: "When \"Secure by Default\" Means \"Microsoft by Default\""
+description: "Microsoft has switched off Graph access to Teams meeting transcripts by default, breaking already-consented third-party integrations while its own Copilot defaults stay on."
+date: 2026-08-03
+tags: ["security", "platforms", "ai", "enterprise", "technology"]
+draft: false
+---
+
+Call me cynical, but this feels an awful lot like an anti-competitive default masquerading as a security control.
+
+Anybody deploying ChatGPT or Claude (or other!) against a Microsoft environment will now by default have a markedly worse experience out of the box than they did last week, with higher friction to getting it good.
+
+Microsoft has introduced a new tenant-level setting controlling whether applications and agents can access Teams meeting transcripts through Microsoft Graph.
+
+On the face of it, that sounds entirely reasonable.
+
+Meeting transcripts are sensitive. They may contain commercially confidential discussions, personal information, customer details, financial decisions, and all sorts of things that organisations quite rightly need to govern carefully. Giving administrators another control over that data is not, in itself, a bad thing.
+
+In fact, I generally want more controls, not fewer.
+
+The problem is not that the control exists.
+
+The problem is that Microsoft has implemented it globally, retrospectively, and switched it off by default.
+
+That changes the nature of the thing completely.
+
+## Permission is no longer permission
+
+Until now, an application wanting to retrieve Teams transcripts through Microsoft Graph needed the relevant Microsoft Graph permissions. Those permissions were already well gated and required admin approval to get. A regular user can't just grant an app reg. in Entra.
+
+For organisation-wide access, an administrator PIM'd up with the right role has to grant consent through Microsoft Entra. For application access to online meetings, Microsoft also documents the use of application access policies that authorise a particular application to access meeting artefacts on behalf of particular users. There is also a resource-specific consent permission that can limit an application to meetings where it has specifically been installed.
+
+So to summarise the state before yesterday: an administrator has to register or approve the application, review the permissions being requested, grant consent and, depending on the access model, configure an additional policy describing whose meetings it may access.
+
+It's not like the door was hanging open...
+
+Microsoft has now added another lock on another door.
+
+The new Teams setting overrides all of that you did before. Microsoft's own documentation is unambiguous about it: Graph access is off by default, and applications and agents cannot access transcripts regardless of their app-level permissions.
+
+So an administrator can explicitly approve an application, explicitly consent to its transcript permissions, and explicitly scope its access, but the application will still receive a 403 error unless somebody separately discovers and enables a tenant-wide Teams setting.
+
+At that point I think it is reasonable to ask what, exactly, the consent was consenting to.
+
+## Existing applications are being broken deliberately
+
+This is not only a new safeguard applied to future app registrations.
+
+The Message Center notification says that, once enforcement begins, applications that previously had access through Microsoft Entra permissions will receive access errors unless administrators explicitly enable transcript access. Microsoft gave administrators a 30-day configuration window and set 29 July 2026 as the action date.
+
+That means Microsoft knew this would break existing integrations.
+
+It knew administrators had already granted those integrations access.
+
+It knew those applications might be embedded in operational workflows.
+
+It knew that many tenants would not find and change the new setting in time.
+
+It chose default off anyway.
+
+This is the bit I struggle to accept as merely cautious security engineering.
+
+Security changes normally try to preserve the customer's explicitly stated intent unless there is evidence that the previous state was actively unsafe. If an administrator has already granted an application transcript permissions, that is a fairly strong indication of intent.
+
+Microsoft could have enabled the new control automatically for tenants where transcript permissions were already in active use.
+
+It could have preserved existing applications while applying the new default to future ones.
+
+It could have created a per-application control rather than placing one global switch above the controls already available in Entra.
+
+It did none of those things.
+
+Instead, Microsoft has introduced a tenant-wide kill switch, set it to deny, and placed the burden on every customer and every third-party software provider to discover what changed.
+
+That is not simply secure by default, that is disruption by default.
+
+## Speaker attribution is a different question
+
+There are actually two controls here, and I think separating them is quite good. So, in fairness and credit where it's due...
+
+The first controls whether Graph applications can access transcripts at all, the one I mentioned above.
+
+The second controls whether those transcripts include speaker attribution.
+
+I can see a much stronger case for switching speaker attribution off by default.
+
+There is a meaningful difference between receiving a record of what was discussed and receiving a record explicitly mapping every statement to a named individual. Removing speaker attribution is a good exercise in data minimisation. It reduces the sensitivity of the information while still allowing useful things to be done with it. Especially relevant for multi-party external calls.
+
+Microsoft's Graph API even supports a transcript format without speaker information, which is great for systemic ingestion in e.g. customer satisfaction tooling or similar.
+
+Combining the two ideas under the banner of transcript security makes the broader restriction appear more obviously necessary than it really is.
+
+It is a familiar trick in the enterprise tech space: start with an unquestionably sensitive capability, wrap a much wider restriction around it, then present the whole package as prudent governance.
+
+Nobody wants to be the person arguing against security.
+
+That does not mean every control presented as security is well designed.
+
+## Now look at the defaults on Microsoft's side
+
+This would bother me less if Microsoft applied the same philosophy consistently to its own services.
+
+The new setting controls applications and agents accessing transcripts through Microsoft Graph. It does not turn off transcription in Teams, remove transcripts from the Teams client, or prevent Microsoft's own meeting experiences from using them.
+
+Microsoft 365 Copilot in Teams is governed through a different policy path altogether.
+
+Microsoft documents the default Copilot meeting policy as "On with saved transcript required". In that configuration, meetings are created with Copilot available during and after the meeting, supported by the saved transcript.
+
+Put those two defaults beside one another.
+
+Microsoft's own AI meeting product is on with a saved transcript by default.
+
+Access for competing applications and agents through Microsoft Graph is off by default, even after an administrator has approved their permissions.
+
+Perhaps there is a perfectly innocent architectural explanation for why these controls live in different places.
+
+Architectural explanations do not remove competitive effects.
+
+The practical result is that Microsoft's product works and the third-party product breaks. To be crystal clear: anybody who was using ChatGPT or Claude with Microsoft as their productivity suite last week has reduced functionality this week unless they spotted and changed a setting MS side. And I'm pretty sure the third party AI providers won't have updated documentation either...
+
+The Microsoft product appears native and effortless.
+
+The competitor requires a Teams administrator to find an obscure additional control, understand why an already consented application is suddenly receiving 403 errors, assess the security implications again, and then switch the whole tenant setting on.
+
+Defaults matter enormously.
+
+Most organisations do not continually re-evaluate every setting in Microsoft 365. They inherit thousands of defaults, change the ones that become painful, and leave the rest alone. A setting that is off until somebody understands why it needs to be on is likely to remain off in a very large number of tenants.
+
+Microsoft knows this better than almost anyone. Their entire position has been built, at least in part, on the compounding power of defaults, bundling, and familiar administrative paths.
+
+## The transcript is becoming part of the enterprise data layer
+
+This matters beyond meeting note-taking applications. A meeting transcript is rapidly becoming one of the most valuable sources of enterprise data.
+
+It contains decisions, commitments, risks, objections, customer sentiment, requirements, and context that historically disappeared as soon as the meeting ended.
+
+Used responsibly, transcript access can automate CRM updates, create project actions, improve service management records, support compliance workflows, identify decisions, enrich organisational memory, and give assistive AI systems useful context about what is actually happening inside a company.
+
+That makes access to transcripts strategically important.
+
+The organisations building the next generation of enterprise assistants need access to the same underlying work context as Microsoft's assistants. They do not necessarily need unlimited access. They do not need ungoverned access. They certainly do not need access without customer consent.
+
+They do need a fair route to access data that belongs to the customer.
+
+Are Microsoft 365, Teams, Outlook, and SharePoint customer-owned systems of record that customers can connect to the tools they choose? Or are they becoming privileged context stores where Microsoft's own AI gets the good entrance and everyone else is sent around the back?
+
+Microsoft will naturally argue that WorkIQ is the supported, highest quality entrance to that data. But let's not forget that WorkIQ became chargeable last month. Microsoft now charge you to access your data in an agentically optimised way from non-Microsoft tools.
+
+If these things aren't related, I'd be stunned...
+
+## This is exactly what regulators are looking at
+
+The timing is particularly remarkable.
+
+The UK Competition and Markets Authority opened an investigation into Microsoft's business software ecosystem in May 2026. It explicitly said it was examining bundling, interoperability, and default settings, including whether businesses can combine Microsoft products with competing software and AI services.
+
+The CMA's framing is almost a direct description of the concern here. Customers should be able to mix and match software and AI services. Competing products should be able to integrate effectively with Microsoft's business software.
+
+When you are in such a position of incumbency as Microsoft, defaults should not quietly steer customers towards Microsoft's own products.
+
+This transcript change may have a valid security purpose. I expect Microsoft's security and legal teams could produce a perfectly credible justification for it.
+
+That is not enough for me though. A company with Microsoft's platform position has a greater responsibility than merely being able to explain each restriction individually. It has to consider the cumulative effect of hundreds of small product decisions that make its own services easy and alternatives progressively harder.
+
+That is how platforms become moats.
+
+This may be a security control, but it's also a competitive advantage.
+
+Microsoft does not get to pretend only one of those things is true.
