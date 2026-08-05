@@ -1,0 +1,240 @@
+---
+title: "Your Next \"Access Database Problem\" Is an AI Agent"
+description: "AI has collapsed the cost of building software again, and the debt this time will not be bad code but agents nobody owns, knows about, or can account for."
+date: 2026-08-05
+tags: ["ai", "agents", "citizen-development", "it-transformation", "automation"]
+draft: false
+---
+
+If you have worked in IT for a while, you have probably at some point inherited an Access database, or certainly something that resembles one.
+
+It was built years ago by someone in Finance, HR, or some other operations part of the business. It started as a quick shim to keep track of something the pre-existing systems did not handle well. Then over time it gained some new forms, some reports, a little bit of Visual Basic, and before anybody paid too much attention, it became critical to running the business.
+
+Then the person who made it moved on.
+
+Nobody really understood how it worked. There was not any documentation. It just worked. And this thing persisted through waves of hires and changes in the business, and people just knew how to use it because of institutional knowledge.
+
+It lived on a shared drive somewhere with a filename that resembled `Customer Database FINAL v6.accdb`.
+
+Every few months it corrupted itself, stopped accepting new records, or produced a report that did not quite match Finance. When that happened, somebody from the IT team would be summoned to fix an application they never built, never approved, and until that morning probably did not even know existed.
+
+It is easy to look back and blame Microsoft Access, but I do not think Access itself is the problem.
+
+Access was brilliant. It gave regular folks the ability to solve real business problems they were encountering without having to wait for some IT project to happen six months later. It allowed someone who understood the work, a domain expert in that area, to turn the understanding they held into a useful application for other people to benefit from.
+
+The problem is not that people were building things with Access back then. The problem was that the cost of building that software suddenly fell, which on the surface of it sounds great, but the way organisations govern software stayed exactly the same. These small, business-area-scoped applications fell outside of the governance framework entirely.
+
+Right now, we are doing it again.
+
+Only this time, the things people can create go beyond storing some customer addresses and printing reports. They talk to APIs. They update larger production systems. They potentially communicate with customers, maybe even in real time. They handle approvals. They might move money. They form views on the fly from policy. And they are fundamentally making decisions on behalf of the business.
+
+## We have been through this cycle before
+
+Access was one wave, but it was not the first and it obviously was not the last.
+
+This will be very familiar to anyone who has encountered Excel macros, SharePoint workflows, or low-code platforms such as Power Apps. Each time one of these waves arrived, it compounded the ability of individuals across the business to create more and more complex outcomes with less and less friction.
+
+Each wave lowered the barrier to creating software. Each created enormous value. Each also created a new category of mess for somebody else to clean up later.
+
+So, again, the tools are not the things failing here. They are the enablers. They succeeded so well that organisations could barely keep up with the volume of things being created.
+
+The debt became visible later. A department might save hundreds of hours using a clever spreadsheet, but five years later, when that spreadsheet has become mission-critical and the author has left the company, you have an exposed and crystallised risk.
+
+Building a database in a week instead of waiting a year for a corporate system change is a totally rational decision, and not a problem to criticise.
+
+So it is very easy to describe these things as failures of governance, but I actually think they are failures of scale.
+
+The organisation has a process for governing ten large applications. It does not have a process for governing ten thousand small ones.
+
+## AI changes the economics again
+
+So here we are once again, talking about AI and how it changes the economics.
+
+It is not quite comparable to these prior examples. It is not a low-code platform. What it does do is change the cost of producing software by at least one, possibly more, orders of magnitude.
+
+An individual no longer needs to understand database design, or Excel formulas, or VB scripting, or even the conventions of a low-code workflow in a tool like Power Apps. They can describe what they want in ordinary language and have a working version appear in front of them. They can speak in their own language to their own tame developer, who works without complaint and outputs exactly the product they requested.
+
+It will not always be good. It will not always be safe. It might not be particularly well designed. But it will tick each of those categories just enough to solve the immediate problem in front of them.
+
+It is very plausible when you think about it. You have an individual who notices that someone in their team is copying the same information between three different systems every morning. In the old world, they might raise this as a request with an IT team, or flag it to their manager. Today, they can describe that problem to their AI assistant at the moment they notice it, and maybe fifteen minutes later they have something usable that solves it.
+
+By the end of the week, an entire department is relying on it and has removed that scheduled entry from their calendar that drove the manual workflow.
+
+It never got labelled as a project. It might have come under some larger corporate-branded initiative such as AI transformation, but it would not even make sense to call it a project.
+
+Projects make sense when delivery takes place over weeks to months and costs a material amount upfront. If a new system required a team of engineers, a six-month delivery timeline, and substantial CapEx investment, it makes sense to wrap it in governance. You need requirements, funding, milestones, and a clear decision to begin. You end up with steering committees.
+
+But what happens when the first working version takes fifteen to thirty minutes?
+
+It is not that the need for governance has disappeared. It is that the economics that allowed, and even forced, governance to sit in front of the process have disappeared.
+
+There is no way people would tolerate every AI-generated workflow or app going through an approval cycle. People will simply go around it, and you can totally understand why. It is the classic water-goes-around-the-rock problem.
+
+But you also cannot pretend these things are harmless just because they were quick to build.
+
+An automation that took twenty minutes to create can still delete a customer record. It can still email thousands of people incorrect information. It can still contain business logic that determines whether somebody gets paid their commission that month.
+
+I would actually argue that the effort required to build something has never really been a reliable measure of its importance, and I have [written before](/writing/no-your-agent-skill-is-not-automation/) about how easily a personal productivity win gets mistaken for an operational system. Right now, AI is making that gap simply impossible to ignore.
+
+## Software has become disposable
+
+The other big change here is that software has become a disposable commodity.
+
+It sounds like hyperbole, or LinkedIn clickbait, to put it that way. But I find myself regularly talking right now about being absolutely fine, more okay than I ever have been, with disposable work to patch a short-term problem.
+
+For most of IT history, software was treated like an asset, partly because it was expensive to produce. You maintained it because rebuilding it would be costly. You documented it because a replacement team would need to understand it. You planned upgrades because the application was expected to survive for years.
+
+That assumption simply does not stand true anymore. It began to weaken when the SaaS model appeared on the scene, but it is completely shattered at this point.
+
+There are totally plausible scenarios now where a department might not even consider upgrading their existing internal application. They are just going to ask AI to create a new one. A workflow might exist for three weeks to support a temporary process and then be discarded. Several teams might independently generate slightly different solutions to exactly the same problem, because creating another one is easier than discovering and adapting the first to accommodate them.
+
+So I stand by it. Software is disposable now.
+
+With one hat on, that can feel very liberating. There are thousands of valuable ideas inside businesses today that are not worth turning into traditional software projects, and AI makes them all viable all of a sudden.
+
+But disposable does not mean consequence-free.
+
+A disposable paper cup is simple because nothing else depends on it. Software very quickly becomes connected to people, systems, data, and decisions. It might be easy to create, but the moment someone starts relying on it, it has got weight. It is now structurally load-bearing to the company.
+
+The code might be disposable. The consequences are not.
+
+## The new technical debt is not the code
+
+Everyone tends to harp on about AI-generated software's main risk being poor-quality code.
+
+There is definitely going to be plenty of poor-quality code out there. I have generated a substantial amount of it myself, frankly in the last twenty-four hours, given how accessible these tools are. I am just not convinced it is the biggest problem.
+
+Code can be reviewed and tested. Now it can just be regenerated. If you understand the problem, you ask the AI a more refined question.
+
+The hard questions now are different.
+
+Who owns it?
+
+Who knows it exists?
+
+What identity is it operating as?
+
+What permissions have you given it?
+
+What systems can it access?
+
+What data does it retain?
+
+What model is it using?
+
+What instructions was it given?
+
+What tools and connectors can it call?
+
+What happens when the person who created it leaves?
+
+What else depends on it?
+
+And who would know if it started behaving incorrectly?
+
+This new class of technical debt has nothing to do with code. It is more about AI prompts, agent definitions, tool permissions, workflow connections, embedded policies, and undocumented assumptions. It is the gap between what an AI agent is technically capable of doing and what everyone believes it is supposed to do.
+
+In some cases, the source code may well be the least interesting part of the system. The business logic will be spread across all of these natural-language instructions, examples, knowledge sources, model behaviour, and the permissions granted to a collection of tools.
+
+That is a totally different class of problem to reason about than a badly written Visual Basic macro, and it is why I think [the enterprise AI fight is really about the harness](/writing/gen-5-ai-enterprise-harness-war/) — the connectors, identity model, and governance around the model — rather than the model itself.
+
+## Shadow AI will not look like Shadow IT
+
+In some ways this problem resembles the classic shadow IT problem.
+
+Shadow IT generally appears because a central IT team cannot move quickly enough to respond to demand. People would buy their own SaaS tools, create spreadsheets, and build databases because the official route was too slow, too expensive, or too disconnected from reality.
+
+Shadow AI emerges for a slightly different reason. It is not just that an IT team cannot build things quickly enough. It is that everyone can build things so quickly that nobody can keep count.
+
+If the shadow IT problem was a capacity issue, the shadow AI problem is a visibility issue. If anything, capacity is now almost a non-issue.
+
+I am reasonably confident that my current employer, for example, while it has hundreds of approved applications, already has tens of thousands of small AI-created artefacts operating between the cracks. Some of them are agents, sure, but some are workflows. Some will be scripts that were generated by an AI for a single task. Some will be persistent instructions sitting around as agent skills being shared amongst the sales team. Some are AI snippet outcomes that exist inside larger SaaS products like Salesforce or ServiceNow. Some are going to live on people's laptops. Some of these things will simply be long-lasting chats shared between a group that were never formally named at all.
+
+I am absolutely confident that the industry's current application inventory paradigm is not designed for this world. Neither are our architecture boards, change boards, planning cycles, or steering committees.
+
+They all assume that this work has a beginning. A project formally starts, something is delivered, and the organisation records what now exists as a consequence.
+
+Based on my experience so far, AI-created software often does not even have an obvious beginning. It emerges at some point from the work being done in these new tools, as a consequence.
+
+## Banning it will fail
+
+So, now onto the so what.
+
+You can imagine some people are going to have the reaction of, well, let's just ban it, or restrict creation in some way.
+
+That would be a mistake.
+
+It was a mistake to treat every spreadsheet as a threat. It was a mistake to assume every departmental database should have been replaced by a multimillion-pound enterprise system. It would be a mistake to force every AI-created workflow through the same process as a major company-wide application.
+
+The value in these tools comes from allowing the people closest to a problem to solve the problem.
+
+The answer cannot be to restore scarcity back into the system. The answer has to be governance that works under abundance. We have to move governance away from permission to create, and towards the conditions under which created things can operate.
+
+Just to declare an interest here: this is not a theoretical position for me. [My role at Pax8](/writing/new-role-svp-workflow-engineering-pax8/) exists to operate and govern exactly this kind of citizen development ecosystem, which means providing the tools and guardrails that let people build quickly without the organisation losing track of what now exists.
+
+Everything below is easier to write down than to run.
+
+## Make the easy path the correct path
+
+The thing for me is about making the easy path, the happy path, and the correct path all the same thing.
+
+You want people's path of preference to self-steer down the one you want. There is a UX challenge here, amongst other things, and I do not think we talk about it that way often enough. Governance gets designed as a set of rules to be complied with, when it should be designed as the route of least resistance.
+
+I have written about this before in a completely different context. One of [the rules I try to do business by](/writing/the-rules-i-try-to-do-business-by/#make-it-easy-to-do-business-with-you) is to make it easy to do business with you, and the argument there was that every piece of friction should have to justify its existence. What I said about friction then applies exactly here: people stop asking for help, they work around the official process, they keep their own spreadsheets, or they buy software on a company card.
+
+That is shadow IT described in advance. Shadow AI is the same behaviour with the barrier lowered again.
+
+So if the governed route is slower, uglier, or harder to find than opening a chat window, you have already lost. Not because people are reckless, but because you have made the correct path the expensive one.
+
+In practice, that means the platform has to do the work rather than the person:
+
+- Identity should come for free. If the natural place to build something already knows who you are, nobody has to be persuaded to authenticate properly.
+- Organisational credentials should be the easiest credentials to reach for, so that using a personal account is the awkward option rather than the default one.
+- Permissions should be legible at the point of creation, not buried in an admin console that somebody visits a year later during an audit.
+- Tool calls should be logged by the platform itself, so that observability is not something anyone has to remember to add.
+- Ownership should be captured at the moment of building, while somebody is there to answer the question, rather than reconstructed afterwards from commit history and guesswork.
+- Registration should be a by-product of building, not a separate form that a person has to be chased to complete.
+- Expiry should be the default, so that keeping something alive is the deliberate act rather than the accidental one.
+- Existing solutions should surface at the moment of creation, so that somebody sees the seventeen versions that already exist before they build the eighteenth.
+
+None of that stops anybody building anything. That is the point. People should be able to experiment freely with low-risk data and actions, and the moment something connects to a production system, affects another person, or begins making consequential decisions, stronger controls should appear automatically. It is the same threshold I described in [the shape of agentic work](/writing/the-shape-of-agentic-work/): agents that touch real systems need to be embedded, policy-guided, and observable, not merely clever.
+
+This is less like traditional project governance and more like building roads, signs, and traffic rules. You do not approve every journey before someone gets in a car. You create an environment in which millions of journeys can happen without constant central intervention.
+
+That is the challenge enterprise technology teams now face.
+
+Not how to stop people creating software.
+
+How to make rampant software creation safe enough to become normal.
+
+## The Access database was a warning
+
+I do not think we should remember the Access era as a disaster.
+
+An enormous amount of useful work was done in those databases.
+
+They filled gaps that expensive corporate systems ignored. They allowed people to improve their own work. They proved that software creation did not have to belong exclusively to professional developers.
+
+The mess came because our organisations did not adapt to the abundance Access created. We treated each database as an isolated oddity rather than recognising that the cost of software production had changed.
+
+Then we repeated the same pattern with spreadsheets, SharePoint workflows, and low-code platforms.
+
+AI is the next wave, but it is not just a slightly easier version of what came before.
+
+The scale is different.
+
+The speed is different.
+
+Most importantly, the software can act.
+
+We are entering another Access database era, except this time the databases can read our policies, call our systems, make decisions, and talk to our customers.
+
+The organisations that succeed will not be the ones that prevent this explosion.
+
+They will not even necessarily be the ones that create the most.
+
+They will be the ones that understand a fairly uncomfortable truth early enough:
+
+When software becomes almost free to create, building it is no longer the hard part.
+
+Knowing what exists, what it can do, who is responsible for it, and whether anyone should still trust it becomes the real work.
