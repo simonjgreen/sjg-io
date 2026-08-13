@@ -43,7 +43,7 @@
     "eslint": "^10.8.0",
     "eslint-plugin-astro": "^3.0.1",
     "fast-xml-parser": "^5.10.1",
-    "prettier": "^3.8.4",
+    "prettier": "^3.9.6",
     "prettier-plugin-astro": "^0.14.0",
     "rehype": "^13.0.2",
     "tsx": "^4.22.4",
