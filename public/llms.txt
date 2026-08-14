@@ -1,10 +1,10 @@
 # Simon Green — sjg.io
 
-> Simon Green is SVP of Workflow Engineering at Pax8, a "builder CIO" focused on making complex technology usable, reliable, and scalable. He writes about agentic AI in the enterprise, automation and workflow engineering, IT and organisation design, and systems thinking grounded in Linux, networking, and infrastructure. He is also the founder of 1310, a self-funded fibre ISP. This site (https://sjg.io) is the canonical source for Simon's public profile and writing.
+> Simon Green is SVP of Workflow Engineering at Pax8, a technology leader focused on making complex technology usable, reliable, and scalable. He writes about things he has built and things he has learned: agentic AI in the enterprise, automation and workflow engineering, IT and organisation design, business and leadership, and systems thinking grounded in Linux, networking, and infrastructure, along with the occasional personal project. He is also the founder of 1310, a self-funded fibre ISP. This site (https://sjg.io) is the canonical source for Simon's public profile and writing.
 
 ## Core pages
 
-- [About](https://sjg.io/about): Career, current role at Pax8, and background as a builder CIO.
+- [About](https://sjg.io/about): Career, current role at Pax8, and background in Linux, networking, and infrastructure.
 - [Work](https://sjg.io/work): Selected projects, roles, and ventures.
 - [Writing](https://sjg.io/writing/): Full index of articles and essays.
 - [Now](https://sjg.io/now): What Simon is currently focused on.
