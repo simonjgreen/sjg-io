@@ -11,40 +11,38 @@ const isHomePage = currentPath === '/'
     {
       isHomePage ? (
         <div class="flex w-full items-center justify-center py-6">
-          <div class="sm:hidden">
-            <BurgerMenu>
-              <a
-                href="/about"
-                class="flex min-h-11 items-center rounded-md px-3 text-base font-medium text-gray-700 transition-colors hover:bg-gray-50 hover:text-neon-blue dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-neon-blue"
-              >
-                About
-              </a>
-              <a
-                href="/work"
-                class="flex min-h-11 items-center rounded-md px-3 text-base font-medium text-gray-700 transition-colors hover:bg-gray-50 hover:text-neon-blue dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-neon-blue"
-              >
-                Work
-              </a>
-              <a
-                href="/writing"
-                class="flex min-h-11 items-center rounded-md px-3 text-base font-medium text-gray-700 transition-colors hover:bg-gray-50 hover:text-neon-blue dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-neon-blue"
-              >
-                Writing
-              </a>
-              <a
-                href="/now"
-                class="flex min-h-11 items-center rounded-md px-3 text-base font-medium text-gray-700 transition-colors hover:bg-gray-50 hover:text-neon-blue dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-neon-blue"
-              >
-                Now
-              </a>
-              <a
-                href="/contact"
-                class="flex min-h-11 items-center rounded-md px-3 text-base font-medium text-gray-700 transition-colors hover:bg-gray-50 hover:text-neon-blue dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-neon-blue"
-              >
-                Contact
-              </a>
-              <ThemeToggle slot="theme-toggle" />
-            </BurgerMenu>
+          <div class="flex items-center space-x-2 sm:hidden">
+            <ThemeToggle />
+            <a
+              href="/about"
+              class="text-sm font-medium transition-colors hover:text-neon-blue dark:hover:text-neon-blue text-gray-500 dark:text-gray-400"
+            >
+              About
+            </a>
+            <a
+              href="/work"
+              class="text-sm font-medium transition-colors hover:text-neon-blue dark:hover:text-neon-blue text-gray-500 dark:text-gray-400"
+            >
+              Work
+            </a>
+            <a
+              href="/writing"
+              class="text-sm font-medium transition-colors hover:text-neon-blue dark:hover:text-neon-blue text-gray-500 dark:text-gray-400"
+            >
+              Writing
+            </a>
+            <a
+              href="/now"
+              class="text-sm font-medium transition-colors hover:text-neon-blue dark:hover:text-neon-blue text-gray-500 dark:text-gray-400"
+            >
+              Now
+            </a>
+            <a
+              href="/contact"
+              class="text-sm font-medium transition-colors hover:text-neon-blue dark:hover:text-neon-blue text-gray-500 dark:text-gray-400"
+            >
+              Contact
+            </a>
           </div>
           <div class="hidden sm:flex items-center space-x-8">
             <a
