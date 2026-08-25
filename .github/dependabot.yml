@@ -3,23 +3,21 @@ updates:
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
     cooldown:
-      default-days: 7
+      default-days: 14
     groups:
-      astro:
-        patterns:
-          - "astro"
-          - "@astrojs/*"
-      eslint:
-        patterns:
-          - "eslint*"
-          - "typescript-eslint"
-          - "@eslint/*"
-      tailwind:
-        patterns:
-          - "tailwindcss"
-          - "@tailwindcss/*"
+      # Ships to the built site, so these are reviewed by hand.
+      production:
+        applies-to: version-updates
+        dependency-type: "production"
+        update-types: ["minor", "patch"]
+      # Lint, types and build scripts only, never reaches the output.
+      development:
+        applies-to: version-updates
+        dependency-type: "development"
+        update-types: ["minor", "patch"]
+    # Majors match no group, so they still arrive as individual pull requests.
     ignore:
       # TypeScript 6 blocked until @astrojs/check supports it
       - dependency-name: "typescript"
@@ -28,6 +26,11 @@ updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
     cooldown:
-      default-days: 7
+      default-days: 14
+    groups:
+      actions:
+        applies-to: version-updates
+        patterns: ["*"]
+        update-types: ["minor", "patch"]
