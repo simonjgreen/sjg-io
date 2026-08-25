@@ -26,7 +26,7 @@
     "@tailwindcss/typography": "^0.5.20",
     "@tailwindcss/vite": "^4.3.3",
     "astro": "^7.2.1",
-    "marked": "^18.0.7",
+    "marked": "^18.0.10",
     "reading-time": "^1.5.0",
     "remark-gfm": "^4.0.1",
     "remark-mdx": "^3.1.1",
