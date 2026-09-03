@@ -1,0 +1,174 @@
+---
+title: "AI Is Making Us Build Too Much"
+description: "AI has made code, tests, policy, documentation, and organisational machinery almost free to produce. It has not made any of them free to own."
+date: 2026-09-03
+tags: ["ai", "agents", "systems-thinking", "organisation-design", "leadership", "productivity"]
+image: "../../assets/over-engineered-much.webp"
+draft: false
+---
+
+A few weeks ago I [wrote that AI had collapsed the cost of building software](https://sjg.io/writing/your-next-access-database-problem-is-an-ai-agent/), and that building it was no longer the hard part.
+
+I was thinking mainly about shadow AI, ownership, and visibility. I still stand by all of that, but I think I missed another consequence of the same economic shift.
+
+We are going to over-engineer absolutely everything.
+
+Code. Tests. Documentation. Policy. Governance. Organisation design. The whole lot.
+
+Not because any of those things are bad. Not because the people using AI to create them are incompetent. Each new artefact will usually look sensible, thorough, and defensible on its own.
+
+The problem is what happens when producing another one becomes almost free, while understanding, validating, maintaining, reconciling, and eventually deleting it does not.
+
+## The factory that ate the product
+
+I have been thinking about this since reading Steve Yegge's [*Fences, not Sandboxes*](https://yegge.ai/essays/fences-not-sandboxes/).
+
+Yegge has been using a system he calls Wheelhouse to work on Wyvern, the game he has been building for thirty years. By his account, Wheelhouse has around 50 to 60 agents, including 18 named officer roles, and averages 270 commits a day across product and orchestration work. In less than ten weeks it helped get the game close to relaunch on Android, iOS, and Steam, delivered a new client, and rewrote its production infrastructure.
+
+This is not an AI demo looking for a problem. It is doing real work on a real product.
+
+Wheelhouse has grown to around 600,000 lines of code and tests, mostly Bash. Wyvern itself, excluding game content, is only around twice that size. Yegge says the factory is growing faster than the product and appears to be heading towards a one-to-one ratio.
+
+The agents have created 450 legal artefacts across offices, runbooks, rulings, authority envelopes, and enforcement mechanisms. There are more than 100 things called fences. The system has a constitution, case law, jurisdictions, and a lifecycle for its own rules.
+
+It eventually became large enough that Yegge created a new officer role, the Head of Wheelhouse Law, to prune obsolete rulings and govern the governance.
+
+Yegge presents this as the unexpected emergence of civilisation inside an agent system. His argument is that a group of interchangeable, amnesiac agents needs explicit law in the same way that groups of humans need institutions. I think there is quite a lot of truth in that.
+
+I also think it is possible that he has documented a second phenomenon at exactly the same time: a software factory gradually turning its productive capacity back on itself.
+
+## This is not an obvious failure
+
+It would be very easy to read those numbers, laugh at the medieval government, and declare the whole thing ridiculous.
+
+That would be unfair.
+
+Wheelhouse is plainly producing useful work. Players asked Yegge to slow the pace of new features. When they did, he redirected 80 per cent of his token spend inward, towards quality, throughput, and the health of the factory itself. Much of that appears to be genuine reliability engineering, but it is still quite a place to reach in less than ten weeks.
+
+There is also a genuine coordination problem here. Human teams carry a vast amount of their operating model in people. We remember why decisions were made, which rules are firm, which are situational, and when the sensible thing is to stop and check.
+
+Stateless agents do not have any of that unless it is made explicit. If 50 of them are changing the same product around the clock, they need persistent decisions, authority boundaries, queues, deployment gates, rollback mechanisms, and a shared view of what is happening.
+
+Comparing the factory's code with the product's code is not entirely fair either. Wheelhouse contains bits of engineering management, release engineering, CI, SRE, documentation, access control, and institutional memory. In a human organisation, much of that cost would be hidden in meetings, salaries, SaaS tools, and things somebody just knows. A 600,000-line factory could still be cheaper than the human organisation required to produce the same outcome.
+
+So my point is not that large automatically means wasteful.
+
+My point is that AI has removed much of the economic pressure which used to force us to find out whether each extra layer had earned its keep.
+
+## Cheap to create, expensive to own
+
+Historically, producing organisational and technical artefacts took effort. Policies needed drafting and approval. Tests took time to write. Documentation required an engineer to stop doing the thing and explain it. A reorganisation needed weeks of discussion, spreadsheets, and increasingly strange boxes in PowerPoint.
+
+That friction was annoying, but it also acted as a filter. It forced somebody, at least occasionally, to decide whether the thing was important enough to create at all.
+
+AI has largely removed that filter. It can produce the policy, the implementation, the tests, the operating procedure, the RACI, the review checklist, and the slide deck explaining the new governance model before lunch.
+
+What it has not made cheap is ownership.
+
+Somebody still has to know which policy is current, notice when two documents disagree, and understand why a test is failing six months later. Every document is another possible source of truth, every rule another possible contradiction, and every abstraction another concept to load before doing useful work.
+
+Tokens are getting cheaper. Cognitive load is not.
+
+Cheap to create. Expensive to own.
+
+## Every decision was sensible at the time
+
+The dangerous version of over-engineering does not arrive as one obviously mad decision.
+
+It accretes.
+
+An agent makes a poor judgement, so the team writes down a rule. The rule matters, so it gets a test. The test needs to run somewhere, so the team adds enforcement. Enforcement creates an exception, so the exception is documented. The growing body of rules needs an owner, a lifecycle, and a review process. Eventually the process for changing the process needs its own controls.
+
+Every step is reasonable.
+
+The whole system can still become absurd.
+
+Yegge describes almost exactly this. Each incident created new rulings and doctrine. Rules hardened from custom into warnings, then constitutional law, then mechanical enforcement. When he eventually inspected it, he found obsolete rulings and things which had been elevated into law even though they were really just good craftsmanship.
+
+The agents had been growing it, not curating it.
+
+Ask an AI to design an organisation and it will quite happily give every concern a role and every decision a RACI entry. Ask it for a policy and it will cover edge cases until the result is too long to read. Ask it to improve a codebase and it will find endless opportunities to add abstractions, tests, comments, and validators.
+
+It is trying to be useful, and it can justify almost every addition. It is very good at producing completeness. It is far less inclined to leave something slightly untidy because tidying it would add no meaningful value.
+
+Humans are hardly immune. Engineers over-engineered software long before anybody put a language model in a terminal. Large organisations have always produced policy nobody reads and org charts which make more sense to their designers than the people inside them.
+
+AI did not invent the instinct.
+
+It removed the friction that used to constrain it.
+
+## Capacity seeks utilisation
+
+I first described this to myself as chasing a perfection that does not matter. I now think there is a slightly deeper mechanism at work.
+
+Capacity seeks utilisation.
+
+Once you stand up a large fleet of agents, you naturally want to keep it busy. Idle agents feel like waste, even when the cost of idleness is nearly zero. Work is decomposed more aggressively, backlogs grow, and the system needs more coordination to absorb all the simultaneous change.
+
+Yegge's earlier article, [*The Shape of Things to Come*](https://yegge.ai/essays/the-shape-of-things-to-come/), describes his previous harness, Gas Town, effectively collapsing because its model developed what he called a "just two more things" habit. It kept improving the harness instead of converging on the real work.
+
+While deliberately scaling the fleet, Wheelhouse accumulated more than 700 fully designed but unimplemented work items. An overnight fleet requires a mountain of work to remain occupied. Yegge estimated that working on Wheelhouse itself consumed 20 to 25 per cent of all his work on Wyvern, and said the figure showed no sign of falling.
+
+At one point the agents produced changes faster than the merge system could absorb them. The queue grew without bound, and the system kept optimising batch sizes until Yegge challenged the premise and changed the approach. He fixed it, but the failure mode is revealing. Every part was behaving rationally while the whole made less and less progress.
+
+More agents create more simultaneous work. More simultaneous work creates more coordination failures. Those failures create more rules, tests, monitoring, and infrastructure. The new machinery creates more things to maintain and more opportunities for agents to improve the machinery.
+
+You can end up building an increasingly sophisticated organisation whose largest customer is itself.
+
+## Activity is not value
+
+Measures we already knew were weak become actively misleading in this world. Lines of code, commits, documents produced, tests written, tickets closed, policies completed, and tokens consumed are all measures of activity. AI can accelerate every one of them without improving the overall system.
+
+There is some early evidence of exactly that gap. [Faros analysed engineering telemetry from more than 10,000 developers](https://www.faros.ai/blog/ai-software-engineering) and found that teams with high AI adoption completed 21 per cent more tasks and merged 98 per cent more pull requests. Review time rose by 91 per cent, average pull request size by 154 per cent, and bugs per developer by 9 per cent. At company level, it found no significant relationship between AI adoption and better outcomes. It is correlational research from a commercial provider, not proof of cause, but the pattern is hard to ignore. Production accelerated. Absorption did not.
+
+The same thing is appearing outside software. In a [self-reported BetterUp survey about what it calls "workslop"](https://www.betterup.com/blog/hidden-costs-workslop), 40 per cent of US desk workers said they believed they had received AI-generated work in the previous month which looked plausible but pushed thinking and repair onto the recipient. The sender experiences acceleration. The receiver experiences a new job.
+
+Yegge gives us agents, tokens, commits, lines of code, fences, and governance artefacts, alongside some real signs of useful output. What we do not get is enough information to separate earned complexity from self-sustaining complexity.
+
+How much human attention does the factory consume? How many of the 450 legal artefacts have changed a meaningful outcome? Would ten focused agents produce most of the user value with a fraction of the machinery? I genuinely do not know.
+
+The most striking measure in the whole story is not 270 commits a day. It is that the people using the product asked for the pace of change to slow down.
+
+At that point, more production is not automatically more value.
+
+## Fences are not the problem
+
+None of this is an argument for running agents without controls.
+
+Yegge uses "fence" quite broadly. Some are contextual rules, while others are mechanically enforced checks. A sandbox provides isolation and limits what an agent can reach in the first place. I do not think those are alternatives. They address different layers of the same problem.
+
+Yegge says that even his strongest model makes at least one terrible decision during unattended operation each day. That observation, to me, supports both contextual rules and hard containment.
+
+For consequential enterprise work, I still want hard boundaries around irreversible, external, and high-impact actions. Within them, agents should have broad discretion, good context, and a route to stop and ask.
+
+The problem is not governance.
+
+It is governance whose volume is mistaken for its quality.
+
+A hundred fences might be exactly right. It might be ninety-five too many. The number tells us nothing until we know what they protect and what they cost to keep correct.
+
+## Complexity has to earn its keep
+
+The answer is not another enormous framework for preventing enormous frameworks. It is a return to some quite ordinary engineering discipline.
+
+Internal machinery needs a budget. Not just a token or infrastructure budget, but a limit on how much product capacity and human attention it is allowed to consume.
+
+Rules need reasons. A fence should address a named, meaningful failure mode, not merely something it is possible to imagine.
+
+Everything needs a review and retirement path. Policies, documentation, tests, agents, and organisational roles should all be easier to retire. If nobody can explain what outcome would worsen if one disappeared, treat it as sediment until proved otherwise.
+
+Most importantly, measure the thing outside the factory. Did the customer experience improve? Did decisions get faster? Did reliability improve, risk fall, or somebody get useful time back?
+
+The interesting measure is not how much the AI produced. It is what actually got better after everyone had dealt with the output.
+
+AI is incredibly good at answering, "What else could we add?"
+
+There is always another edge case to document, another test to write, another role to define, another review step to automate, and another piece of the harness to improve.
+
+We are going to need to become much better at asking a different question.
+
+Does this deserve to exist?
+
+That judgement is now the scarce part of the work. The factory can already produce far more than we know how to use.
+
+If the scaffolding is starting to rival the building, the answer is not automatically a Head of Scaffolding.
