@@ -1,0 +1,93 @@
+---
+title: "A Hundred Coffee Machines and the Joy of Small Open Source"
+description: "I reverse engineered the cloud API behind my Sage coffee machine, turned it into a Home Assistant integration, and accidentally made a small group of strangers' mornings slightly better."
+date: 2026-09-04
+tags: ["home-automation", "open-source", "community", "technology", "hobbies"]
+draft: false
+---
+
+A little over a hundred people are now using some code I wrote to control their coffee machines, and this makes me disproportionately happy.
+
+A hundred is a tiny number by any normal software measure. But this is an unofficial integration for one specific, fairly expensive model of coffee machine, sitting in the overlap between people who take espresso seriously and people who run Home Assistant. In that corner, a hundred is a lot, and it's small enough that I can picture every one of them: a kitchen somewhere, and someone who looked at the official app and decided their coffee machine should really be part of the rest of the house.
+
+## The old solution involved a robot finger
+
+I've written before that I don't really want a "smart home", I want a house that's polite ([Open Source, Open Home](https://sjg.io/writing/open-source-open-home/)). A polite house notices what's going on, quietly gets things ready, and doesn't make you reach for yet another app. A coffee machine that starts warming up before I get to the kitchen is about as good an example of manners as I can think of.
+
+My previous machine, a [Sage Oracle Touch](https://amzn.to/4yf5udK), was already automated, after a fashion. A smart plug measured its power draw so Home Assistant could work out whether it was asleep, heating, or ready, and a [SwitchBot](https://amzn.to/46BC1yS) provided the final piece of advanced robotics needed to actually switch it on: a tiny plastic finger physically pressing the power button. It was ridiculous, and it worked delightfully well for years.
+
+As an aside, the SwitchBot bot is one of my favourite bits of Home Assistant tech. It lets you touch, figuratively and literally, things that would otherwise be out of reach of the Home Assistant ecosystem, and I've used them in all sorts of ways. The one I often cite, and which always gets a laugh, was my old driveway gate. The only way to trigger it remotely was an RF remote, so I took one of the remotes and electrical taped a SwitchBot to it. Job done :D They also talk entirely locally over Bluetooth, so there's no cloud SaaS nonsense to deal with. Great bit of tech for the home automators out there.
+
+The Oracle Touch is a great machine, but as I got deeper into the coffee world I bypassed more and more of the functionality that made it valuable in the first place. I'd replaced the group head innards with solid metal parts for better heat retention and distribution. I'd bypassed the auto tamper and was doing all my own puck prep. I'd altered the burr adjustment inside the machine, and I was weighing the dose and the extraction of every espresso. A setup I'd bought for being extremely user friendly had crept into one with a pretty high, and very personalised, skill bar for getting good coffee out of it. It also cost me some wife points. When people came round, saw the machine, and assumed they could have a coffee, she had to confess she had no idea how to use it and would they like an instant 😬
+
+When the new Oracle Jet machines appeared I did look briefly, but a lot of it seemed like a step backwards in capability: a single boiler, and their "jet" heating rather than proper heating direct from the boiler. The new [Oracle Dual Boiler](https://amzn.to/4xIXLF8), though, got me really looking. Shortly after it dropped I watched a few videos from YouTubers I trust, and then just before Christmas last year I decided it was treat yo'self time and went for it in a moment of madness. Despite how deeply I'd looked into it, the Wi-Fi and remote control side had completely flown under my radar, so that was an unexpected, though not unwelcome, surprise. The old machine went to my dad, and I set the new one up with the previously established and perfectly working SwitchBot and smart plug arrangement.
+
+What I really love about the Dual Boiler is that, without me doing any of the manual prep, it makes genuinely great coffee very consistently. It measures volumetrically, adjusts the extraction time in real time, and nudges the grind size retrospectively to keep things dialled in. I used to do that by hand on the old machine, tweaking the grind one way or the other after every coffee for the benefit of future me. I really like this new machine :D
+
+Then some time in early January I had the idea to reverse engineer the app and find out how that side of it worked.
+
+The Oracle Dual Boiler changed the shape of the problem. It has Wi-Fi and an app, and the app can wake the machine, put it to sleep, change settings, and show live state. Which immediately raises the obvious question: if the app can do all that, what is the app talking to?
+
+## An app means there's an API
+
+Reverse engineering sounds far more dramatic than the work usually is. In this case the official app was already a perfectly good reference client. It knew how to authenticate, find the machine, send commands, and receive state. My job was to watch what it did, understand the conversation, and reproduce the useful parts cleanly.
+
+The watching part was done with [mitmproxy](https://mitmproxy.org/) running on my laptop. On the iPhone I installed a configuration profile to trust mitmproxy's CA certificate, then pointed the Wi-Fi network's proxy settings at the laptop so everything the phone did went through it. From there you can sit and read the app's conversation with the cloud as it happens. It doesn't work with apps that pin their certificates, but in most circumstances it works brilliantly. It's also quite interesting watching everything else your phone gets up to while it's in there, though that's probably a topic for another post.
+
+I'll almost certainly be doing this again. If and when Sage change the app or the API to add, change, or remove features, the same setup is how I'll find out what happened.
+
+Authentication turned out to be Auth0 with OAuth tokens. Commands like wake and sleep went over ordinary HTTPS endpoints, and live state came back over a WebSocket: asleep, warming, or ready, along with boiler temperatures, configuration, firmware details, and a fair amount of other telemetry.
+
+<div style={{ float: 'right', marginLeft: '2rem', marginBottom: '1rem', maxWidth: '245px', width: '100%' }}>
+  <img src="/yatta.gif" alt="Hiro from Heroes throwing his arms in the air and shouting yatta" style={{ borderRadius: '0.5rem', width: '100%', display: 'block' }} />
+</div>
+
+The first successful wake command was the exciting bit. I sent a request from my own code, sat there staring at the terminal, and then heard the machine in the kitchen whirr into life. I may have shouted. For a moment I felt like I'd achieved something far more significant than remotely switching on a coffee machine. Then of course it was time to work through the usual "working with someone else's API" problems. I'm pretty sure "working with someone else's APIs" is my wife's number one complaint from her professional life! Tokens expired. Refresh tokens rotated. The WebSocket dropped and had to be reconnected without leaking tasks. State payloads weren't always quite the shape I expected.
+
+Sometimes an endpoint will even tell you an update succeeded while the machine quietly ignores it. I found that out disabling a wake schedule: sending an empty schedule got a successful response back, and the machine just discarded it. What actually works is keeping the schedule and marking each entry as disabled. Finding an endpoint isn't the same as understanding the protocol, and the real device is always the source of truth.
+
+I'd much rather all of this were local. It isn't. The machine and the official app already depend on the Sage/Breville cloud, and the integration goes the same way, which means it needs an internet connection and could break the day the vendor changes an undocumented API. I don't love that, but pretending the dependency isn't there wouldn't make it go away. At least Home Assistant makes the capability composable rather than trapping it inside one vendor's app. If this machine weren't as expensive as it is, I'd be sorely tempted to get a logic analyser on the insides and see whether I could tuck an ESP32 in-line or alongside somewhere. But I really, really don't want to "accidentally" my coffee machine 😅
+
+## Why it's two repositories
+
+I split the work into two repositories.
+
+[`sagecoffee`](https://github.com/simonjgreen/sagecoffee) is the underlying Python library. It handles authentication, token refresh, appliance discovery, the HTTP commands, and the WebSocket connection. It also ships a command-line tool, `sagectl`, so I can poke at state, test a command, or diagnose the API without involving Home Assistant at all.
+
+[`sageha`](https://github.com/simonjgreen/sageha) is the Home Assistant integration on top of it. It turns the machine into the sort of entities Home Assistant understands: a power switch, state and temperature sensors, controls for the work light, screen brightness, volume, and theme, wake scheduling, firmware diagnostics, and so on.
+
+The split cost a bit more effort up front, but it was the right call. The protocol isn't tangled up with Home Assistant's lifecycle, and the integration doesn't need to know the ugly details of auth or reconnection. Each layer has one job. It also means the reverse-engineered API is useful to people who aren't me: you can use the library from Python, drive it from the command line, build a different integration on it, or just use it to see what your machine is reporting.
+
+None of this makes the coffee. Espresso still benefits from a human being involved. What it does is remove the waiting around the edges: wake the machine before I need it, say when it's ready, and let the rest of the house react to that. That's the sort of automation I like, where the technology does its bit and then gets out of the way.
+
+## Then other people turned up
+
+I published both projects because there was no real reason not to. The work was done, and there was a reasonable chance someone else owned the same machine and had hit the same frustration. It turned out someone had. Within days of [posting the integration on the Home Assistant community forum](https://community.home-assistant.io/t/sage-breville-coffee-machine-api-integration/976623), another Home Assistant user replied that they'd spent the same weekend picking apart the app's HTTP and WebSocket traffic.
+
+Soon there were issues, pull requests, and proper contributions. Support grew past my original wake and sleep commands. Settings got exposed, entities became more idiomatic, and bugs appeared that my own installation had never triggered.
+
+One particularly nasty WebSocket lifecycle bug left ping tasks piling up after every reconnect, until some people's Home Assistant boxes were eating absurd amounts of memory. That's exactly the kind of problem a personal project hides from you. It works perfectly in the one environment you own, right up until somebody else runs it for days under slightly different conditions. Their reports turned something invisible into something reproducible. I built a test harness that let me watch the orphaned tasks accumulate, fixed the connection cleanup, and asked the people affected to try a run of release candidates. Getting the message that it had run for more than 24 hours without falling over was unusually satisfying. The whole saga is in [this GitHub issue](https://github.com/simonjgreen/sageha/issues/6) if you enjoy that sort of thing.
+
+That's the moment a little personal hack changes character. Once other people depend on it, even in a very small way, it's a product, with compatibility concerns, migrations, release notes, diagnostics, test coverage, and the occasional awkward payload from a machine on the other side of the world.
+
+The much better part is that people use it in ways I never planned. One user described a morning automation that turns the machine's work light up to full as a visual cue, then has Home Assistant announce when the coffee's ready.
+
+## Getting into HACS
+
+The next step was getting the integration into [HACS](https://www.hacs.xyz/), the Home Assistant Community Store. Before that, installing it meant adding a custom repository. That's not hard for an experienced Home Assistant user, but every extra instruction filters out another group of people who'd otherwise benefit.
+
+Getting into the default HACS list meant doing the less glamorous bits that separate a shared project from a folder of code that happens to work on my machine: validation, a proper licence, sensible releases, documentation, and an install path that doesn't start with copying a GitHub URL. There was, appropriately, a brief pause when the HACS review pointed out I'd declared the project MIT licensed but forgotten to include the actual licence file. That got fixed, the submission was approved, and now anyone can open HACS, search for "Sage Coffee", install it, and configure their account.
+
+The install count HACS shows me recently crept past a hundred. It isn't an audited count of daily active users, and I'm not going to build a dashboard of coffee-machine integration monthly recurring revenue. It's just a useful sign that the project has escaped my house.
+
+I like to picture it: a hundred kitchens, a hundred machines warming up before somebody comes downstairs, a hundred people getting a notification or seeing a light come on instead of standing around waiting for the boilers to reach temperature.
+
+## The joy of small open source
+
+We tend to talk about open source in very large terms: licences, governance, supply chains, foundations, sustainability, critical infrastructure. All of that matters. But there's a much smaller pleasure in it too. You solve an oddly specific problem for yourself, take the extra step of cleaning up the code and putting it somewhere public, and then weeks or months later discover that strangers are quietly using it.
+
+Most of the open source I rely on is invisible to me. It sits several layers beneath whatever I'm doing, maintained by people I'll probably never meet. Publishing these two projects has made that relationship feel more tangible from the other direction. My code now has a tiny place in other people's homes. It's not critical infrastructure. It helps a coffee machine wake up at the right time and tells Home Assistant when the boiler's ready, and that's plenty.
+
+There's a habit in technology of only valuing software once its scale becomes impersonal. Millions of users sounds significant and a hundred sounds like a rounding error. I think that's backwards. A narrow tool that genuinely improves a hundred people's mornings has done more real good than a broad, ambitious project that attracts attention and never becomes part of anybody's day. Small software can be complete, useful, and worth maintaining without needing to become a business, a platform, or a movement.
+
+I'm pleased with the reverse engineering, and with the split between the library and the integration, and that it now behaves like a proper Home Assistant component rather than a weekend script. But the bit that makes me happiest is much simpler than any of that. I built it because I wanted my coffee machine to be polite. Now a hundred or so other coffee machines are being polite too.
