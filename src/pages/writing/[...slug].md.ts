@@ -99,7 +99,7 @@ function remarkStripMdx({ titleBySlug, site }: StripOptions) {
 }
 
 export async function getStaticPaths() {
-  const posts = await getCollection('posts', ({ data }) => !data.draft);
+  const posts = await getCollection('posts', ({ data }) => import.meta.env.DEV || !data.draft);
   return posts.map((post) => ({
     params: { slug: post.id },
     props: { post },
