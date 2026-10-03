@@ -1,0 +1,486 @@
+---
+title: "Could this finally be Microsoft's moment?"
+description: "Copilot's early reputation may be hiding a much stronger proposition. As AI becomes a persistent worker, Microsoft could win the enterprise harness while the labs compete to supply its intelligence."
+date: 2026-10-02
+tags: ["ai", "agents", "enterprise", "platforms", "automation", "open-source"]
+---
+
+If your last encounter with Copilot was two years ago, you might have already stopped paying attention.
+
+Those early experiences did real damage to its reputation. People tried something disappointing, decided it was not worth the effort and went back to work. A product does not get a fresh first impression every time the model underneath improves. For anyone who wrote Copilot off then, another Microsoft AI announcement is an easy thing to scroll past.
+
+But I think this one deserves a proper look.
+
+Microsoft's [25 September announcement of Home, Code and Autopilot](https://blogs.microsoft.com/blog/2026/09/25/introducing-the-new-copilot-with-home-code-and-autopilot/) brings together delegated work, software building, a background personal assistant, shared agents, plugins and Office files inside the working experience. It is a broad greatest hits package. And it actually looks good.
+
+The more interesting part is the choice of models. You can buy the working environment from Microsoft without making the same long-term commitment to whichever AI lab happens to be ahead this month.
+
+Could this finally be Microsoft's moment?
+
+To understand why I am asking, it helps to look at how much the question has changed. We started by asking whether AI could give us a useful answer. Now we are asking whether we can give it a job, leave it to get on with that job and put the whole arrangement into a business without creating an administrative nightmare.
+
+That is a different competition. Microsoft might be rather well placed to win it.
+
+<figure>
+
+![Microsoft Copilot Home launch image showing Home, Code and Autopilot navigation, with Chat and Cowork in the same prompt box.](/gen5/copilot-home.webp)
+
+<figcaption>
+
+Microsoft's new Home brings Chat and Cowork into the same starting point. Official product image from [Microsoft Copilot](https://www.microsoft.com/en-us/copilot).
+
+</figcaption>
+</figure>
+
+## How an answer box became a worker
+
+In June, I wrote about [Gen 5 AI and the enterprise harness war](https://sjg.io/writing/gen-5-ai-enterprise-harness-war/). My argument was that the models were moving ahead of the systems businesses needed around them. We were acquiring increasingly capable intelligence without an equally convincing way to employ it.
+
+I used five generations as shorthand for the changes in how people work with AI. They are not a formal industry taxonomy, and products overlap. They describe the relationship between the person and the assistant.
+
+| Generation | The shape | Archetypal example | What changes |
+| --- | --- | --- | --- |
+| Gen 1 | The answer box | ChatGPT at its original launch | You ask. It answers. You carry the work forward. |
+| Gen 2 | The custom knowledge box | Custom GPTs | Instructions and documents give the assistant a domain. |
+| Gen 3 | The assistant with hands | Internal IT and customer support agents | Tools let a domain assistant investigate and take bounded actions. |
+| Gen 4 | The coworker | Claude Cowork | You delegate an outcome involving files, tools and multiple steps. |
+| Gen 5 | The agent becomes the surface | OpenClaw, Hermes, ChatGPT Dot and Copilot Autopilot | A persistent agent carries context and responsibilities between conversations. |
+
+The first three generations mostly kept the person at the centre of the machinery. You asked the question, interpreted the answer and decided what happened next. Adding tools made the assistant more useful, but there was usually still a fairly tight boundary around the task.
+
+[Claude Cowork's 12 January 2026 launch](https://support.claude.com/en/articles/12138966-release-notes) made the next shift particularly visible. Describe the outcome and let the system work through much of the process of producing it. The important change was in how much of the job you could hand over.
+
+Then came the continuing worker. OpenClaw and [Hermes](https://github.com/NousResearch/hermes-agent) made that idea tangible: an agent with context, tools and responsibilities that could outlive the conversation in which you gave them to it. Hermes adds its own emphasis on persistence and skills developed through experience.
+
+Imagine asking an assistant to prepare a supplier review. There are documents to collect, people to chase, dates to coordinate and gaps to investigate. The first generation can tell you how to do it. A tool-enabled assistant can help with individual steps. A coworker can assemble a package. A persistent agent can keep the review moving over the following fortnight.
+
+The ambition has moved from answering your question to carrying some responsibility for the work.
+
+I am increasingly comfortable treating that capability trajectory as a given for planning purposes. Individual tasks will fail, and particular workloads will need testing. But models are going to become better at substantial delegated work. Another impressive demonstration of a long task is becoming less interesting to me than the question of how an ordinary colleague will actually use it.
+
+Which brings us to the system around the model.
+
+I call that the harness: the interface, memory, tools, identity, permissions and execution environment that turn intelligence into something you can put to work. A business also needs to distribute it, support it, pay for it and keep control of what it is doing.
+
+That is the part I am still waiting to see properly solved.
+
+## The assistant is still there tomorrow
+
+One sign that this has become a real product category is how many companies are arriving at a similar shape.
+
+[Grok Bot](https://x.ai/bot) takes the teammate approach. Give bots jobs and routines, then let them work together. Its [Team Bots](https://x.ai/news/team-bots) extend that into shared responsibilities and skills for a department.
+
+[ChatGPT Dot](https://chatgpt.com/features/dots/) puts a persistent personal agent at the centre, with its own cloud computer and context that carries between conversations. [Meta Muse](https://about.fb.com/news/2026/09/introducing-muse-personal-ai-agent/) has a dedicated virtual machine and can be reached through an app or WhatsApp. Meta also describes a separate Sentinel checking outbound activity.
+
+[Manus 2.0](https://manus.im/blog/introducing-manus-2-0) brings cloud computers, event-driven automations and a shared Studio workspace. Its Cue agents have concrete resources of their own, including an email address, phone number, wallet and computer.
+
+The OpenClaw and Hermes idea has reached the enterprise battlefield. The names differ, but the continuing worker is becoming recognisable.
+
+<figure>
+
+![ChatGPT Dots product graphic showing ongoing analysis, updated figures and a record of completed review work.](/gen5/dot.webp)
+
+<figcaption>
+
+A job that carries on between conversations. Product illustration from [OpenAI's introduction to dots](https://chatgpt.com/features/dots/).
+
+</figcaption>
+</figure>
+
+There are really two places that worker needs to live. It needs somewhere to execute, and its work needs somewhere to accumulate.
+
+[ChatGPT Space](https://learn.chatgpt.com/docs/space) addresses the second of those. Pages, files and shared material give people somewhere to inspect, edit and continue the result. A useful document in a team's workspace can become part of how the organisation works. The same document buried in somebody's private chat history is much harder to build on.
+
+Anthropic is also simplifying the relationship. On 16 September it announced that [Cowork and chat were merging into one Claude](https://claude.com/blog/cowork-is-now-claude).
+
+<figure>
+
+![Anthropic launch video thumbnail showing the Chat and Cowork mode selector.](/gen5/claude-launch.webp)
+
+<figcaption>
+
+The mode choice Anthropic is removing. Launch-video thumbnail from [Cowork and chat are now one Claude](https://claude.com/blog/cowork-is-now-claude).
+
+</figcaption>
+</figure>
+
+That makes sense to me. The person asking for a supplier review should not have to diagnose which internal mode of the product is appropriate. They want the review. The system can decide which capabilities it needs.
+
+The [documentation for that unified experience](https://support.claude.com/en/articles/16761823-claude-cowork-and-chat-are-one-claude) also describes involved tasks continuing in the cloud after you close your laptop. Work needing local files or applications still requires Claude Desktop to remain open, and the rollout starts with Pro and Max before other plans.
+
+The local connection is useful. Depending on a laptop remaining awake is a less convincing foundation for a worker that is supposed to keep going while its owner is away.
+
+There is a small but important change in expectations here. If I ask an assistant a question, I expect to be present for the answer. If I give it a continuing responsibility, I expect the job to survive me going home.
+
+## A computer changes what the agent can do
+
+The applications on Dot's remote machine made this particularly concrete for me.
+
+The machine I was given had QGIS, Blender, CAD and slicing tools, and KiCad for PCB work. That overlaps quite neatly with my interests. I have not established whether that exact collection is standard or whether any of it was tailored, so I would not treat my machine as a published specification for every dot.
+
+Even with that qualification, it is an interesting collection.
+
+This is not hypothetical. I recently built [Garden Ink](https://github.com/simonjgreen/OpenObservatory-GardenInk), an e-ink display showing what my Open Observatory station has heard in the garden. It runs on a Raspberry Pi Zero inside a printed enclosure. The repository includes the OpenSCAD source, printable parts and the assembled device.
+
+I needed a design I could inspect, change and print, with parts that accommodated the real hardware. A plausible picture of an enclosure would have been a very different result. Maps, geometry and electronics have their own applications and file formats. Giving an agent access to those applications makes projects like this a much more useful test of what it can do.
+
+<figure>
+<div class="grid items-center gap-6 sm:grid-cols-2">
+
+![Garden Ink running on the kitchen counter in its white, 3D-printed enclosure.](/gen5/garden.webp)
+
+![CAD render of the four Counterframe enclosure parts: front bezel, internal carrier, rear cover and stand.](/gen5/garden-cad.webp)
+
+</div>
+<figcaption>
+
+The working Garden Ink display and the parts that became its enclosure. Photograph and CAD render from [my Garden Ink repository](https://github.com/simonjgreen/OpenObservatory-GardenInk#the-frame).
+
+</figcaption>
+</figure>
+
+It does not prove that the agent will get the design right. It changes the kind of result the product can sensibly pursue.
+
+This is why I think the computer is becoming part of the assistant's proposition. The available applications help determine which jobs it can do. A useful working environment could extend far beyond documents and web browsing.
+
+It also gives me reason to soften one of the positions in my original article.
+
+I still prefer proper APIs, scoped authentication, events and explicit task state where they are available. But plenty of useful software will remain easier to operate through its interface for a long time. Some specialist applications have a visual interface for good reasons. A managed computer gives that interaction a more credible place in the architecture.
+
+The challenge is to make the access fit the job. A persistent computer with working logins can become a very convenient collection of excessive permissions.
+
+Grok's FAQ offers a good illustration. A user's bots share a persistent computer, including files, browser state and logins. Isolation is per user rather than per bot. Giving two bots separate names and job titles does not necessarily give them separate access boundaries.
+
+It is an easy distinction to miss when the product looks like a team of colleagues. The names are part of the interface. The access boundary is part of the security model.
+
+A business needs to understand both.
+
+## Whose authority is the agent using
+
+Return to that supplier review.
+
+An assistant helping me prepare my own briefing is acting on my behalf. An agent responsible for supplier reviews across the company has a different job. It needs an owner, defined authority and access that does not depend on my personal account remaining available.
+
+That distinction becomes more important as the work becomes persistent.
+
+OpenAI's [specialist dots announcement](https://openai.com/index/introducing-dots/) explicitly describes organisational responsibilities, with each dot having its own identity, credentials and access. Specialist dots are starting in focused enterprise pilots. OpenAI is also developing an integration with Microsoft Agent 365 so businesses can manage them through governance and security controls they already use.
+
+For me, that is one of the biggest tells in this whole set of announcements.
+
+Procurement, invoice processing and customer support are continuing business responsibilities. An organisation needs to know who can change the agent's job, which systems it can use and how to stop it. A personal account with a useful collection of saved sessions is an uncomfortable way to underpin that arrangement.
+
+The Agent 365 integration is still a plan being developed, so its usefulness will depend on the controls that actually arrive. But the direction matters. OpenAI is acknowledging the enterprise operating model, and Microsoft could own a valuable layer even when someone else's agent is doing the work.
+
+I will be watching Anthropic's response closely.
+
+The same authority question appears when agents enter a shared conversation. [Claude Tag](https://claude.com/docs/claude-tag/overview) lets a team hand work to Claude in Slack, with shared channel context and administrator-governed access. Spending limits and activity records help the organisation operate it.
+
+That is useful. I am less convinced that tagging an agent in a busy channel should be the whole working experience. A mention is an entry point. People still need somewhere to inspect the files, steer an ongoing responsibility and understand what the agent is allowed to do.
+
+Anthropic's addition of [personal connectors in channels](https://claude.com/blog/claude-tag-now-supports-personal-connectors-in-channels) makes the distinction more explicit. A person's supervised request can use their personal connectors, while unattended work still uses the shared channel connectors.
+
+Imagine asking for help with something from your own connected account. The ability to reach that information does not, by itself, answer whether everyone in the channel should see the response. Scope of access and audience for the result are separate questions.
+
+This is the sort of detail that makes enterprise administration difficult. It is also the sort that a good harness should make understandable.
+
+Slack's [Code Channels](https://slack.com/blog/news/slack-code-channels-for-agents), part of Slack Code, offer another useful shape. A development job gets a dedicated space where the team and agent can work through plans, changes and previews. The channel archives when the work is done, preserving the record.
+
+I can see that working well when several people are steering an agent building something together. It gives a temporary project a home.
+
+A project worker and a continuing personal assistant are different working relationships, though. One can finish and leave a record. The other needs to carry context and responsibilities across the next job and the one after that. Their ownership, permissions and interfaces should reflect the difference.
+
+A name, a chat window and a cloud computer are a start. The business has to be able to operate the relationship they create.
+
+## Microsoft has put a lot of the pieces on the table
+
+This is why Microsoft's [September announcement of the new Copilot](https://blogs.microsoft.com/blog/2026/09/25/introducing-the-new-copilot-with-home-code-and-autopilot/) changed my view so much.
+
+I have often felt it was following the labs on user experience. The September package still contains plenty of recognisable ideas. What interests me is how many of them Microsoft is bringing together, and what it can put underneath them.
+
+| Copilot component | The familiar pattern |
+| --- | --- |
+| Code | Build software from a requested outcome, as in Codex |
+| Autopilot | A persistent background personal assistant, in the OpenClaw and Dot category |
+| @Copilot in Teams | Bring an agent into shared work, as Claude Tag does in Slack |
+| Today | A daily work briefing, like [Slack Today](https://slack.com/intl/en-gb/help/articles/51262305668371-Start-your-day-with-Today) |
+| Plugin registry | Discover and distribute capabilities, competing with [Claude Marketplace](https://claude.com/marketplace/plugins) |
+| Office in Copilot | Conversations and working files together, reminiscent of ChatGPT Spaces |
+
+These are comparisons of product experience. Microsoft explicitly says Code uses GitHub Copilot technology. The Codex comparison is about the class of job it does, not evidence that Microsoft has built it on Codex. The same caution applies to the other resemblances.
+
+[Home](https://www.microsoft.com/en-us/copilot) brings Chat and Cowork together. Microsoft also plans automatic routing between Chat, Cowork and Code. That follows the same sensible direction as Anthropic's unified experience: describe what you want and let the product work out how to do it.
+
+Office makes the proposition more interesting. Microsoft describes genuine Word, Excel and PowerPoint files being edited alongside the conversation, with collaboration and synchronisation back to the Office apps.
+
+For many businesses, those files are already the working material. They contain the budgets, plans, contracts and presentations people need to finish. Bringing the assistant into that environment could remove a surprising amount of friction between an impressive response and something the team can use.
+
+Autopilot, previously called Scout, is the more direct Gen 5 bid. It works in the background with its own identity, memory, computer and workspace in the tenant. In June, [Microsoft described Scout as built on OpenClaw and Work IQ](https://blogs.microsoft.com/blog/2026/06/02/microsoft-build-2026-be-yourself-at-work/).
+
+The connection to the early persistent-agent idea is fairly direct. Microsoft is trying to give it a place inside the enterprise.
+
+<figure>
+
+![Copilot Autopilot launch image with routines, plugins, a supplier-review request and recent background activity.](/gen5/copilot-autopilot.webp)
+
+<figcaption>
+
+Autopilot gives the continuing worker a home in Copilot. Official preview image from [Microsoft](https://www.microsoft.com/en-us/copilot); Autopilot remains in private preview.
+
+</figcaption>
+</figure>
+
+The [plugin registry](https://techcommunity.microsoft.com/blog/microsoft-copilot-blog/introducing-the-plugin-registry---one-place-to-discover-and-govern-plugins-for-m/4559682) tackles distribution, with a common catalogue and central IT approval and management. An organisation should be able to give colleagues useful, approved capabilities without asking each of them to assemble an integration project.
+
+Today and the new @Copilot experience add ways to find and initiate that work. The former resembles the daily orientation Slack is offering; the latter brings an agent into a shared Teams conversation. Useful, familiar patterns, now attached to Microsoft's wider proposition.
+
+There is nothing inherently unconvincing about that familiarity. If someone takes several good ideas and combines them into a product that works properly, the result can be more valuable than another isolated invention.
+
+Microsoft already has the identities, working files, business context, administrative machinery and customer relationships in many of the organisations that need this. It knows where the work lives and has an established route into the company.
+
+The interesting possibility is that ordinary colleagues get the useful parts of several competing products in one environment, while IT gets something it knows how to buy and run.
+
+That is a serious bid for the harness.
+
+It is not yet a demonstrated outcome. Home and Code are in Frontier, while Autopilot remains in private preview. The September announcement puts the new @Copilot experience in Teams into private preview too, with Today due to enter private preview in October.
+
+But this now looks like a product plan aimed at the whole problem.
+
+## The work needs somewhere to run and somewhere to stay
+
+There is another part of Microsoft's proposition that is easy to overlook if the discussion stays on the chat window.
+
+An agent building software needs somewhere to do the building. The software it creates then needs somewhere to live. Those are different problems.
+
+[Windows 365 for Agents](https://learn.microsoft.com/en-us/windows-365/agents/w365a-availability-a365) provides Windows Cloud PCs for agent execution, connected to Entra, Intune and existing enterprise controls. Microsoft's documentation positions it as an execution layer for Agent 365 when the job needs a full Windows session.
+
+That is a concrete answer for work involving awkward enterprise applications. There is a managed computer, an operating environment and a set of controls the IT team already understands.
+
+[Copilot Managed Runtime](https://www.microsoft.com/en-us/copilot/blog/copilot-studio/build-where-you-want-run-with-confidence-now-microsoft-hosts-and-manages-the-code-created-by-copilot/), introduced in public preview, addresses the resulting software. Microsoft describes hosting, identity, governed data access and lifecycle management for applications built in Copilot and compatible third-party tools.
+
+Suppose the supplier-review agent builds a small tracker because a spreadsheet is no longer a good enough way to manage the job. Producing the tracker is only the first part. Someone has to host it, decide who can use it, connect the data and look after it when the original author moves on.
+
+A platform that makes those steps manageable could turn small internal applications into useful outcomes without leaving a trail of abandoned prototypes behind it.
+
+Windows 365 gives the worker a computer. Managed Runtime gives the software a home.
+
+<figure>
+
+![Copilot Code launch image showing a prompt to build a dashboard, local project files and recent projects.](/gen5/copilot-code.webp)
+
+<figcaption>
+
+Code is the software-building part of the proposition; hosting and maintaining what it produces is the next problem. Official Code preview image from [Microsoft](https://www.microsoft.com/en-us/copilot).
+
+</figcaption>
+</figure>
+
+Microsoft also had an earlier remote-execution product in [Copilot Tasks](https://www.microsoft.com/en-us/microsoft-copilot/blog/2026/02/26/copilot-tasks-from-answers-to-actions). The February research preview described a consumer-facing agent with its own computer and browser for one-off, scheduled and recurring tasks. That is distinct from Scout, now called Autopilot. It belongs in the history of how Microsoft has been approaching background work, rather than being another name for the same product.
+
+Microsoft is not the only company building useful execution infrastructure. [Together Sandbox](https://www.together.ai/sandbox) offers development environments with persistent state, snapshots and hibernation. [E2B](https://e2b.dev) supplies isolated machines for code, computer use and background jobs. [Cua](https://cua.ai) provides computer-use tooling and fleets across Linux, Windows, macOS and Android.
+
+These solve different parts of the problem. A development sandbox, a GUI machine and a managed Windows desktop have different strengths. None is the whole enterprise harness.
+
+Their contribution is still important. Agent builders should be able to buy provisioning, persistence, session handling and recovery as infrastructure. Having every product recreate those foundations would be an enormous waste of effort.
+
+The controls also need to join up. A managed device can have an overpowered agent running on it. The ability to govern the machine does not remove the need to govern the worker's authority.
+
+That connection between the useful computer and the accountable agent is where the enterprise work really begins.
+
+## I want to commit to the harness and keep choosing the model
+
+For all that, the most important part of Microsoft's opportunity may be commercial.
+
+I am quite happy to buy a durable working environment from a provider. A useful interface, reliable execution, context that carries forward, approved tools and administration are worth paying for. I want that relationship to last.
+
+I do not want the same decision to require a prediction about which AI lab will remain ahead for the next few years.
+
+The best model may change by month. It may differ by workload. One provider may be better at a difficult piece of reasoning, another at routine tool use, and another may be sufficiently good at a much more attractive cost. Open weights give the business further options around inference and hosting.
+
+The harness should let us respond to that.
+
+Microsoft's [June Cowork announcement](https://www.microsoft.com/en-us/copilot/blog/2026/06/16/copilot-cowork-is-now-generally-available/) already described Anthropic models at general availability and GPT 5.5 in Frontier. The new Copilot makes model aggregation a much more visible part of the proposition.
+
+That changes the relationship with the buyer. The labs compete to supply the intelligence. Microsoft could keep the enterprise's working context, operating controls and commercial relationship.
+
+It could win the harness business without winning every model benchmark.
+
+<figure>
+
+![Microsoft Copilot product graphic showing Claude from Anthropic and GPT from OpenAI in the model selection menu.](/gen5/copilot-models.webp)
+
+<figcaption>
+
+One working environment, more than one model supplier. Model-selection graphic from [Microsoft Copilot](https://www.microsoft.com/en-us/copilot).
+
+</figcaption>
+</figure>
+
+This is where Microsoft's breadth starts to look particularly useful. It has its own models as well as relationships with other suppliers. The MAI family is already more than a future promise: Microsoft [announced reasoning and coding models at Build in June](https://blogs.microsoft.com/blog/2026/06/02/microsoft-build-2026-be-yourself-at-work/), and [MAI-Thinking-1 is available in Foundry preview](https://learn.microsoft.com/en-us/azure/foundry/foundry-models/how-to/use-foundry-models-mai-thinking).
+
+Availability in Foundry is not the same thing as availability in the Copilot model menu. I want to see which models become useful choices across the harness, then judge them on the work they do.
+
+I would love to see GLM sneak into that menu. I have not found a Copilot announcement confirming it. That remains a wish, albeit one with a fairly practical basis.
+
+We have been trialling [OpenWork](https://openworklabs.com/) in the office, and it has been fantastic with GLM.
+
+OpenWork is the independent option I am seeing the most promise from. It is an open source desktop harness built on OpenCode, supporting multiple providers and local models. It gives people a usable route into the Cowork experience without first having to assemble terminal tools and configuration instructions.
+
+<figure>
+
+![OpenWork desktop screenshot with an agent summarising customer data beside the resulting spreadsheet.](/gen5/openwork.webp)
+
+<figcaption>
+
+The conversation and the file it produces, side by side. Project screenshot from [OpenWork's repository](https://github.com/different-ai/openwork).
+
+</figcaption>
+</figure>
+
+Its [enterprise proposition](https://openworklabs.com/enterprise) addresses the right subjects too: centrally provisioned inference, shared skills and MCP integrations, SSO and provisioning, policies, audit, and private or self-hosted deployment.
+
+Those claims need testing across a real enterprise rollout. A good office trial does not settle the whole operating model. But it does make model choice feel like something we can use, rather than a theoretical freedom we might exercise one day.
+
+Amusingly, OpenWork is also making much less noise in my feeds than some of the larger launches. The practical promise has been easier to see than the public theatre.
+
+Projects like it deserve attention even if they do not become the eventual commercial winner. They make it harder to insist that a good working environment must come permanently attached to one lab's models.
+
+They also expose the remaining gap for open weights.
+
+Downloading a capable model is not the same thing as giving an ordinary colleague a useful assistant. The colleague needs files, tools, skills, sensible permissions and a way to inspect and resume work. The organisation needs to distribute and manage that experience.
+
+The model needs to behave well inside the agent loop too. A good answer in a chat test does not establish that it will reliably choose tools, follow their schemas, recover from a failure and continue the job.
+
+Using open weights does not have to mean running a large model on every employee's laptop. A desktop harness can use centrally hosted inference. The freedom is in choosing the model, provider and hosting arrangement that suit the business.
+
+Our GLM trial makes me more optimistic about that route. It also reinforces the point about the product around the model. A capable model becomes much more useful when people have a good way to put it to work.
+
+I want model changes to become normal operational decisions. Our identities, skills, approved integrations, policies and work history should survive them.
+
+That is more demanding than putting several provider names in a dropdown. Different models use context and tools differently, so switching needs evaluation. Changing the harness itself also needs a route out for the useful state the enterprise has built up.
+
+I am willing to commit to a harness provider. I want that provider to take those problems seriously without turning every model change into a migration programme.
+
+The independent providers also have something to prove here. An enterprise buys support and continuity as well as an attractive architecture. A young company needs to become a supplier the organisation can depend on for years.
+
+Microsoft has an obvious advantage in that part of the buying decision. Its challenge is to make the product deserve the commitment.
+
+## The bill has to make sense
+
+Go back to our supplier-review job once more.
+
+The person asking for it does not particularly care whether the system answers in chat, starts a worker, writes some code or calls a smaller model to classify a document. Those are implementation choices. They will care if one of them creates a surprisingly large bill.
+
+Microsoft's June Cowork announcement put chat and the wider productivity experience inside the subscription, with Cowork adding usage charges. The September announcement extends that usage-based model across Cowork, Code and Autopilot.
+
+There is nothing inherently unreasonable about charging for execution. A worker that runs for hours uses resources. Bringing the interfaces together does not make that cost disappear.
+
+It does make the boundary less obvious to the person making the request.
+
+If the product chooses how to carry out a job, it helps determine what that job costs. It needs to respect the company's budget and explain a material cost before incurring it. Employees should be able to describe an outcome without becoming experts in inference pricing and runtime meters.
+
+Microsoft is announcing more of the controls I have been asking for: spending policies, credit requests through existing approval workflows, model availability by user group and visibility of balances and usage.
+
+Its [Auto model routing](https://www.microsoft.com/en-us/copilot) weighs accuracy, speed and cost. The administrator's choices about model availability shape what it can select.
+
+That deserves credit. The competition will be over the quality of completed work and how confidently the business can budget for it. Whether a button says Chat or Cowork is a much less useful measure.
+
+This is also where the recent attention around decision models belongs.
+
+TypeSafe's [Jev and System One announcement](https://typesafe.ai/blog/introducing-system-one-models-and-jev) has brought the category plenty of attention. Give a model context and defined questions, then obtain bounded decisions or probabilities that software can use. Classification, routing, scoring and choosing a next step turn up everywhere in workflow engineering.
+
+Those are useful jobs. Many of them do not require an expensive general-purpose model to think through an open-ended conversation.
+
+The launch theatre deserves a little scepticism. Founder pedigree and an industry-sounding category name help an announcement travel. They do not establish that using models for fast, bounded decisions was discovered this month.
+
+[Laya's author](https://laya.convaiinnovations.com) points to earlier research from 2025. The current [Laya implementation](https://github.com/NandhaKishorM/laya) offers typed choice, score and yes/no decisions in a single forward pass. That is relevant history, although it does not establish identical architecture or equivalent performance to Jev.
+
+[Kev](https://github.com/jaredpalmer/kev) offers Jev-like decision models you can train and run yourself. [Jeff](https://github.com/firelex/jeff) provides an open decision model with domain adapters.
+
+Jev, Kev and Jeff. I look forward to Trev.
+
+OpenAI's [DevDay recap](https://openai.com/index/devday-2026-recap/) also confirms a Decisions API, initially in limited preview, applying Luna to user-defined questions with finite answers. Text or images can provide context; the results can classify, route or help choose an agent's next action.
+
+The functional territory is already fairly crowded. A business built on owning the category name looks fragile to me. A business with demonstrably better accuracy, calibration, latency or economics can still be valuable. None of these announcements establishes that the alternatives perform equally well.
+
+<figure>
+
+![TypeSafe's launch chart comparing average accuracy and cost across four workflows for Jev and other models.](/gen5/jev.webp)
+
+<figcaption>
+
+The economic argument in a picture: TypeSafe's own accuracy-versus-cost comparison across four workflows. This is a vendor-published benchmark, not an independent evaluation or a prediction for every workload. Source: [TypeSafe's Jev announcement](https://typesafe.ai/blog/introducing-system-one-models-and-jev).
+
+</figcaption>
+</figure>
+
+For the harness, the useful question is where a smaller decision model can do part of the job.
+
+A support workflow might need to recognise a billing issue, choose a queue or flag a case for investigation. A bounded model can handle some of those judgements, leaving a larger model for the difficult work and ordinary code to enforce the process.
+
+There is a trap in saying that a constrained model cannot hallucinate. It may be unable to invent a new label or produce malformed output. It can still choose the wrong valid answer.
+
+A model that can only answer yes or no can still be wrong.
+
+That means confidence needs testing against the actual workload, including unfamiliar cases. Deciding that a refund request deserves attention does not give the model authority to issue the refund. The business's existing permissions and approval rules still apply.
+
+Used well, these models could make the harness faster and cheaper. That contribution interests me much more than the attempt to own a name for it.
+
+A good harness provider should be able to make choices like this on the customer's behalf, then show the customer what they achieved. Model aggregation ought to help optimise the work, not merely expand the selection menu.
+
+## The test is ordinary work
+
+It is tempting to read a large audience or an impressive launch as evidence that the enterprise problem has been solved.
+
+A parent assistant's audience gives a new agent distribution. Downloads show interest. Paid seats show that somebody made a purchasing decision. None establishes that the organisation has successfully put the product into its operating model.
+
+The test is what happens when ordinary colleagues start using it.
+
+Can they find the approved capabilities? Can they understand where the work is, what is happening and when they need to intervene? Can IT support the arrangement without an engineering project for every skill and a security exception for every connector?
+
+Does the supplier-review job survive the employee going on holiday? Is somebody else able to pick it up? Can the organisation change the agent's access and see what it has done? If a model changes, does the existing work carry on sensibly?
+
+Those are mundane questions beside a spectacular demo. They determine whether the product becomes part of the business.
+
+This is what I would consider solved: a working environment that delivers useful outcomes, can be administered through normal enterprise processes and retains the organisation's investment as the underlying models change.
+
+I can identify who owns an agent and whether it is acting for a person or under organisational authority. I can control its tools, distribute approved capabilities, set budgets, inspect its work and revoke its access. The files and context have a lifecycle the company understands.
+
+And I can change the model without starting that relationship all over again.
+
+Dot's governance direction, Anthropic's unified experience, OpenWork's independence and the infrastructure being built underneath all move us closer to that arrangement.
+
+Microsoft's latest announcement raises the stakes because it is trying to put so many of those pieces together, through a supplier with an established place in the enterprise. Model aggregation makes the proposition stronger still. The company that provides the durable environment can keep the relationship while the labs take turns supplying the best intelligence.
+
+That is a valuable business. It is the one I want to buy.
+
+## What I still need Microsoft to fix
+
+We are approaching the state I have been looking for. The remaining gaps are becoming concrete enough to describe, rather than a request for somebody to invent an entirely different product.
+
+First, the administration experience needs to improve. In my experience, managing connectors and plugins in Copilot is still awful. I want a clear view of what is available, who can use it, which tools it exposes and how its permissions are managed. Having the controls somewhere in the platform is only part of the job. The people administering it need to be able to understand and operate them.
+
+Second, I want MCP write actions to work properly in Copilot Chat. Looking up a ticket is useful. Updating it, creating the follow-up and completing the workflow are what make the assistant a worker. Microsoft's [federated connector documentation](https://learn.microsoft.com/en-us/microsoft-365/copilot/connectors/federated-connectors-overview#write-update-and-delete-actions-coming-soon) now says write, update and delete actions begin rolling out in early October 2026, including in Copilot Chat where the connector provides the tools. That is a welcome movement towards exactly the capability I want. I still need to see it available and working with the connectors we use.
+
+MCP itself is capable of exposing write tools. My reading of the remaining restriction is that it is a productisation and rollout decision about where Microsoft makes the capability available. I want that boundary opened up in the everyday chat experience, with the appropriate permissions and approval controls.
+
+Third, give me cheaper models for Copilot Cowork, including capable open-weight options. Consumption billing makes the economics of the agent loop matter. Extra turns, repeated context and the choice of model all affect the cost of getting the job done. I want to use frontier intelligence where the work justifies it and a less expensive model where it is sufficient. GLM would be a particularly welcome addition, given what we have seen with OpenWork.
+
+Improve the administration, make useful MCP writes work in chat and broaden the economical model choices. With those pieces in place, we could really be off to the races.
+
+## Giving Copilot another chance
+
+Which brings us back to the reputation problem.
+
+Someone who dismissed Copilot two years ago has a perfectly understandable reason to be sceptical. An announcement does not undo a bad experience. A reliable product that makes their work easier might.
+
+I am not ready to say Microsoft has cracked it. Several of the important capabilities are still in preview, and the connections between them need to survive daily use. A broad feature list can still leave people doing the work of joining everything together.
+
+But I am no longer looking at Microsoft as merely providing infrastructure underneath someone else's more interesting assistant.
+
+It now has a credible route to providing the whole enterprise harness: a place to work, a continuing agent, useful files and applications, approved capabilities, governance and a choice of model suppliers.
+
+If that becomes one coherent, dependable experience, Microsoft could win a very large part of this market. It would not need to persuade every buyer that its own model was the cleverest. It would need to make the intelligence the business chose useful and manageable.
+
+The Copilot people remember may be obscuring a much stronger proposition.
+
+We are getting close to the enterprise harness I want to buy. If Microsoft can finish the job and make it straightforward to operate, this could finally be its moment.
